@@ -1,26 +1,4 @@
 
-#+author: Yair Chiu
-#+date: [2019-02-19 mar 15:08]
-Un ejemplo de descripcion de un proyecto
-* ¿Como compilar el proyecto?
-
-El proyecto se compila haciendo:
-
-#+begin_src sh
-mvn clean install
-#+end_src
-
-#+begin_src java
-public void main(String args[]){
-	System.out.println("I want to die");
-}
-#+end_src
-
-** ¿Como configurar la base de dadtos para que compile el proyecto?
-** ¿Que dependencias son necesarias?
-* Estilo de codificación
-* Gotchas 
-
 
 /*#+title: Turix
 #+author: Yair Chiu
