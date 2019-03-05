@@ -1,0 +1,10 @@
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:38:49 -0600] "GET /Turix/Turix//mi-primer-aplicacion-web HTTP/1.1" 404 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:38:59 -0600] "GET /mi-primer-aplicacion-web HTTP/1.1" 302 - http-bio-8080-exec-3 0
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:38:59 -0600] "GET /mi-primer-aplicacion-web/ HTTP/1.1" 200 52 http-bio-8080-exec-5 348
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:39:00 -0600] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-6 0
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:39:51 -0600] "GET /mi-primer-aplicacion-web/src/main/webapp/welcome.xhtml HTTP/1.1" 404 1095 http-bio-8080-exec-7 740
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:40:14 -0600] "GET /mi-primer-aplicacion-web/src/main/webapp/hello.xhtml HTTP/1.1" 404 1091 http-bio-8080-exec-9 6
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:40:16 -0600] "GET /mi-primer-aplicacion-web/src/main/webapp/hello.xhtml HTTP/1.1" 404 1091 http-bio-8080-exec-9 5
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:40:25 -0600] "GET /mi-primer-aplicacion-web/src/main/webapp/registro.xhtml HTTP/1.1" 404 1097 http-bio-8080-exec-9 6
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:40:53 -0600] "GET /mi-primer-aplicacion-web HTTP/1.1" 302 - http-bio-8080-exec-9 0
+0:0:0:0:0:0:0:1 - - [05/Mar/2019:13:40:53 -0600] "GET /mi-primer-aplicacion-web/ HTTP/1.1" 200 52 http-bio-8080-exec-9 79

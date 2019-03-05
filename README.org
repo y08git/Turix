@@ -7,7 +7,7 @@
 
 
 ** Repositorio de Turix
-
+ 
 * Chiu Valderrama Juan Yair
 * García Campos Jaime Arturo
 * Ramírez García Diana Isabel
