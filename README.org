@@ -13,11 +13,3 @@
 * Ramírez García Diana Isabel
 * Vega Monroy Daniela Susana
 
-El proyecto se compila haciendo:
-
-
-#+begin_src sh
-mvn tomcat7:run
-#+end_src
-
- 
