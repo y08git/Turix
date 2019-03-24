@@ -17,29 +17,30 @@ los siguientes comandos:
 creamos la base de datos(Si no existe)
  #+begin_src sh
 $ createdb <NOMBRE_BD>
-#+end_sr
+#+end_src
+
 
 En la terminal abriremos la direccion donde guardamos la carpeta donde esta el archivo "database.sql"
 #+begin_src sh
 $ cd Database
-#+end_sr
+#+end_src
 
 
 Accedemos a la base de datos
 #+begin_src sh
 $ psql <NOMBRE_BD>
-#+end_sr
+#+end_src
 
 
 Nos aparecera el Shell de postgres
 #+begin_src sh
 <NOMBRE_BD>#=
-#+end_sr
+#+end_src
 
 Ingresamos el siguiente comando
  #+begin_src sh
 \i database.sql
-#+end_sr
+#+end_src
 
 La base de datos debería ser creada (en esté caso como estamos en fase de pruebas estamos usando solo esquemas)
 
@@ -49,26 +50,26 @@ La base de datos debería ser creada (en esté caso como estamos en fase de prue
 Cambia el usuario a postgres :
  #+begin_src sh
 su - postgres
-#+end_sr
+#+end_src
 
 Crea un usuario para postgres
  #+begin_src sh
 $ createuser testuser
-#+end_sr
+#+end_src
 
 Creadoms una base de datos
  #+begin_src sh
 $ createdb testdb
-#+end_sr
+#+end_src
 
 
 Ingresamos al Shell de postgres
  #+begin_src sh
 psql ( enter the password for postgressql)
-#+end_sr
+#+end_src
 
 Proveemos los privilegios para el usuario de postgres
  #+begin_src sh
 $ alter user testuser with encrypted password 'qwerty';
 $ grant all privileges on database testdb to testuser;
-#+end_sr
+#+end_src
