@@ -2,31 +2,31 @@ package com.miguel.proyecto.web;
 import java.util.LinkedList;
 public class Informador {
 	
-	private String nombre;
-  private String paterno;
-  private String materno;
-  private int id;
-	private int edad;
-  private char sexo;
-  private String direccion;
-  private String nacimiento;
+    private String nombre;
+    private String paterno;
+    private String materno;
+    private int id;
+    private int edad;
+    private char sexo;
+    private String direccion;
+    private String nacimiento;
 	
-  /**
-   * Constructor para un Informador que sólo recibe el nombre y apellidos
-   * @param nombre el Nombre del informador
-   * @param paterno el Apellido Paterno del informador
-   * @param materno el Apellido Materno del informador
-   */
-	public Informador(String nombre, String paterno, String materno) {
-		  this.nombre = nombre;
-		  this.paterno = paterno;
-      this.materno = materno;
-      this.id = obtenerID();  // <- llamar función para recuperar id actual según la base de datos.
-      this.edad = 0;
-      this.sexo = null;
-      this.dirección = null;
-      this.nacimiento = null;
-	}
+    /**
+     * Constructor para un Informador que sólo recibe el nombre y apellidos
+     * @param nombre el Nombre del informador
+     * @param paterno el Apellido Paterno del informador
+     * @param materno el Apellido Materno del informador
+     */
+    public Informador(String nombre, String paterno, String materno) {
+        this.nombre = nombre;
+	this.paterno = paterno;
+        this.materno = materno;
+        this.id = obtenerID();  // <- llamar función para recuperar id actual según la base de datos.
+        this.edad = 0;
+        this.sexo = null;
+        this.dirección = null;
+        this.nacimiento = null;
+    }
 
   /**
    * Constructor completo para un Informador
