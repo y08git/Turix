@@ -1,0 +1,23 @@
+
+
+#+title: Turix
+#+author: Yair Chiu
+#+date: [2019-02-19 mar 15:08]
+
+
+
+** Proyecto Web
+Abriendo la terminal desde la carpeta "mi-primer-aplicacion-web"
+El proyecto se compila haciendo:
+
+
+#+begin_src sh
+mvn tomcat7:run
+#+end_src
+
+
+Ingresamos a nuestro navegador web con la siguiente direccion
+
+ #+begin_src sh
+http://localhost:8080/mi-primer-aplicacion-web/
+#+end_sr
