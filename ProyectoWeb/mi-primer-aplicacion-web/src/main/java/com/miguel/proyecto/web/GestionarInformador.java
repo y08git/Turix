@@ -10,10 +10,10 @@ public class GestionarInformador {
         this.informador = null;       
     }
     
-    public void Nombre(String nombre) }
+    public void editarNombre(String nombre) {
         this.informador.setNombre(nombre); 
     }
   
-    public void 
+    public void editarPaterno(String paterno) {
   
 }
