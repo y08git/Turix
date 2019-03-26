@@ -84,7 +84,7 @@ for each row execute procedure notitia.hash();
 create or replace function notitia.Comentarista(usuario text, password text) returns boolean as $$
   select exists(select 1
                   from notitia.Comentarista 
-                 where usuario = usuario and
+                 where nombre_usuario = usuario and
                        contraseña = crypt(password, contraseña));
 $$ language sql stable;
 
