@@ -5,30 +5,35 @@
  */
 package com.miguel.modelo;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 
 /**
  *
  * @author yair
  */
+@ManagedBean
+@SessionScoped
 public class Login {
     
-    private String user;
-    private String password;
+    private String usuario;
+    private String contraseña;
 
-    public String getUser() {
-        return user;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public String getPassword() {
-        return password;
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
     
     

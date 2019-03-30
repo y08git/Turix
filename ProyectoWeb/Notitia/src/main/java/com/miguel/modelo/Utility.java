@@ -23,12 +23,14 @@ public class Utility {
     static Comentarista userObj;
     static Session sessionObj;
     
-    public List getComentarista(Comentarista c){
+    public List getComentarista(){
         List l = null;
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             System.out.println("Session " + sessionObj);
-            Query q = sessionObj.createSQLQuery("notitia.Comentarista("+c.functionGet()+")");
+            Query q = sessionObj.createSQLQuery("SELECT * "
+                    + "FROM notitia.Comentarista"
+                    + "notitia.Comentarista('"+userObj.getNombre_usuario()+"','"+userObj.getCorreo()+"')");
             l = q.list();
             System.out.println("\n.......Records loades Successfully from the Database.......\n");
             

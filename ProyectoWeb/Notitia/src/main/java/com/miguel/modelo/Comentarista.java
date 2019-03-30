@@ -62,12 +62,6 @@ public class Comentarista implements Serializable {
     public void setEs_informador(boolean es_informador) {
         this.es_informador = es_informador;
     }
-    
-    public String functionGet(){
-        if(nombre_usuario != null && contraseña != null)
-            return nombre_usuario+","+contraseña;
-        return "";
-    }
 
     
 }
