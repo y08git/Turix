@@ -57,26 +57,26 @@ public class Utility {
     }
 
     public void login(Login login, Usuario usuario){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT  FROM notitia.Usuario "
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT *  FROM notitia.Usuario "
                   + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
         boolean success = false; 
         try {
-            Transaction tx = session.beginTransaction();
-            Query q = session.createQuery(query);
-            usuario =  (Usuario) q.list().get(0);
+            Transaction tx = sessionObj.beginTransaction();
+            Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+            usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
             success = usuario != null;
             tx.commit();
         } catch (HibernateException e) {
-            if (null != session.getTransaction()) {
+            if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
-                session.getTransaction().rollback();
+                sessionObj.getTransaction().rollback();
             }
         } finally {
             
             
-            if (session != null && session.isOpen()) {
-                session.close();
+            if (sessionObj != null && sessionObj.isOpen()) {
+                sessionObj.close();
             }
         }
         if (!success) {

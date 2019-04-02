@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
     }
 
     public void setNombre_usuario(String nombre_usuario) {
-        this.nombre_usuario = nombre_usuario;
+        this.nombre_usuario = nombre_usuario.trim();
     }
 
     public String getContraseña() {
