@@ -25,7 +25,7 @@ public class Login {
     }
 
     public void setUsuario(String usuario) {
-        this.usuario = usuario;
+        this.usuario = usuario.trim();
     }
 
     public String getContraseña() {
