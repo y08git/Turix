@@ -11,6 +11,7 @@ package com.turix.modelo;
  */
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -19,65 +20,87 @@ import javax.persistence.*;
 @Table(catalog = "notitia", schema = "notitia", name = "comentarios")
 public class Comentarios implements Serializable{
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @Column(name = "id_comentario")
     private long id_comentario;
-    
+
     @ManyToOne
     @JoinColumn(name = "ubicacion")
     private Marcadores marcadores;
-    
+
     @Column(name = "comentario")
     private String comentario;
-    
-    @Column(name = "calificacion")
-    private String calificacion;
-    
+
+    @Column(name = "calificacionPositiva")
+    private String calificacionPositiva;
+
+    @Column(name = "calificacionNegativa")
+    private String calificacionNegativa;
+
     @ManyToOne
     @JoinColumn(name  = "nombre_usuario")
     private Usuario usuario;
 
+
+    @Column(name  = "fecha")
+    private Date fecha;
+
     public long getId_comentario() {
         return id_comentario;
-    }
-
-    public void setId_comentario(long id_comentario) {
-        this.id_comentario = id_comentario;
     }
 
     public Marcadores getMarcadores() {
         return marcadores;
     }
 
-    public void setMarcadores(Marcadores marcadores) {
-        this.marcadores = marcadores;
-    }
-
     public String getComentario() {
         return comentario;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public String getCalificacionPositiva() {
+        return calificacionPositiva;
     }
 
-    public String getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(String calificacion) {
-        this.calificacion = calificacion;
+    public String getCalificacionNegativa() {
+        return calificacionNegativa;
     }
 
     public Usuario getUsuario() {
         return usuario;
     }
 
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setId_comentario(long id_comentario) {
+        this.id_comentario = id_comentario;
+    }
+
+    public void setMarcadores(Marcadores marcadores) {
+        this.marcadores = marcadores;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public void setCalificacionPositiva(String calificacionPositiva) {
+        this.calificacionPositiva = calificacionPositiva;
+    }
+
+    public void setCalificacionNegativa(String calificacionNegativa) {
+        this.calificacionNegativa = calificacionNegativa;
+    }
+
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
     
-    
-    
+
 }
