@@ -8,8 +8,8 @@ begin;
 drop schema if exists notitia cascade;
 create schema notitia;
 
-drop table if exists notitia.Comentarista ;
-CREATE TABLE notitia.Comentarista
+drop table if exists notitia.Usuario ;
+CREATE TABLE notitia.Usuario
 (
   nombre_usuario text NOT NULL,
   contraseña text NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE notitia.Marcadores
   nombre_usuario text NOT NULL,
   nombre INT NOT NULL,
   PRIMARY KEY (ubicacion),
-  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Comentarista(nombre_usuario),
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario),
   FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre)
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE notitia.Comentarios
   nombre_usuario text NOT NULL,
   PRIMARY KEY (id_comentario, ubicacion),
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
-  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Comentarista(nombre_usuario)
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
 );
 
 
@@ -60,7 +60,7 @@ CREATE TABLE notitia.Comentarios
 drop extension if exists pgcrypto;
 create extension pgcrypto;
 
-comment on table notitia.Comentarista
+comment on table notitia.Usuario
 is
 'El usuario USUARIO tiene la contraseña PASS después de aplicarle un hash';
 
@@ -78,13 +78,13 @@ is
 'Cifra la contraseña del usuario al guardarla en la base de datos.';
 
 create trigger cifra
-before insert on notitia.Comentarista
+before insert on notitia.Usuario
 for each row execute procedure notitia.hash();
 
-create or replace function notitia.Comentarista(usuario text, password text) returns boolean as $$
+create or replace function notitia.Usuario(usuari text, password text) returns boolean as $$
   select exists(select 1
-                  from notitia.Comentarista 
-                 where nombre_usuario = usuario and
+                  from notitia.Usuario 
+                 where nombre_usuario = usuari and
                        contraseña = crypt(password, contraseña));
 $$ language sql stable;
 
