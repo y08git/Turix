@@ -47,13 +47,14 @@ CREATE TABLE notitia.Comentarios
   comentario text NOT NULL,
   fecha DATE NOT NULL,
   calificacionPositiva int NOT NULL,
-  calificacionPositiva int NOT NULL,
+  calificacionNegativa int NOT NULL,
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
   PRIMARY KEY (id_comentario, ubicacion),
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
-);
+); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
+		VALUES ('Yo','password','asdfasd@adds',false)	*/
 
 
 
