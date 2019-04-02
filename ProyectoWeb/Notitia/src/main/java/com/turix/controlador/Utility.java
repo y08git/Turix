@@ -8,10 +8,13 @@ package com.turix.controlador;
 import com.turix.modelo.Usuario;
 import java.util.List;
 import java.util.Random;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 
 
@@ -24,7 +27,7 @@ public class Utility {
     static Usuario userObj;
     static Session sessionObj;
     
-    public List getComentarista(){
+    public List getUsuario(){
         List l = null;
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -38,7 +41,8 @@ public class Utility {
            
         } catch (HibernateException sqlException) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction Is Being Rolled Back.......\n"
+                        + "Values of usu");
                 sessionObj.getTransaction().rollback();
             }
             l = null;
@@ -52,6 +56,44 @@ public class Utility {
         
     }
 
+    public void login(Login login, Usuario usuario){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT  FROM notitia.Usuario "
+                  + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
+        boolean success = false; 
+        try {
+            Transaction tx = session.beginTransaction();
+            Query q = session.createQuery(query);
+            usuario =  (Usuario) q.list().get(0);
+            success = usuario != null;
+            tx.commit();
+        } catch (HibernateException e) {
+            if (null != session.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                session.getTransaction().rollback();
+            }
+        } finally {
+            
+            
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        if (!success) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     "Fallo de inicio: La contraseña o el usuario no coinciden", ""));
+        } else {
+            login.setUsuario(usuario.getNombre_usuario());
+            login.setContraseña(usuario.getContraseña());
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                             new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                     "Felicidades, el ingreso se ha realizado correctamente", ""));
+        }
+    }
+    
     public void save() {
         Random r = new Random();
         System.out.println(".......Hibernate Maven Example.......\n");
@@ -66,7 +108,7 @@ public class Utility {
 
             // Committing The Transactions To The Database
             sessionObj.getTransaction().commit();
-        } catch (Exception sqlException) {
+        } catch (HibernateException sqlException) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();

@@ -50,20 +50,21 @@ public class LoginController {
         this.usuario = usuario;
     }
     
-    public Usuario getComentarista(){
-        return (Usuario) u.getComentarista().get(0);
+    public Usuario getUsusario(){
+        return (Usuario) u.getUsuario().get(0);
     }
     
     
     public String openUser() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT 1 FROM notitia.Comentarista \n"
-                + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
+        String query = "SELECT *  FROM notitia.Usuario "
+                  + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
+        System.out.println(query);
         boolean success = false; 
         try {
             Transaction tx = session.beginTransaction();
-            Query q = session.createQuery(query);
-            usuario =  (Usuario) q.list().get(0);
+            Query q = session.createSQLQuery(query).addEntity(Usuario.class);
+            usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
             success = usuario != null;
             tx.commit();
         } catch (HibernateException e) {
@@ -72,6 +73,8 @@ public class LoginController {
                 session.getTransaction().rollback();
             }
         } finally {
+            
+            
             if (session != null && session.isOpen()) {
                 session.close();
             }
