@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.miguel.proyecto.web;
+package com.turix.modelo;
 
 /**
  *
@@ -36,7 +36,7 @@ public class Comentarios implements Serializable{
     
     @ManyToOne
     @JoinColumn(name  = "nombre_usuario")
-    private Comentarista comentarista;
+    private Usuario usuario;
 
     public long getId_comentario() {
         return id_comentario;
@@ -70,12 +70,12 @@ public class Comentarios implements Serializable{
         this.calificacion = calificacion;
     }
 
-    public Comentarista getComentarista() {
-        return comentarista;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setComentarista(Comentarista comentarista) {
-        this.comentarista = comentarista;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

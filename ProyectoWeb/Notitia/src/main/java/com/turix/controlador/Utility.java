@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.miguel.modelo;
+package com.turix.controlador;
 
-import com.miguel.proyecto.web.Comentarista;
+import com.turix.modelo.Usuario;
 import java.util.List;
 import java.util.Random;
 import org.hibernate.HibernateException;
@@ -21,7 +21,7 @@ import org.hibernate.Session;
  */
 public class Utility {
 
-    static Comentarista userObj;
+    static Usuario userObj;
     static Session sessionObj;
     
     public List getComentarista(){

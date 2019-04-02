@@ -1,4 +1,4 @@
-package com.miguel.proyecto.web;
+package com.turix.modelo;
 
 import java.io.Serializable;
 
@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(catalog = "notitia", schema = "notitia", name = "comentarista")
-public class Comentarista implements Serializable {
+@Table(catalog = "notitia", schema = "notitia", name = "usuario")
+public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -23,7 +23,7 @@ public class Comentarista implements Serializable {
     @Column(name = "es_informador")
     private boolean es_informador;
 
-    public Comentarista() {
+    public Usuario() {
         this.nombre_usuario = "";
         this.contraseña = "";
         this.correo = "";

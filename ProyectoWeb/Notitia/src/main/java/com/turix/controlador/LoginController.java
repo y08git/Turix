@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.miguel.modelo;
+package com.turix.controlador;
 
-import com.miguel.proyecto.web.Comentarista;
+import com.turix.modelo.Usuario;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,7 +24,7 @@ import org.hibernate.Transaction;
 @RequestScoped
 public class LoginController {
     private Login login = new Login();
-    private Comentarista usuario;
+    private Usuario usuario;
     private Utility u = new Utility();
 
     public Login getLogin() {
@@ -42,28 +42,28 @@ public class LoginController {
                 .setLocale(new Locale("es-Mx"));
     }
 
-    public Comentarista getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Comentarista usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
     
-    public Comentarista getComentarista(){
-        return (Comentarista) u.getComentarista().get(0);
+    public Usuario getComentarista(){
+        return (Usuario) u.getComentarista().get(0);
     }
     
     
     public String openUser() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT 1 FROM notitia.Comentarista \n"
-                + "WHERE notitia.Comentarista('"+login.getUsuario()+"','"+login.getContraseña()+"');";
+                + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
         boolean success = false; 
         try {
             Transaction tx = session.beginTransaction();
             Query q = session.createQuery(query);
-            usuario =  (Comentarista) q.list().get(0);
+            usuario =  (Usuario) q.list().get(0);
             success = usuario != null;
             tx.commit();
         } catch (HibernateException e) {

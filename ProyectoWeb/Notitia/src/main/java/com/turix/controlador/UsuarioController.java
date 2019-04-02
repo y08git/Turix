@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.miguel.proyecto.web;
+package com.turix.controlador;
 
-import com.miguel.modelo.HibernateUtil;
+import com.turix.controlador.HibernateUtil;
+import com.turix.modelo.Usuario;
 import java.util.Locale;
 import javax.faces.context.FacesContext;
 import org.hibernate.*;
@@ -14,19 +15,19 @@ import org.hibernate.*;
  *
  * @author yair
  */
-public class ComentaristaController {
+public class UsuarioController {
     
-    public ComentaristaController() {
+    public UsuarioController() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
-    public Comentarista getUser(String user_name,String contraseña) {
+    public Usuario getUser(String user_name,String contraseña) {
         Session session = null;
-        Comentarista usuario = null;
+        Usuario usuario = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            usuario =  (Comentarista) session.get(Comentarista.class, user_name);
+            usuario =  (Usuario) session.get(Usuario.class, user_name);
         } catch (HibernateException e) {
             usuario = null;
         } finally {
