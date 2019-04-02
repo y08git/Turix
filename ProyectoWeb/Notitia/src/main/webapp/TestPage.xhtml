@@ -38,13 +38,13 @@ and open the template in the editor.
         <td colspan="3" align="center">
             <p:commandButton action="#{loginController.openUser()}"
                            value="Login"/>
-          <p:commandButton action="index"
-                           value="Cancel">
-          <p:resetInput target="myForm" />
-          </p:commandButton>
         </td>
       </tr>
     </table>
+  </h:form>
+  <h:form>
+      <p:commandButton action="testView"
+                           value="Cancel"/>
   </h:form>
 </h:body>
 </html>

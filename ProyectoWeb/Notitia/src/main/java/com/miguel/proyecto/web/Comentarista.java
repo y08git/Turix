@@ -1,4 +1,4 @@
-package com.miguel.modelo;
+package com.miguel.proyecto.web;
 
 import java.io.Serializable;
 
@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(catalog = "notitia", schema = "notitia", name = "comentarista")
 public class Comentarista implements Serializable {
-        private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @Column(name = "nombre_usuario")
     private String nombre_usuario;

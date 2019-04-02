@@ -5,6 +5,7 @@
  */
 package com.miguel.modelo;
 
+import com.miguel.proyecto.web.Comentarista;
 import java.util.List;
 import java.util.Random;
 import org.hibernate.HibernateException;

@@ -15,7 +15,7 @@ public class Prueba{
             yo.setContraseña("password");
             yo.setUsuario("Yo");
             login.setLogin(yo);
-            login.getUser();
+            login.openUser();
             Usuario = login.getUsuario().getCorreo();
             if (!success) {
                 FacesContext.getCurrentInstance()

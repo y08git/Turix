@@ -5,12 +5,14 @@
  */
 package com.miguel.modelo;
 
+import com.miguel.proyecto.web.Comentarista;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -55,14 +57,20 @@ public class LoginController {
     
     public String openUser() {
         Session session = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT 1 FROM notitia.Comentarista \n"
+                + "WHERE notitia.Comentarista('"+login.getUsuario()+"','"+login.getContraseña()+"');";
         boolean success = false; 
         try {
             Transaction tx = session.beginTransaction();
-            usuario =  (Comentarista) session.get(Comentarista.class, login.getUsuario());
+            Query q = session.createQuery(query);
+            usuario =  (Comentarista) q.list().get(0);
             success = usuario != null;
             tx.commit();
         } catch (HibernateException e) {
-            usuario = null;
+            if (null != session.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                session.getTransaction().rollback();
+            }
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();

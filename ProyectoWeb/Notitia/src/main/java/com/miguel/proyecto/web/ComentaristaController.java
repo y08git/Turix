@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.miguel.modelo;
+package com.miguel.proyecto.web;
 
+import com.miguel.modelo.HibernateUtil;
 import java.util.Locale;
 import javax.faces.context.FacesContext;
 import org.hibernate.*;
