@@ -83,7 +83,7 @@ for each row execute procedure notitia.hash();
 
 create or replace function notitia.Usuario(usuari text, password text) returns boolean as $$
   select exists(select 1
-                  from notitia.Usuario 
+                  from notitia.Usuario
                  where nombre_usuario = usuari and
                        contraseña = crypt(password, contraseña));
 $$ language sql stable;

@@ -1,60 +1,39 @@
-package com.miguel.proyecto.web;
-import java.util.Locale;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import java.util.LinkedList;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.turix.controlador;
+
+import com.turix.modelo.Comentarios;
+import com.turix.modelo.Marcadores;
+import java.util.List;
 
 /**
  *
  * @author dmonroy
  */
 public class ComentarioController {
-    private Comentario comentario = new Comentario();
-    LinkedList lista = new LinkedList();
+    public Marcadores marcador; 
+    private Utility u = new Utility();
 
-    public ComentarioController() {
-      FacesContext.getCurrentInstance()
-              .getViewRoot()
-              .setLocale(new Locale("es-Mx"));
-    }
-    public Comentario getComentario() {
-        return comentario;
+    public Marcadores getMarcador() {
+        return marcador;
     }
 
-    public void setComentario(Comentario comentario) {
-        this.comentario = comentario;
+    public void setMarcador(Marcadores marcador) {
+        this.marcador = marcador;
     }
-
-    public LinkedList agregarComentario(){
-        lista.add(comentario);
-        return lista;
+    
+    public List<Comentarios> listaComentarios(){
+        if (marcador == null){
+            return null;
+        }
+        return (List<Comentarios>)u.listaComentarios(marcador);
     }
-
-    public LinkedList eliminarComentario(){
-        lista.remove(comentario);
-        return lista;
+    
+    public void agregarComentario(Marcadores m2){
+        
     }
-
-    public Comentario editarComentario(String nuevo){
-        comentario.setContenido(nuevo);
-        return comentario;
-    }
-
-    public Comentario agregarCalificacionPositiva(int pos){
-        int contadorPositivo = comentario.getCalificacionPositiva();
-        comentario.setCalificacionPositiva(contadorPositivo+pos);
-        return comentario;
-    }
-     public Comentario agregarCalificacionNegativa(int neg){
-        int contadorNegativo = comentario.getCalificacionNegativa();
-        comentario.setCalificacionNegativa(contadorNegativo+neg);
-        return comentario;
-    }
-
+    
 }

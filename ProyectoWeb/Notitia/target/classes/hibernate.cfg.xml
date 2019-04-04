@@ -7,15 +7,15 @@
     <!-- Database Connection Settings -->
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/notitia</property>
-    <property name="hibernate.connection.username">yair</property>
+    <property name="hibernate.connection.username">dmonroy</property>
     <property name="hibernate.connection.password"/>
     <property name="show_sql">true</property>
     <!-- Specifying Session Context -->
     <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
     <!-- Mapping With Model Class Containing Annotations -->
-    <mapping class="com.turix.modelo.Usuario" file="" jar="" package="" resource=""/>
-    <mapping class="com.turix.modelo.Comentarios" file="" jar="" package="" resource=""/>
-    <mapping class="com.turix.modelo.Temas" file="" jar="" package="" resource=""/>
-    <mapping class="com.turix.modelo.Marcadores" file="" jar="" package="" resource=""/>
+    <mapping class="com.turix.modelo.Usuario"/>
+    <mapping class="com.turix.modelo.Comentarios"/>
+    <mapping class="com.turix.modelo.Temas"/>
+    <mapping class="com.turix.modelo.Marcadores"/>
   </session-factory>
 </hibernate-configuration>

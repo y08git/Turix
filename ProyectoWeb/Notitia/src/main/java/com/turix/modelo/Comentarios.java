@@ -33,10 +33,10 @@ public class Comentarios implements Serializable{
     private String comentario;
 
     @Column(name = "calificacionPositiva")
-    private String calificacionPositiva;
+    private int calificacionPositiva;
 
     @Column(name = "calificacionNegativa")
-    private String calificacionNegativa;
+    private int calificacionNegativa;
 
     @ManyToOne
     @JoinColumn(name  = "nombre_usuario")
@@ -58,11 +58,11 @@ public class Comentarios implements Serializable{
         return comentario;
     }
 
-    public String getCalificacionPositiva() {
+    public int getCalificacionPositiva() {
         return calificacionPositiva;
     }
 
-    public String getCalificacionNegativa() {
+    public int getCalificacionNegativa() {
         return calificacionNegativa;
     }
 
@@ -86,11 +86,11 @@ public class Comentarios implements Serializable{
         this.comentario = comentario;
     }
 
-    public void setCalificacionPositiva(String calificacionPositiva) {
+    public void setCalificacionPositiva(int calificacionPositiva) {
         this.calificacionPositiva = calificacionPositiva;
     }
 
-    public void setCalificacionNegativa(String calificacionNegativa) {
+    public void setCalificacionNegativa(int calificacionNegativa) {
         this.calificacionNegativa = calificacionNegativa;
     }
 
@@ -101,6 +101,5 @@ public class Comentarios implements Serializable{
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
 
 }
