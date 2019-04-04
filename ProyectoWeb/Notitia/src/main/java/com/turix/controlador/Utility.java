@@ -6,6 +6,7 @@
 package com.turix.controlador;
 
 import com.turix.modelo.Usuario;
+import com.turix.modelo.Temas;
 import java.util.List;
 import java.util.Random;
 import javax.faces.application.FacesMessage;
@@ -25,6 +26,7 @@ import org.hibernate.Transaction;
 public class Utility {
 
     static Usuario userObj;
+    static Temas temaObj;
     static Session sessionObj;
     
     public List getUsuario(){
@@ -57,26 +59,26 @@ public class Utility {
     }
 
     public void login(Login login, Usuario usuario){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT  FROM notitia.Usuario "
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT *  FROM notitia.Usuario "
                   + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
         boolean success = false; 
         try {
-            Transaction tx = session.beginTransaction();
-            Query q = session.createQuery(query);
-            usuario =  (Usuario) q.list().get(0);
+            Transaction tx = sessionObj.beginTransaction();
+            Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+            usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
             success = usuario != null;
             tx.commit();
         } catch (HibernateException e) {
-            if (null != session.getTransaction()) {
+            if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
-                session.getTransaction().rollback();
+                sessionObj.getTransaction().rollback();
             }
         } finally {
             
             
-            if (session != null && session.isOpen()) {
-                session.close();
+            if (sessionObj != null && sessionObj.isOpen()) {
+                sessionObj.close();
             }
         }
         if (!success) {
@@ -94,21 +96,13 @@ public class Utility {
         }
     }
     
-    public void save() {
-        Random r = new Random();
-        System.out.println(".......Hibernate Maven Example.......\n");
+    public void save(Usuario user) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
-            System.out.println("Session " + sessionObj);
             sessionObj.beginTransaction();
-
-            sessionObj.save(userObj);
-            
-            System.out.println("\n.......Records Saved Successfully To The Database.......\n");
-
-            // Committing The Transactions To The Database
+            sessionObj.save(user);
             sessionObj.getTransaction().commit();
-        } catch (HibernateException sqlException) {
+        } catch (Exception sqlException) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
@@ -120,5 +114,61 @@ public class Utility {
             }
         }
     }
+
+
+
+    public void guardarTema(Temas tema){
+         sessionObj = HibernateUtil.getSessionFactory().openSession();
+          try{
+         sessionObj.beginTransaction();
+         sessionObj.save(tema);
+         sessionObj.getTransaction().commit();
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }
+          }
+          
+         }
+    public String existeTema(Temas tema){
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String id = null;
+        List l = null;
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            String query = "SELECT nombre FROM notitia.Temas "
+                    + "WHERE notitia.Temas.nombre ="+ tema.getNombre()+";";
+            Query q = sessionObj.createSQLQuery(query);
+            l = q.list();
+            if(l.size()!=0)
+            id=l.get(0).toString();
+            System.out.println("\n.......Records loades Successfully from the Database.......\n");
+            
+           
+        } catch (HibernateException sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......\n"
+                        + "Values of usu");
+                sessionObj.getTransaction().rollback();
+            }
+            l = null;
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+            
+        }
+        return id;
+        
+    }
+    
+    
+    
+ 
 
 }

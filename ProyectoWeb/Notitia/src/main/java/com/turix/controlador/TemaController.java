@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.turix.controlador;
+import javax.faces.application.FacesMessage;
 import com.turix.controlador.HibernateUtil;
 import com.turix.modelo.Temas;
 import java.util.Locale;
@@ -34,11 +35,27 @@ public class TemaController {
         this.tema = tema;
     }
      
+   
      
-     public void crearTema(){
+     public void guardarTema(String id, String des){
+          if (!tema.getNombre().equals(u.existeTema(tema))) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: Ya existe el tema", ""));
+        } else {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Felicidades, se agrego correctamente el tema", ""));
+             u.guardarTema(tema);
+            tema = null;
+        }
          
+        
          
-     }
+         }
+     
      public LinkedList<Temas> listTemas(){
          LinkedList<Temas> lista = new LinkedList<Temas>();
          return lista;
