@@ -205,13 +205,13 @@ public class Utility {
     public void actualizarComentario(Comentarios comentario){
        try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
+          
             System.out.println("Session " + sessionObj);
             sessionObj.beginTransaction();
-
-            sessionObj.update(comentario);
-
-            System.out.println("\n.......Records Saved Successfully To The Database.......\n");
-
+            if (comentario != null){
+                 sessionObj.update(comentario);
+                 System.out.println("\n.......Records Saved Successfully To The Database.......\n");
+            }
             // Committing The Transactions To The Database
             sessionObj.getTransaction().commit();
         } catch (HibernateException sqlException) {
