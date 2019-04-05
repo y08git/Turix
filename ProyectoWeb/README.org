@@ -22,5 +22,11 @@ Ingresamos a nuestro navegador web con la siguiente direccion
 http://localhost:8080/mi-primer-aplicacion-web/
 #+end_src
 
-(Recordemos que hay que hacer mvn clean antes de hacer push)
+Recordemos que hay que hacer
+
+#+begin_src sh
+mvn clean
+#+end_src
+
+antes de hacer push
 
