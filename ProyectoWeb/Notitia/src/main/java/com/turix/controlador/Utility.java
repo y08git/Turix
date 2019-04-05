@@ -153,7 +153,7 @@ public class Utility {
          return l;
     }
     
-    public void saveComentario() {
+    public void guardarComentario(Comentarios c) {
         Random r = new Random();
         System.out.println(".......Hibernate Maven Example.......\n");
         try {
@@ -178,6 +178,31 @@ public class Utility {
                 sessionObj.close();
             }
         }
+    }
+    
+    public void actualizarComentario(Comentarios comentario){
+       try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            System.out.println("Session " + sessionObj);
+            sessionObj.beginTransaction();
+
+            sessionObj.update(comentario);
+
+            System.out.println("\n.......Records Saved Successfully To The Database.......\n");
+
+            // Committing The Transactions To The Database
+            sessionObj.getTransaction().commit();
+        } catch (HibernateException sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        } 
     }
 
 }
