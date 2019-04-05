@@ -18,10 +18,10 @@ mvn tomcat7:run
 
 Ingresamos a nuestro navegador web con la siguiente direccion
 
- #+begin_src sh
+#+begin_src sh
 http://localhost:8080/mi-primer-aplicacion-web/
 #+end_sr
 
- #+begin_src sh
-!!(Recordemos que hay que hacer mvn clean antes de hacer push)
+#+begin_src sh
+(Recordemos que hay que hacer mvn clean antes de hacer push)
 #+end_sr
