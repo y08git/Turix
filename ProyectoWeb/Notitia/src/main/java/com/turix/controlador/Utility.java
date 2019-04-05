@@ -13,9 +13,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 
 
@@ -142,7 +142,7 @@ public class Utility {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             String query = "SELECT nombre FROM notitia.Temas "
-                    + "WHERE notitia.Temas.nombre ="+ tema.getNombre()+";";
+                    + "WHERE notitia.Temas.nombre LIKE "+ "tema.getNombre()"+";";
             Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
             l = q.list();
             if(l.size()!=0)
@@ -169,19 +169,22 @@ public class Utility {
     
      public void eliminarTema(Temas t){
      sessionObj = HibernateUtil.getSessionFactory().openSession();
-      Transaction tx = null;
+     
       
       try {
          sessionObj.beginTransaction();
          
-         sessionObj.getTransaction().commit();
+         
           
          Temas tema = (Temas)sessionObj.get(Temas.class,t.getNombre()); 
          sessionObj.delete(tema); 
+         if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
          sessionObj.getTransaction().commit();
       } catch (HibernateException e) {
-         if (tx!=null) tx.rollback();
-         e.printStackTrace(); 
+         if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+         e.printStackTrace(); }
       } finally {
        if (sessionObj != null) {
                 sessionObj.close();

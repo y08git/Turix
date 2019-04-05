@@ -48,6 +48,7 @@ public class TemaController {
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                     "Fallo: Ya existe el tema", ""));
         } else {
+               System.out.println(u.existeTema(tema));
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -73,12 +74,13 @@ public class TemaController {
      }
      
      public void eliminarTema(){
-          if (!tema.getNombre().equals(u.existeTema(tema))) {
+          /**if (!tema.getNombre().equals(u.existeTema(tema))) {
+              System.out.println(u.existeTema(tema));
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo: No existe el tema", ""));
-        } else {
+                                    "Fallo: No existe el tema "+u.existeTema(tema), ""));
+        } else {*/
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -86,7 +88,7 @@ public class TemaController {
              u.eliminarTema(tema);
             
          
-     }
+     //}
      }
      
      
