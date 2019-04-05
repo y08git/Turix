@@ -7,12 +7,13 @@ package com.turix.controlador;
 
 import com.turix.modelo.Login;
 import com.turix.modelo.Usuario;
+import com.turix.modelo.Temas;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 
 
@@ -23,6 +24,7 @@ import org.hibernate.Transaction;
 public class Utility {
 
     static Usuario userObj;
+    static Temas temaObj;
     static Session sessionObj;
     
     public List getUsuario(){
@@ -81,21 +83,14 @@ public class Utility {
         return success;
         
     }
-    
-        
-    public void save() {
+
+    public void save(Usuario user) {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
-            System.out.println("Session " + sessionObj);
             sessionObj.beginTransaction();
-
-            sessionObj.save(userObj);
-            
-            System.out.println("\n.......Records Saved Successfully To The Database.......\n");
-
-            // Committing The Transactions To The Database
+            sessionObj.save(user);
             sessionObj.getTransaction().commit();
-        } catch (HibernateException sqlException) {
+        } catch (Exception sqlException) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
@@ -107,5 +102,85 @@ public class Utility {
             }
         }
     }
+
+
+
+    public void guardarTema(Temas tema){
+         sessionObj = HibernateUtil.getSessionFactory().openSession();
+          try{
+         sessionObj.beginTransaction();
+         sessionObj.save(tema);
+         sessionObj.getTransaction().commit();
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }
+          }
+          
+         }
+    public String existeTema(Temas tema){
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String id = null;
+        List l = null;
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            String query = "SELECT nombre FROM notitia.Temas "
+                    + "WHERE notitia.Temas.nombre LIKE "+ "tema.getNombre()"+";";
+            Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+            l = q.list();
+            if(!l.isEmpty())
+                id=l.get(0).toString();
+            System.out.println("\n.......Records loades Successfully from the Database.......\n");
+            
+           
+        } catch (HibernateException sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......\n"
+                        + "Values of usu");
+                sessionObj.getTransaction().rollback();
+            }
+            l = null;
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+            
+        }
+        return id;
+        
+    }
+    
+     public void eliminarTema(Temas t){
+     sessionObj = HibernateUtil.getSessionFactory().openSession();
+     
+      
+      try {
+         sessionObj.beginTransaction();
+         
+         
+          
+         Temas tema = (Temas)sessionObj.get(Temas.class,t.getNombre()); 
+         sessionObj.delete(tema); 
+         if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+         sessionObj.getTransaction().commit();
+      } catch (HibernateException e) {
+         if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+         e.printStackTrace(); }
+      } finally {
+       if (sessionObj != null) {
+                sessionObj.close();
+            }
+   }
+     }
+    
+    
+ 
 
 }

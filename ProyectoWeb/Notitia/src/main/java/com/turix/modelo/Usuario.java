@@ -22,6 +22,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "es_informador")
     private boolean es_informador;
+    
+    @Transient
+    private String confirmaContrasena;
 
     public Usuario() {
         this.nombre_usuario = "";
@@ -64,5 +67,12 @@ public class Usuario implements Serializable {
         this.es_informador = es_informador;
     }
 
-    
+    public String getConfirmaContrasena() {
+        return confirmaContrasena;
+    }
+
+    public void setConfirmaContrasena(String confirmaContrasena) {
+        this.confirmaContrasena = confirmaContrasena;
+    }
+        
 }

@@ -37,6 +37,7 @@ CREATE TABLE notitia.Marcadores
   PRIMARY KEY (ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario),
   FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre)
+  ON DELETE CASCADE
 );
 
 
@@ -53,8 +54,15 @@ CREATE TABLE notitia.Comentarios
   PRIMARY KEY (id_comentario, ubicacion),
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
+<<<<<<< HEAD
 ); /*  INSERT INTO notitia.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false);	*/
+=======
+    ON DELETE CASCADE
+    
+); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
+		VALUES ('Yo','password','asdfasd@adds',false)	*/
+>>>>>>> diana2
 
 
 
