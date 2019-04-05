@@ -21,7 +21,7 @@ CREATE TABLE notitia.Usuario
 drop table if exists notitia.Temas;
 CREATE TABLE notitia.Temas
 (
-  nombre INT NOT NULL,
+  nombre text NOT NULL,
   descripcion text NOT NULL,
   PRIMARY KEY (nombre)
 );
@@ -33,10 +33,11 @@ CREATE TABLE notitia.Marcadores
   descripcion text NOT NULL,
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
-  nombre INT NOT NULL,
+  nombre text NOT NULL,
   PRIMARY KEY (ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario),
   FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre)
+  ON DELETE CASCADE
 );
 
 
@@ -53,6 +54,8 @@ CREATE TABLE notitia.Comentarios
   PRIMARY KEY (id_comentario, ubicacion),
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
+    ON DELETE CASCADE
+    
 ); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false)	*/
 
