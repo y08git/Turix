@@ -54,7 +54,7 @@ CREATE TABLE notitia.Comentarios
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
 ); /*  INSERT INTO notitia.usuario (nombre_usuario, contraseña, correo, es_informador)
-		VALUES ('Yo','password','asdfasd@adds',false)	*/
+		VALUES ('Yo','password','asdfasd@adds',false);	*/
 
 
 

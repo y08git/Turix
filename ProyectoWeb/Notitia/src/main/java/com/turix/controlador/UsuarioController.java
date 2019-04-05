@@ -5,7 +5,7 @@
  */
 package com.turix.controlador;
 
-import com.turix.controlador.HibernateUtil;
+import DBConnect.HibernateUtil;
 import com.turix.modelo.Usuario;
 import java.util.Locale;
 import javax.faces.context.FacesContext;

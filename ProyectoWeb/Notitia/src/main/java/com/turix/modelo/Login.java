@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.turix.controlador;
+package com.turix.modelo;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

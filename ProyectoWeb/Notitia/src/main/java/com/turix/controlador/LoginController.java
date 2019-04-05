@@ -5,11 +5,14 @@
  */
 package com.turix.controlador;
 
+import com.turix.modelo.Login;
 import com.turix.modelo.Usuario;
 import java.util.Locale;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import static javax.faces.context.FacesContext.getCurrentInstance;
 
 /**
  *
@@ -51,8 +54,18 @@ public class LoginController {
     
     
     public String openUser() {
-        u.login(login, usuario);
-        return null;
+        
+        if (!u.login(login, usuario)) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     "Fallo de inicio: La contraseña o el usuario no coinciden", ""));
+            return null;
+        }
+        FacesContext context = getCurrentInstance();
+        context.getExternalContext().getSessionMap().put("usuario", usuario);
+        return "inicio?faces-redirect=true";
+        
     }
     
     
