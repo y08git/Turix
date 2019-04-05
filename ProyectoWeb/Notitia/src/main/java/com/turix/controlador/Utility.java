@@ -17,6 +17,7 @@ import org.hibernate.Query;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 
 
@@ -180,6 +181,27 @@ public class Utility {
         }
     }
     
+    public void borrarComentario(Comentarios c){
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+     
+      try {
+         sessionObj.beginTransaction();
+
+         Comentarios comentario = (Comentarios)sessionObj.get(Comentarios.class,c.getId_comentario()); 
+         sessionObj.delete(comentario); 
+         if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+         sessionObj.getTransaction().commit();
+      } catch (HibernateException e) {
+         if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+         e.printStackTrace(); }
+      } finally {
+       if (sessionObj != null) {
+                sessionObj.close();
+            }
+      }
+    }
     public void actualizarComentario(Comentarios comentario){
        try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();

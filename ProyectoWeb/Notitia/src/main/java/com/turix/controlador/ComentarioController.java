@@ -59,12 +59,20 @@ public class ComentarioController {
             comentario = null;
     }
     
-    public void editarComentario(Marcadores m3, Comentarios comenta){
+    public void editarComentario(Comentarios comenta){
         FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
                                     "Felicidades, se agrego correctamente el comentario", ""));
              u.actualizarComentario(comenta);
             comenta = null;
+    }
+    
+    public void eliminarComentario(Comentarios comenta){
+        FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se eliminó el tema exitosamentes", ""));
+             u.borrarComentario(comentario);
     }
 }
