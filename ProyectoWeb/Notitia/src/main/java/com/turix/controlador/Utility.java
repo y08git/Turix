@@ -143,7 +143,7 @@ public class Utility {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
             String query = "SELECT nombre FROM notitia.Temas "
                     + "WHERE notitia.Temas.nombre ="+ tema.getNombre()+";";
-            Query q = sessionObj.createSQLQuery(query);
+            Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
             l = q.list();
             if(l.size()!=0)
             id=l.get(0).toString();
@@ -167,6 +167,27 @@ public class Utility {
         
     }
     
+     public void eliminarTema(Temas t){
+     sessionObj = HibernateUtil.getSessionFactory().openSession();
+      Transaction tx = null;
+      
+      try {
+         sessionObj.beginTransaction();
+         
+         sessionObj.getTransaction().commit();
+          
+         Temas tema = (Temas)sessionObj.get(Temas.class,t.getNombre()); 
+         sessionObj.delete(tema); 
+         sessionObj.getTransaction().commit();
+      } catch (HibernateException e) {
+         if (tx!=null) tx.rollback();
+         e.printStackTrace(); 
+      } finally {
+       if (sessionObj != null) {
+                sessionObj.close();
+            }
+   }
+     }
     
     
  

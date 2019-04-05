@@ -9,6 +9,8 @@ import com.turix.controlador.HibernateUtil;
 import com.turix.modelo.Temas;
 import java.util.Locale;
 import java.util.LinkedList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.hibernate.*;
 
@@ -16,9 +18,11 @@ import org.hibernate.*;
  *
  * @author dianis
  */
+@ManagedBean
+@RequestScoped
 public class TemaController {
     
-    private Temas tema;
+    private Temas tema = new Temas();
     private Utility u = new Utility();
     
      public TemaController() {
@@ -37,8 +41,8 @@ public class TemaController {
      
    
      
-     public void guardarTema(String id, String des){
-          if (!tema.getNombre().equals(u.existeTema(tema))) {
+     public void guardarTema(){
+          if (tema.getNombre().equals(u.existeTema(tema))) {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -68,8 +72,21 @@ public class TemaController {
          
      }
      
-     public void eliminarTema(Temas tema){
+     public void eliminarTema(){
+          if (!tema.getNombre().equals(u.existeTema(tema))) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: No existe el tema", ""));
+        } else {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se eliminó el tema exitosamentes", ""));
+             u.eliminarTema(tema);
+            
          
+     }
      }
      
      
