@@ -89,7 +89,7 @@ public class ComentarioController {
         if(user == null){
             return "ingresar?faces-redirect=true";
         }
-        if(u2 == user){
+        else if(u2 == user){
         FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -100,18 +100,21 @@ public class ComentarioController {
             return null;
     }
 
-    public String eliminarComentario(Comentarios comenta){
+    public String eliminarComentario(){
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-        comentario.setUsuario(user);
+        Usuario u2 = comentario.getUsuario();
         if(user == null){
             return "ingresar?faces-redirect=true";
         }
+        else if(u2 == user){
         FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
                                     "Se eliminó el comentario exitosamentes", ""));
              u.borrarComentario(comentario);
-             return null;
+        }
+        comentario = null;
+            return null;
     }
 }
