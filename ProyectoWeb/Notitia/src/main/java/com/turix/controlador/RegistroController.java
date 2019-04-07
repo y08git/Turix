@@ -46,7 +46,7 @@ public class RegistroController {
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                     "Fallo de registro: Las contraseñas deben coincidir", ""));
         } else {
-            if(!u.save(user)){
+            if(u.save(user)){
                 user = null;
                 FacesContext.getCurrentInstance()
                         .addMessage(null,

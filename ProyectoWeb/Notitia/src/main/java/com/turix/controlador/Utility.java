@@ -56,17 +56,16 @@ public class Utility {
         
     }
 
-    public boolean login(Login login, Usuario usuario){
+    public Usuario login(Login login){
+        Usuario usuario = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT *  FROM notitia.Usuario  "
                   + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
-        boolean success = false; 
         List l;
         try {
             Transaction tx = sessionObj.beginTransaction();
             Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
             usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
-            success = usuario != null;
             tx.commit();
         } catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
@@ -80,7 +79,7 @@ public class Utility {
                 sessionObj.close();
             }
         }
-        return success;
+        return usuario;
         
     }
 

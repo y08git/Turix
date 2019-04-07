@@ -7,6 +7,7 @@ package com.turix.controlador;
 
 import com.turix.modelo.Login;
 import com.turix.modelo.Usuario;
+import java.security.Principal;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -52,15 +53,26 @@ public class LoginController {
         return (Usuario) u.getUsuario().get(0);
     }
     
+    public String getNombre(){
+        FacesContext context = getCurrentInstance();
+        usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        
+        if(usuario != null) 
+            return usuario.getNombre_usuario();
+       
+        return"Error";
+        
+    }
+    
     
     public String openUser() {
-        
-        if (!u.login(login, usuario)) {
+        usuario = u.login(login);
+        if (usuario == null ){
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                              new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                      "Fallo de inicio: La contraseña o el usuario no coinciden", ""));
-            return null;
+            return "registro?faces-redirect=true";
         }
         FacesContext context = getCurrentInstance();
         context.getExternalContext().getSessionMap().put("usuario", usuario);
@@ -69,6 +81,17 @@ public class LoginController {
     }
     
     
+    public String logout() {
+        FacesContext context = getCurrentInstance();
+        context.getExternalContext().invalidateSession();
+        return "index?faces-redirect=true";
+    }
+    
+    public boolean isLogged(){
+        FacesContext context = getCurrentInstance();
+        Usuario l = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        return l != null;
+    }
     /**
      * POR IMPLEMENTAR
      * 
