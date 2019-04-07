@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+  <title>Agregar Comentario</title>
+</h:head>
+<h:body>
+  <h1>Formulario agregar comentario</h1> <br/>
+  <h:form id="myForm">
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td><p:inputText value="#{comentarioController.comentario.id_comentario}"
+                         required="true"
+                         id="Id_comentario"
+                         size="20"/></td>
+      </tr>
+      <tr>
+
+
+          <td>Usuario</td>
+        <td><p:inputText value="#{comentarioController.comentario.usuario}"
+                         required="true"
+                         id="Usuario"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+
+
+          <td>Marcador</td>
+        <td><p:inputText value="#{comentarioController.comentario.ubicacion}"
+                         required="true"
+                         id="Ubicacion"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+
+
+          <td>Fecha</td>
+        <td><p:inputText value="#{comentarioController.comentario.fecha}"
+                         required="true"
+                         id="Fecha"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+
+
+          <td>Comentario</td>
+        <td><p:inputText value="#{comentarioController.comentario.comentario}"
+                         required="true"
+                         id="Comentario"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+
+
+          <td>Me gusta</td>
+        <td><p:inputText value="#{comentarioController.comentario.calificacionPositiva}"
+                         required="true"
+                         id="calificacionPositiva"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+
+
+          <td>No me gusta</td>
+        <td><p:inputText value="#{comentarioController.comentario.calificacionNegativa}"
+                         required="true"
+                         id="calificacionNegativa"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+        <td colspan="3" align="center">
+            <p:commandButton action="#{comentarioController.agregarComentario}"
+                           value="aceptar"/>
+        </td>
+      </tr>
+    </table>
+  </h:form>
+  <h:form>
+      <p:commandButton action="testView"
+                           value="Cancel"/>
+  </h:form>
+</h:body>
+</html>

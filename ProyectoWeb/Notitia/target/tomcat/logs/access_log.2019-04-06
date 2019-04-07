@@ -1,0 +1,8 @@
+0:0:0:0:0:0:0:1 - - [06/Apr/2019:18:23:33 -0600] "GET /mi-primer-aplicacion-web/agregarComentario.xhtml HTTP/1.1" 200 5983 http-bio-8080-exec-1 460
+0:0:0:0:0:0:0:1 - - [06/Apr/2019:18:23:33 -0600] "GET /mi-primer-aplicacion-web/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-2 5
+0:0:0:0:0:0:0:1 - - [06/Apr/2019:18:23:33 -0600] "GET /mi-primer-aplicacion-web/javax.faces.resource/components.js.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-3 2
+0:0:0:0:0:0:0:1 - - [06/Apr/2019:18:23:33 -0600] "GET /mi-primer-aplicacion-web/javax.faces.resource/components.css.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-7 4
+0:0:0:0:0:0:0:1 - - [06/Apr/2019:18:23:33 -0600] "GET /mi-primer-aplicacion-web/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-4 5
+0:0:0:0:0:0:0:1 - - [06/Apr/2019:18:23:33 -0600] "GET /mi-primer-aplicacion-web/javax.faces.resource/core.js.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-5 3
+0:0:0:0:0:0:0:1 - - [06/Apr/2019:18:23:33 -0600] "GET /mi-primer-aplicacion-web/javax.faces.resource/theme.css.xhtml?ln=primefaces-aristo HTTP/1.1" 304 - http-bio-8080-exec-6 3
+0:0:0:0:0:0:0:1 - - [06/Apr/2019:18:23:35 -0600] "POST /mi-primer-aplicacion-web/agregarComentario.xhtml HTTP/1.1" 200 292 http-bio-8080-exec-9 24
