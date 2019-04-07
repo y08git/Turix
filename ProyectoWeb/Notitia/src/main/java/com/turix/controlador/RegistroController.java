@@ -12,6 +12,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import com.turix.modelo.Usuario;
+import javax.mail.MessagingException;
 
 
 /**
@@ -24,6 +25,7 @@ public class RegistroController {
 
     private Usuario user = new Usuario();
     private Utility u = new Utility();
+    private JavaMail mail = new JavaMail();
 
     public Usuario getUser() {
         return user;
@@ -39,21 +41,12 @@ public class RegistroController {
                 .setLocale(new Locale("es-Mx"));
     }
 
-    public String agregarUsuario() {
-        if (!user.getContraseña().equals(user.getConfirmaContrasena())) {
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo de registro: Las contraseñas deben coincidir", ""));
-        } else {
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Felicidades, el registro se ha realizado correctamente", ""));
+    public void agregarUsuario() throws MessagingException {
            
             u.save(user);
             user = null;
+            //mail.enviar("dianis0297@gmail.com","Test email","<h2>Java Mail Example</h2><p>hi there!</p>");
+            //System.out.println("AQUÍ IMPRIME");
         }
-        return null;
+        
     }
-}
