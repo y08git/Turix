@@ -16,7 +16,7 @@ import java.util.Properties;
 
 public class JavaMail {
     private static final String envioEmail = "dianisrmz97@gmail.com";//change with your sender email
-  private static final String envioPass = "yffy vebds jort rty";//change with your sender password
+  private static final String envioPass = "yffy vebd sjor trty";//change with your sender password
 
   public static void enviar(String to, String title, String html) throws MessagingException {
       System.out.println("Sending email to " + to);

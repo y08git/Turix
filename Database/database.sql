@@ -29,7 +29,7 @@ CREATE TABLE notitia.Temas
 drop table if exists notitia.Marcadores;
 CREATE TABLE notitia.Marcadores
 (
-  datos_utliles text NOT NULL,
+  datos_utiles text NOT NULL,
   descripcion text NOT NULL,
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
