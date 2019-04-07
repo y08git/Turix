@@ -21,27 +21,23 @@ and open the template in the editor.
       </td></tr>
     </table>
     <table>
-      <tr>
-
-
+<!--      <tr>
           <td>Usuario</td>
           <td><p:inputText value="#{comentarioController.comentario.usuario.nombre_usuario}"
                          required="true"
                          id="Usuario"
                          size="20"/></td>
 
-      </tr>
-      <tr>
-
-
+      </tr>-->
+<!--      <tr>
           <td>Marcador</td>
-        <td><p:inputText value="#{comentarioController.comentario.marcadores}"
+          <td><p:inputText value="#{comentarioController.comentario.marcadores.descripcion}"
                          required="true"
                          id="Ubicacion"
                          size="20"/></td>
 
-      </tr>
-      <tr>
+      </tr>-->
+<!--      <tr>
 
 
           <td>Fecha</td>
@@ -51,7 +47,7 @@ and open the template in the editor.
                          size="20"/>
         </td>
           
-      </tr>
+      </tr>-->
       <tr>
 
 
@@ -94,7 +90,7 @@ and open the template in the editor.
          <f:convertDateTime pattern = "dd-mm-yyyy" />
       </h:outputText>-->
   <h:form>
-      <p:commandButton action="testView"
+      <p:commandButton action="marcador"
                            value="Cancel"/>
   </h:form>
 </h:body>

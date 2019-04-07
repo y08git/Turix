@@ -328,7 +328,7 @@ public class Utility {
             System.out.println("Session " + sessionObj);
             sessionObj.beginTransaction();
 
-            sessionObj.save(comObj);
+            sessionObj.save(c);
 
             System.out.println("\n.......Records Saved Successfully To The Database.......\n");
 

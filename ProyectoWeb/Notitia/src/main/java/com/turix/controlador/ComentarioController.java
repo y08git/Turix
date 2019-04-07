@@ -8,6 +8,7 @@ package com.turix.controlador;
 import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Usuario;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
@@ -57,10 +58,10 @@ public class ComentarioController {
     }
 
     public String agregarComentario(){
-        System.out.println("error");
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
         comentario.setUsuario(user);
+        comentario.setFecha(new Date());
         if(user == null){
             return "ingresar?faces-redirect=true";
         }
@@ -76,23 +77,26 @@ public class ComentarioController {
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
                                     "Felicidades, se agregó correctamente el comentario", ""));
              u.guardarComentario(comentario);
+             System.out.println("HIOW;F");
             comentario = null;
             return null;
     }
 
-    public String editarComentario(Comentarios comenta){
+    public String editarComentario(){
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-        comentario.setUsuario(user);
+        Usuario u2 = comentario.getUsuario();
         if(user == null){
             return "ingresar?faces-redirect=true";
         }
+        if(u2 == user){
         FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
                                     "Se editó correctamente el comentario", ""));
-             u.actualizarComentario(comenta);
-            comenta = null;
+             u.actualizarComentario(comentario);
+        }
+            comentario = null;
             return null;
     }
 
