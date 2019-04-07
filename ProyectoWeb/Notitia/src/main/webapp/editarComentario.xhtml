@@ -10,10 +10,10 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-  <title>Agregar Comentario</title>
+  <title>Editar Comentario</title>
 </h:head>
 <h:body>
-  <h1>Formulario agregar comentario</h1> <br/>
+  <h1>Edita tu comentario</h1> <br/>
   <h:form id="myForm">
     <table>
       <tr><td>
@@ -58,7 +58,7 @@ and open the template in the editor.
                          size="20"/></td>
 
       </tr>
-      <tr>
+<!--      <tr>
 
 
           <td>Me gusta</td>
@@ -77,10 +77,10 @@ and open the template in the editor.
                          id="calificacionNegativa"
                          size="20"/></td>
 
-      </tr>
+      </tr>-->
       <tr>
         <td colspan="3" align="center">
-            <p:commandButton action="#{comentarioController.agregarComentario}"
+            <p:commandButton action="#{comentarioController.editarComentario}"
                            value="aceptar"/>
         </td>
       </tr>
