@@ -54,15 +54,10 @@ CREATE TABLE notitia.Comentarios
   PRIMARY KEY (id_comentario, ubicacion),
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
-<<<<<<< HEAD
-); /*  INSERT INTO notitia.usuario (nombre_usuario, contraseña, correo, es_informador)
-		VALUES ('Yo','password','asdfasd@adds',false);	*/
-=======
     ON DELETE CASCADE
     
 ); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false)	*/
->>>>>>> diana2
 
 
 
@@ -96,6 +91,15 @@ create or replace function notitia.Usuario(usuari text, password text) returns b
                   from notitia.Usuario 
                  where nombre_usuario = usuari and
                        contraseña = crypt(password, contraseña));
+$$ language sql stable;
+
+                       
+
+create or replace function notitia.buscarTema(n_tema text) returns TABLE(nombre text, descripcion text) 
+as $$
+  select *
+	from notitia.temas 
+       where nombre ILIKE concat(concat('%',n_tema),'%');                       
 $$ language sql stable;
 
 

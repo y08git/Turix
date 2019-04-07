@@ -84,10 +84,11 @@ public class Utility {
         
     }
 
-    public void save(Usuario user) {
+    public boolean save(Usuario user) {
+        boolean success = false;
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
-            sessionObj.beginTransaction();
+            success = null != sessionObj.beginTransaction();
             sessionObj.save(user);
             sessionObj.getTransaction().commit();
         } catch (Exception sqlException) {
@@ -100,6 +101,7 @@ public class Utility {
             if (sessionObj != null) {
                 sessionObj.close();
             }
+            return success;
         }
     }
 

@@ -46,13 +46,16 @@ public class RegistroController {
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                     "Fallo de registro: Las contraseñas deben coincidir", ""));
         } else {
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Felicidades, el registro se ha realizado correctamente", ""));
-           
-            u.save(user);
+            if(!u.save(user)){
+                user = null;
+                FacesContext.getCurrentInstance()
+                        .addMessage(null,
+                                new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                        "Felicidades, el registro se ha realizado correctamente", ""));
+                return "inicio?faces-redirect=true";
+            }
             user = null;
+            
         }
         return null;
     }
