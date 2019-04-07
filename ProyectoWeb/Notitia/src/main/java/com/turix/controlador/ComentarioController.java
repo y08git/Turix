@@ -12,15 +12,19 @@ import java.util.List;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
 /**
  *
  * @author dmonroy
  */
+@ManagedBean
+@RequestScoped
 public class ComentarioController {
-    public Marcadores marcador;
-    public Comentarios comentario;
+    public Marcadores marcador = new Marcadores();
+    public Comentarios comentario = new Comentarios();
     private Utility u = new Utility();
 
     public ComentarioController() {
@@ -28,7 +32,7 @@ public class ComentarioController {
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
-    
+
     public Comentarios getComentario() {
         return comentario;
     }
@@ -36,7 +40,7 @@ public class ComentarioController {
     public void setComentario(Comentarios comentario) {
         this.comentario = comentario;
     }
-    
+
     public Marcadores getMarcador() {
         return marcador;
     }
@@ -44,15 +48,16 @@ public class ComentarioController {
     public void setMarcador(Marcadores marcador) {
         this.marcador = marcador;
     }
-    
+
     public List<Comentarios> listaComentarios(){
         if (marcador == null){
             return null;
         }
         return (List<Comentarios>)u.listaComentarios(marcador);
     }
-    
+
     public String agregarComentario(){
+        System.out.println("error");
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
         comentario.setUsuario(user);
@@ -74,7 +79,7 @@ public class ComentarioController {
             comentario = null;
             return null;
     }
-    
+
     public String editarComentario(Comentarios comenta){
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
@@ -90,7 +95,7 @@ public class ComentarioController {
             comenta = null;
             return null;
     }
-    
+
     public String eliminarComentario(Comentarios comenta){
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");

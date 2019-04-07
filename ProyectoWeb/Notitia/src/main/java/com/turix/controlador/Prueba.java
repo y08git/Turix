@@ -1,4 +1,5 @@
 package com.turix.controlador;
+import com.turix.modelo.Login;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

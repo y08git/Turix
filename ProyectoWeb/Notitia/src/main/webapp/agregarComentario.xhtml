@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
   <title>Agregar Comentario</title>
 </h:head>
@@ -24,7 +25,7 @@ and open the template in the editor.
 
 
           <td>Usuario</td>
-        <td><p:inputText value="#{comentarioController.comentario.usuario}"
+          <td><p:inputText value="#{comentarioController.comentario.usuario.nombre_usuario}"
                          required="true"
                          id="Usuario"
                          size="20"/></td>
@@ -34,7 +35,7 @@ and open the template in the editor.
 
 
           <td>Marcador</td>
-        <td><p:inputText value="#{comentarioController.comentario.ubicacion}"
+        <td><p:inputText value="#{comentarioController.comentario.marcadores}"
                          required="true"
                          id="Ubicacion"
                          size="20"/></td>
@@ -47,8 +48,9 @@ and open the template in the editor.
         <td><p:inputText value="#{comentarioController.comentario.fecha}"
                          required="true"
                          id="Fecha"
-                         size="20"/></td>
-
+                         size="20"/>
+        </td>
+          
       </tr>
       <tr>
 
@@ -88,6 +90,9 @@ and open the template in the editor.
       </tr>
     </table>
   </h:form>
+<!--  <h:outputText value = "12-01-2012" >
+         <f:convertDateTime pattern = "dd-mm-yyyy" />
+      </h:outputText>-->
   <h:form>
       <p:commandButton action="testView"
                            value="Cancel"/>

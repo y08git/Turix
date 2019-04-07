@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(catalog = "notitia", schema = "notitia", name = "usuario")
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @Column(name = "nombre_usuario")
     private String nombre_usuario;
@@ -22,6 +22,9 @@ public class Usuario implements Serializable {
 
     @Column(name = "es_informador")
     private boolean es_informador;
+    
+    @Transient
+    private String confirmaContrasena;
 
     public Usuario() {
         this.nombre_usuario = "";
@@ -29,8 +32,8 @@ public class Usuario implements Serializable {
         this.correo = "";
         this.es_informador = false;
     }
-
-
+    
+    
 
     public String getNombre_usuario() {
         return nombre_usuario;
@@ -64,5 +67,12 @@ public class Usuario implements Serializable {
         this.es_informador = es_informador;
     }
 
+    public String getConfirmaContrasena() {
+        return confirmaContrasena;
+    }
 
+    public void setConfirmaContrasena(String confirmaContrasena) {
+        this.confirmaContrasena = confirmaContrasena;
+    }
+        
 }
