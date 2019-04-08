@@ -473,19 +473,21 @@ public class Utility {
         boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Comentarios "
+                   + "WHERE notitia.Comentarios.ubicacion LIKE '"+ comentario.darUbicacion() +"';";
         String queryT = "SELECT * FROM notitia.Marcadores "
                    + "WHERE notitia.Marcadores.ubicacion LIKE '"+ comentario.darUbicacion() +"';";
 //        String queryT = "SELECT * FROM notitia.Temas "
 //                  + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getTemas().getNombre() +"';";
           //marcador.setNombreTema(marcador);
-         // existeTema(marcador.());
+         // existeTema(marcador.())
           try{
          sessionObj.beginTransaction();
-            //Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
-            Query qT = sessionObj.createSQLQuery(queryT).addEntity(Comentarios.class);
-            //l = q.list();
+            Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
+            Query qT = sessionObj.createSQLQuery(queryT).addEntity(Marcadores.class);
+            l = q.list();
               System.out.println(qT.list());
-            if(!qT.list().isEmpty()){
+            if(l.isEmpty()&&!qT.list().isEmpty()){
                 guardar = true;
                sessionObj.save(comentario); 
                 sessionObj.getTransaction().commit();
@@ -516,16 +518,14 @@ public class Utility {
         }
     }
 
-    public void borrarComentario(Comentarios c){
+    public void borrarComentario(int id_comentario){
         boolean guardar = false;
 //        List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-//        String query = "SELECT * FROM notitia.Comentarios "
-//                   + "WHERE id_comentario = "+ c.getId_comentario()+";";
           try{
          sessionObj.beginTransaction();
                 
-               Comentarios come = (Comentarios)sessionObj.get(Comentarios.class,c.getId_comentario()); 
+               Comentarios come = (Comentarios)sessionObj.get(Comentarios.class,id_comentario); 
                guardar = come!=null;
                 sessionObj.delete(come); 
                 if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
@@ -555,6 +555,37 @@ public class Utility {
           
         }
     }
+    
+     public Comentarios obtenerC (int id_comentario){
+        boolean guardar = false;
+//        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        String query = "SELECT * FROM notitia.Comentarios "
+//                   + "WHERE id_comentario = "+ c.getId_comentario()+";";
+        Comentarios come = null;
+          try{
+         sessionObj.beginTransaction();
+                
+               come = (Comentarios)sessionObj.get(Comentarios.class,id_comentario); 
+               guardar = come!=null;
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }
+              return come;
+              
+              
+    }
+     }
+    
+    
     public void actualizarComentario(Comentarios comentario){
         boolean guardar = false;
 //        List l = null;
@@ -564,9 +595,8 @@ public class Utility {
           try{
          sessionObj.beginTransaction();
                 
-               Comentarios come = (Comentarios)sessionObj.get(Comentarios.class,c.getId_comentario()); 
-               guardar = come!=null;
-                sessionObj.update(come); 
+               guardar = comentario!=null;
+                sessionObj.update(comentario); 
                 if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
                 sessionObj.getTransaction().commit();
           }catch (HibernateException e) {

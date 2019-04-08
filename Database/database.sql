@@ -123,16 +123,5 @@ $$ language plpgsql;
 comment on function notitia.hash()
 is
 'Cifra la contraseña del usuario al guardarla en la base de datos.';
-/*
-create trigger cifra
-before insert on notitia.Usuario
-for each row execute procedure notitia.hash();
 
-create or replace function notitia.Usuario(usuari text, password text) returns boolean as $$
-  select exists(select 1
-                  from notitia.Usuario 
-                 where nombre_usuario = usuari and
-                       contraseña = crypt(password, contraseña));
-$$ language sql stable;
-*/
 commit;

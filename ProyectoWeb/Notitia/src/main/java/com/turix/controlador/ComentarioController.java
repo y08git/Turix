@@ -34,6 +34,15 @@ public class ComentarioController {
     public String t ;
     public String usuario;
     public String ubicacion;
+    public int id_comentario;
+
+    public int getId_comentario() {
+        return id_comentario;
+    }
+
+    public void setId_comentario(int id_comentario) {
+        this.id_comentario = id_comentario;
+    }
 
     public String getT() {
         return t;
@@ -104,6 +113,7 @@ public class ComentarioController {
 //        long number = (long)(r.nextDouble()*range);
 //       // (Usuario)context.getExternalContext().getSessionMap().get("usuario");
 //       comentario.setId_comentario(number);
+        comentario.setFecha(new Date());
        comentario.setMarcadores(existeMarcador(t));
         //marcador.setTemas(existeTema(t));
         comentario.setUsuario(existeUsuario(usuario));
@@ -134,10 +144,13 @@ public class ComentarioController {
    
 
     public void editarComentario(){
+        String coment = comentario.getComentario();
+        comentario = u.obtenerC(id_comentario);
+        comentario.setComentario(coment);
         u.actualizarComentario(comentario);
     }
 
     public void eliminarComentario(){
-        u.borrarComentario(comentario);
+        u.borrarComentario(id_comentario);
     }
 }
