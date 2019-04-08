@@ -12,6 +12,8 @@
         <p>
           ​​<h:form>
               <h:outputText id="output" escape="false" value="#{loginController.nombre}" />
+              <h:commandButton action="welcome?faces-redirect=true"
+                           value="Redirect"/>
           </h:form>
         </p>
 <!--        <p>

@@ -27,7 +27,7 @@
               <td>
                   <p:inputText value="#{registroController.user.correo}" required="true" id="email" size="20"
                              validatorMessage="El correo no es valido">
-                  <f:validateRegex pattern="[\w\.-_]*[a-zA-Z0-9_]@ciencias\.unam\.mx" />
+                  <f:validateRegex pattern="[\w\.-_]*[a-zA-Z0-9_]@[a-zA-Z\.]" />
                 </p:inputText>
                 <p:message for="email" id="emailMsg"/>
               </td>
