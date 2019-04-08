@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-  <title>Agregar Comentario</title>
+  <title>Editar Comentario</title>
 </h:head>
 <h:body>
   <h1>Formulario agregar comentario</h1> <br/>
@@ -29,14 +29,15 @@ and open the template in the editor.
                          size="20"/></td>
 
       </tr>-->
-<!--      <tr>
-          <td>Marcador</td>
-          <td><p:inputText value="#{comentarioController.comentario.marcadores.descripcion}"
-                         required="true"
-                         id="Ubicacion"
-                         size="20"/></td>
+      <tr>
+          <h1>Choose a country</h1>
+        <h:form>
+            <h:selectOneMenu value="#{comentarioController.marcador}" >
+                <f:selectItems value="#{comentarioController.listaComentarios()}"/>
+            </h:selectOneMenu>
+        </h:form>
 
-      </tr>-->
+      </tr>
 <!--      <tr>
 
 

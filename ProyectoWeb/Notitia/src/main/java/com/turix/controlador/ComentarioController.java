@@ -8,6 +8,7 @@ package com.turix.controlador;
 import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Usuario;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +29,7 @@ public class ComentarioController {
     public Comentarios comentario = new Comentarios();
     private Utility u = new Utility();
 
+
     public ComentarioController() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
@@ -45,41 +47,47 @@ public class ComentarioController {
     public Marcadores getMarcador() {
         return marcador;
     }
-
+    public String ubicacion;
     public void setMarcador(Marcadores marcador) {
         this.marcador = marcador;
     }
 
-    public List<Comentarios> listaComentarios(){
-        if (marcador == null){
-            return null;
-        }
-        return (List<Comentarios>)u.listaComentarios(marcador);
+    public void listaComentarios() throws SQLException{
+        u.getMarca();
     }
 
     public String agregarComentario(){
-        FacesContext context = getCurrentInstance();
-        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-        comentario.setUsuario(user);
-        comentario.setFecha(new Date());
-        if(user == null){
-            return "ingresar?faces-redirect=true";
-        }
-        if(comentario.getComentario().trim() == ""){
+//        FacesContext context = getCurrentInstance();
+//        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+//        comentario.setUsuario(user);
+//        comentario.setFecha(new Date());
+//        if(user == null){
+//            return "ingresar?faces-redirect=true";
+//        }
+//        if(comentario.getComentario().trim() == ""){
+//        FacesContext.getCurrentInstance()
+//                    .addMessage(null,
+//                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+//                                    "No se pueden agregar comentarios vacíos", ""));
+//        return null;
+//    }
+//        FacesContext.getCurrentInstance()
+//                    .addMessage(null,
+//                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+//                                    "Felicidades, se agregó correctamente el comentario", ""));
+//             u.guardarComentario(comentario,marcador);
+//             System.out.println("HIOW;F");
+//            comentario = null;
+//            return null;
+    if(!u.guardarComentario(comentario,marcador.getUbicacion())){
         FacesContext.getCurrentInstance()
                     .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "No se pueden agregar comentarios vacíos", ""));
-        return null;
-    }
-        FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Felicidades, se agregó correctamente el comentario", ""));
-             u.guardarComentario(comentario);
-             System.out.println("HIOW;F");
-            comentario = null;
+                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     "El marcador no existe", ""));
             return null;
+    }
+    System.out.println(marcador);
+    return "marcador.getUbicacion()";
     }
 
     public String editarComentario(){

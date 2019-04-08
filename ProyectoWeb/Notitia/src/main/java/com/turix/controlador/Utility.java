@@ -10,6 +10,10 @@ import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.faces.application.FacesMessage;
@@ -20,6 +24,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+import static sun.security.jgss.GSSUtil.login;
 
 
 
@@ -33,6 +38,7 @@ public class Utility {
     static Session sessionObj;
     static Comentarios comObj;
     static Temas temaObj;
+    static Marcadores marcaObj;
 
 
     public List getUsuario(){
@@ -250,11 +256,11 @@ public class Utility {
     
     
      public void eliminarMarcador(Marcadores m){
-          boolean guardar = false;
+        boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT * FROM notitia.Temas "
-                   + "WHERE notitia.Temas.nombre LIKE '"+ m.getUbicacion() +"';";
+        String query = "SELECT * FROM notitia.Marcadores "
+                   + "WHERE notitia.Marcadores.ubicacion LIKE '"+ m.getUbicacion() +"';";
           try{
          sessionObj.beginTransaction();
             Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
@@ -319,32 +325,50 @@ public class Utility {
         }
          return l;
     }
-
-    public void guardarComentario(Comentarios c) {
-        Random r = new Random();
-        System.out.println(".......Hibernate Maven Example.......\n");
+    public void getMarca() throws SQLException{
+        ArrayList <String[]> result = new ArrayList<String[]>();
+        String query = "SELECT ubicacion FROM notitia.Marcadores";
+        Statement st = null;
+        ResultSet rs = null;
+        rs = st.executeQuery(query);
+        int columnCount = rs.getMetaData().getColumnCount();
+        while(rs.next()){
+        String[] row = new String[columnCount];
+        for (int i=0; i <columnCount ; i++){
+        row[i] = rs.getString(i + 1);
+        }
+        result.add(row);
+        }
+    }
+    public boolean guardarComentario(Comentarios c,String ubicacion) {
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT *  FROM notitia.buscarMarcador("+ubicacion+")";
+        boolean success = false; 
+        List l;
         try {
-            sessionObj = HibernateUtil.getSessionFactory().openSession();
-            System.out.println("Session " + sessionObj);
-            sessionObj.beginTransaction();
-
-            sessionObj.save(c);
-
-            System.out.println("\n.......Records Saved Successfully To The Database.......\n");
-
-            // Committing The Transactions To The Database
-            sessionObj.getTransaction().commit();
-        } catch (HibernateException sqlException) {
+            Transaction tx = sessionObj.beginTransaction();
+            Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+            marcaObj = (q.list().isEmpty())? null:(Marcadores) q.list().get(0);
+          
+            success = marcaObj != null;
+            if(success){
+                c.setMarcadores(marcaObj);
+                sessionObj.save(c);
+            }
+            tx.commit();
+        } catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
-            sqlException.printStackTrace();
         } finally {
-            if (sessionObj != null) {
+            
+            
+            if (sessionObj != null && sessionObj.isOpen()) {
                 sessionObj.close();
             }
         }
+        return success;
     }
 
     public void borrarComentario(Comentarios c){
@@ -369,6 +393,10 @@ public class Utility {
       }
     }
     public void actualizarComentario(Comentarios comentario){
+        String query = "SELECT ubicacion FROM notitia.Comentarios "
+        + "WHERE notitia.Comentarios.ubicacion LIKE '"+ comentario.getMarcadores()+"';";
+        Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
+        
        try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
 

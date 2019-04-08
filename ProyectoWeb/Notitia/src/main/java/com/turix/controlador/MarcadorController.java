@@ -15,13 +15,21 @@ import javax.faces.context.FacesContext;
  *
  * @author dianis
  */
-//@ManagedBean
-//@RequestScoped
+@ManagedBean
+@RequestScoped
 public class MarcadorController {
      
    
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
+
+    public Marcadores getMarcador() {
+        return marcador;
+    }
+
+    public void setMarcador(Marcadores marcador) {
+        this.marcador = marcador;
+    }
     
     public MarcadorController() {
         FacesContext.getCurrentInstance()

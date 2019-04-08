@@ -59,6 +59,7 @@ public class LoginController {
         }
         FacesContext context = getCurrentInstance();
         context.getExternalContext().getSessionMap().put("usuario", usuario);
+        System.out.println(usuario);
         return "inicio?faces-redirect=true";
         
     }
