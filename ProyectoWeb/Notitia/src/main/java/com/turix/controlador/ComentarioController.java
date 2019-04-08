@@ -52,8 +52,12 @@ public class ComentarioController {
         this.marcador = marcador;
     }
 
-    public void listaComentarios() throws SQLException{
-        u.getMarca();
+    public List listaComentarios() throws SQLException{
+        return u.getMarca();
+    }
+    
+    public List listaUsuarios() throws SQLException{
+        return u.getMiUsuario();
     }
 
     public String agregarComentario(){

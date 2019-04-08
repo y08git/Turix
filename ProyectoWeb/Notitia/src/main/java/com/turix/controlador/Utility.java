@@ -325,21 +325,68 @@ public class Utility {
         }
          return l;
     }
-    public void getMarca() throws SQLException{
-        ArrayList <String[]> result = new ArrayList<String[]>();
+    public List getMarca() throws SQLException{
+        boolean guardar = false;
+        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT ubicacion FROM notitia.Marcadores";
-        Statement st = null;
-        ResultSet rs = null;
-        rs = st.executeQuery(query);
-        int columnCount = rs.getMetaData().getColumnCount();
-        while(rs.next()){
-        String[] row = new String[columnCount];
-        for (int i=0; i <columnCount ; i++){
-        row[i] = rs.getString(i + 1);
+        System.out.println(query);
+        try{
+         sessionObj.beginTransaction();
+            Query q = sessionObj.createSQLQuery(query);
+            l = q.list();
+            System.out.println(l);
+            if(!l.isEmpty()){
+                guardar = true;
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+                return l;
+            }
         }
-        result.add(row);
-        }
+            catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }    
+          }
+        return l;
     }
+    
+    public List getMiUsuario() throws SQLException{
+        boolean guardar = false;
+        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT nombre_usuario FROM notitia.Usuario";
+        System.out.println(query);
+        try{
+         sessionObj.beginTransaction();
+            Query q = sessionObj.createSQLQuery(query);
+            l = q.list();
+            System.out.println(l);
+            if(!l.isEmpty()){
+                guardar = true;
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+                return l;
+            }
+        }
+            catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }    
+          }
+        return l;
+    }
+    
     public boolean guardarComentario(Comentarios c,String ubicacion) {
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT *  FROM notitia.buscarMarcador("+ubicacion+")";
