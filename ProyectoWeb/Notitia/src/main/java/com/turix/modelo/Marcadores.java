@@ -39,18 +39,6 @@ public class Marcadores implements Serializable{
     @JoinColumn(name = "nombre")
     private Temas temas;
     
-    @Transient
-    private String nombreTema;
-   
-    public String getNombreTema() {
-        return nombreTema;
-    }
-    
-
-    public void setNombreTema(String nombreTema) {
-        this.nombreTema = nombreTema;
-    }
-
     public String getUbicacion() {
         return ubicacion;
     }
