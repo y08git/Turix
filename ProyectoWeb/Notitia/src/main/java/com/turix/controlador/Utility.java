@@ -243,18 +243,17 @@ public class Utility {
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Marcadores "
-                   + "WHERE notitia.Marcadores.nombre LIKE '"+ marcador.getUbicacion() +"';";
+                   + "WHERE notitia.Marcadores.ubicacion LIKE '"+ marcador.getUbicacion() +"';";
         String queryT = "SELECT * FROM notitia.Temas "
                   + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getTemas().getNombre() +"';";
-          //marcador.setNombreTema(marcador);
-         // existeTema(marcador.());
+       
           try{
          sessionObj.beginTransaction();
             Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
             Query qT = sessionObj.createSQLQuery(queryT).addEntity(Temas.class);
             l = q.list();
             
-            if(l.isEmpty()&& !qT.list().isEmpty()){
+            if(l.isEmpty()&& !qT.list().isEmpty()&& !marcador.getInformador().equals(null)){
                 guardar = true;
                sessionObj.save(marcador); 
                 sessionObj.getTransaction().commit();
@@ -274,7 +273,7 @@ public class Utility {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo: Ya existe el marcador o el Tema asociado no existe", ""));
+                                    "Fallo: Ya existe el marcador o el Tema asociado no existe o el usuario no existe", ""));
         } else {
 
             FacesContext.getCurrentInstance()
