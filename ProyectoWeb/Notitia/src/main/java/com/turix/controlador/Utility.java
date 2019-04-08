@@ -387,35 +387,50 @@ public class Utility {
         return l;
     }
     
-    public boolean guardarComentario(Comentarios c,String ubicacion) {
+    public void guardarComentario(Comentarios c) {
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT *  FROM notitia.buscarMarcador("+ubicacion+")";
-        boolean success = false; 
-        List l;
-        try {
-            Transaction tx = sessionObj.beginTransaction();
-            Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
-            marcaObj = (q.list().isEmpty())? null:(Marcadores) q.list().get(0);
-          
-            success = marcaObj != null;
-            if(success){
-                c.setMarcadores(marcaObj);
-                sessionObj.save(c);
-            }
-            tx.commit();
-        } catch (HibernateException e) {
-            if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
-                sessionObj.getTransaction().rollback();
-            }
-        } finally {
-            
-            
-            if (sessionObj != null && sessionObj.isOpen()) {
-                sessionObj.close();
-            }
+      try{
+        sessionObj.beginTransaction();
+        sessionObj.save(c);
+        sessionObj.getTransaction().commit();
+      }catch (HibernateException e) {
+        if (null != sessionObj.getTransaction()) {
+          System.out.println("\n.......Transaction Is Being Rolled Back.......");
+          sessionObj.getTransaction().rollback();
         }
-        return success;
+      } finally {
+        if (sessionObj != null) {
+          sessionObj.close();
+        }
+      }
+//        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        String query = "SELECT *  FROM notitia.buscarMarcador("+ubicacion+")";
+//        boolean success = false; 
+//        List l;
+//        try {
+//            Transaction tx = sessionObj.beginTransaction();
+//            Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+//            marcaObj = (q.list().isEmpty())? null:(Marcadores) q.list().get(0);
+//          
+//            success = marcaObj != null;
+//            if(success){
+//                c.setMarcadores(marcaObj);
+//                sessionObj.save(c);
+//            }
+//            tx.commit();
+//        } catch (HibernateException e) {
+//            if (null != sessionObj.getTransaction()) {
+//                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+//                sessionObj.getTransaction().rollback();
+//            }
+//        } finally {
+//            
+//            
+//            if (sessionObj != null && sessionObj.isOpen()) {
+//                sessionObj.close();
+//            }
+//        }
+//        return success;
     }
 
     public void borrarComentario(Comentarios c){

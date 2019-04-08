@@ -32,7 +32,7 @@ and open the template in the editor.
       <tr>
           <h1>Elige tu usuario</h1>
         <h:form>
-            <h:selectOneMenu value="#{comentarioController.comentario.usuario}" >
+            <h:selectOneMenu value="#{comentarioController.comentario.usuario}" converter="SelectItemToEntityConverter" >
                 <f:selectItems value="#{comentarioController.listaUsuarios()}"/>
             </h:selectOneMenu>
         </h:form>
@@ -41,7 +41,7 @@ and open the template in the editor.
       <tr>
           <h1>Elige un marcador para agregar tu comentario</h1>
         <h:form>
-            <h:selectOneMenu value="#{comentarioController.marcador}" >
+            <h:selectOneMenu value="#{comentarioController.marcador}" converter="SelectItemToEntityConverter" >
                 <f:selectItems value="#{comentarioController.listaComentarios()}"/>
             </h:selectOneMenu>
         </h:form>
