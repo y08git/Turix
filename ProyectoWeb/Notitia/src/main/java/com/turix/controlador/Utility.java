@@ -28,6 +28,7 @@ public class Utility {
     static Usuario userObj;
     static Temas temaObj;
     static Session sessionObj;
+    String nombreTema=null;
     
     public List getUsuario(){
         List l = null;
@@ -242,9 +243,11 @@ public class Utility {
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Marcadores "
-                   + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getUbicacion() +"';";
+                   + "WHERE notitia.Marcadores.nombre LIKE '"+ marcador.getUbicacion() +"';";
         String queryT = "SELECT * FROM notitia.Temas "
-                   + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getTemas().getNombre() +"';";
+                  + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getTemas().getNombre() +"';";
+          //marcador.setNombreTema(marcador);
+         // existeTema(marcador.());
           try{
          sessionObj.beginTransaction();
             Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
@@ -283,14 +286,52 @@ public class Utility {
           
           
          }
+     
+     public Temas existeTema(String t){
+        List l = null;
+        Temas tema = new Temas();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temas "
+                   + "WHERE notitia.Temas.nombre LIKE '"+t+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+        l = q.list();
+        if(!l.isEmpty()){
+            tema =(Temas)l.get(0);
+           
+        }
+        return tema;
+         
+     }
+     
+     
+     
+     public Usuario existeUsuario(String u){
+        List l = null;
+        Usuario usuario = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario "
+                   + "WHERE notitia.Usuario.nombre_usuario LIKE '"+u+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        if(!l.isEmpty()){
+            usuario =(Usuario)l.get(0);
+        } 
+        return usuario;
+         
+     }
+     
     
     
      public void eliminarMarcador(Marcadores m){
-          boolean guardar = false;
+        boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT * FROM notitia.Temas "
-                   + "WHERE notitia.Temas.nombre LIKE '"+ m.getUbicacion() +"';";
+        String query = "SELECT * FROM notitia.Marcadores "
+                   + "WHERE notitia.Marcadores.ubicacion LIKE '"+ m.getUbicacion() +"';";
           try{
          sessionObj.beginTransaction();
             Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);

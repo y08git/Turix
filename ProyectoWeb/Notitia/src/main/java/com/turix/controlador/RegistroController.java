@@ -45,7 +45,7 @@ public class RegistroController {
            
             u.save(user);
             user = null;
-            mail.enviar("dianis0297@gmail.com","Test email","<h2>Java Mail Example</h2><p>hi there!</p>");
+            //mail.enviar("dianis0297@gmail.com","Test email","<h2>Java Mail Example</h2><p>hi there!</p>");
             
         }
         
