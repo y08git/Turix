@@ -39,6 +39,7 @@ public class Utility {
     static Comentarios comObj;
     static Temas temaObj;
     static Marcadores marcaObj;
+    static Comentarios c = new Comentarios();
 
 
     public List getUsuario(){
@@ -213,17 +214,75 @@ public class Utility {
         }
       }
     //Métodos para marcadorController
+    public Temas existeTema(String t){
+        List l = null;
+        Temas tema = new Temas();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temas "
+                   + "WHERE notitia.Temas.nombre LIKE '"+t+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+        l = q.list();
+        if(!l.isEmpty()){
+            tema =(Temas)l.get(0);
+           
+        }
+        return tema;
+         
+     }
+     
+    public Marcadores existeMarcador(String m){
+         List l = null;
+        Marcadores mar = new Marcadores();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.marcadores "
+                   + "WHERE notitia.marcadores.ubicacion LIKE '"+m+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+        l = q.list();
+        if(!l.isEmpty()){
+            mar =(Marcadores)l.get(0);
+        } 
+        return mar;
+         
+     }
+     
+     
+     public Usuario existeUsuario(String u){
+        List l = null;
+        Usuario usuario = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario "
+                   + "WHERE notitia.Usuario.nombre_usuario LIKE '"+u+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        if(!l.isEmpty()){
+            usuario =(Usuario)l.get(0);
+        } 
+        return usuario;
+         
+     }
     public void guardarMarcador(Marcadores marcador){
         boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT * FROM notitia.Temas "
-                   + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getUbicacion() +"';";
+        String query = "SELECT * FROM notitia.Marcadores "
+                   + "WHERE notitia.Marcadores.nombre LIKE '"+ marcador.getUbicacion() +"';";
+        String queryT = "SELECT * FROM notitia.Temas "
+                  + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getTemas().getNombre() +"';";
+          //marcador.setNombreTema(marcador);
+         // existeTema(marcador.());
           try{
          sessionObj.beginTransaction();
-            Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+            Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+            Query qT = sessionObj.createSQLQuery(queryT).addEntity(Temas.class);
             l = q.list();
-            if(l.isEmpty()){
+            
+            if(l.isEmpty()&& !qT.list().isEmpty()){
                 guardar = true;
                sessionObj.save(marcador); 
                 sessionObj.getTransaction().commit();
@@ -243,7 +302,7 @@ public class Utility {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo: Ya existe el marcador", ""));
+                                    "Fallo: Ya existe el marcador o el Tema asociado no existe", ""));
         } else {
 
             FacesContext.getCurrentInstance()
@@ -252,7 +311,9 @@ public class Utility {
                                     "Felicidades, se agrego correctamente el marcador", ""));
           
         }
-    }
+          
+          
+         }
     
     
      public void eliminarMarcador(Marcadores m){
@@ -298,7 +359,28 @@ public class Utility {
         }
      }
     //Métodos para comentariosCOntroller
+     
+     public boolean verificaUsuario(String usuario){
+         boolean es = false;
+         Usuario a = null;
+         sessionObj = HibernateUtil.getSessionFactory().openSession();
+        try{
+            String hq1 = "FROM notitia.usuario WHERE NOMBRE = '" + usuario ;
+            Query query = sessionObj.createQuery(hq1);
 
+            if (!query.list().isEmpty()){
+                a = (Usuario) query.list().get(0);
+                return es =true;
+            }
+        }catch (Exception e){
+            throw e;
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }  
+         return es;
+     }
     public List<Comentarios> listaComentarios (Marcadores m){
 
         String s = "SELECT * FROM notitia.Marcadores INNER JOIN "
@@ -387,99 +469,129 @@ public class Utility {
         return l;
     }
     
-    public void guardarComentario(Comentarios c) {
+    public void guardarComentario(Comentarios comentario) {
+        boolean guardar = false;
+        List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-      try{
-        sessionObj.beginTransaction();
-        sessionObj.save(c);
-        sessionObj.getTransaction().commit();
-      }catch (HibernateException e) {
-        if (null != sessionObj.getTransaction()) {
-          System.out.println("\n.......Transaction Is Being Rolled Back.......");
-          sessionObj.getTransaction().rollback();
-        }
-      } finally {
-        if (sessionObj != null) {
-          sessionObj.close();
-        }
-      }
-//        sessionObj = HibernateUtil.getSessionFactory().openSession();
-//        String query = "SELECT *  FROM notitia.buscarMarcador("+ubicacion+")";
-//        boolean success = false; 
-//        List l;
-//        try {
-//            Transaction tx = sessionObj.beginTransaction();
-//            Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
-//            marcaObj = (q.list().isEmpty())? null:(Marcadores) q.list().get(0);
-//          
-//            success = marcaObj != null;
-//            if(success){
-//                c.setMarcadores(marcaObj);
-//                sessionObj.save(c);
-//            }
-//            tx.commit();
-//        } catch (HibernateException e) {
-//            if (null != sessionObj.getTransaction()) {
-//                System.out.println("\n.......Transaction Is Being Rolled Back.......");
-//                sessionObj.getTransaction().rollback();
-//            }
-//        } finally {
-//            
-//            
-//            if (sessionObj != null && sessionObj.isOpen()) {
-//                sessionObj.close();
-//            }
-//        }
-//        return success;
-    }
-
-    public void borrarComentario(Comentarios c){
-        sessionObj = HibernateUtil.getSessionFactory().openSession();
-
-      try {
+        String queryT = "SELECT * FROM notitia.Marcadores "
+                   + "WHERE notitia.Marcadores.ubicacion LIKE '"+ comentario.darUbicacion() +"';";
+//        String queryT = "SELECT * FROM notitia.Temas "
+//                  + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getTemas().getNombre() +"';";
+          //marcador.setNombreTema(marcador);
+         // existeTema(marcador.());
+          try{
          sessionObj.beginTransaction();
-
-         Comentarios comentario = (Comentarios)sessionObj.get(Comentarios.class,c.getId_comentario());
-         sessionObj.delete(comentario);
-         if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
-         sessionObj.getTransaction().commit();
-      } catch (HibernateException e) {
-         if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
-                sessionObj.getTransaction().rollback();
-         e.printStackTrace(); }
-      } finally {
-       if (sessionObj != null) {
-                sessionObj.close();
+            //Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+            Query qT = sessionObj.createSQLQuery(queryT).addEntity(Comentarios.class);
+            //l = q.list();
+              System.out.println(qT.list());
+            if(!qT.list().isEmpty()){
+                guardar = true;
+               sessionObj.save(comentario); 
+                sessionObj.getTransaction().commit();
             }
-      }
-    }
-    public void actualizarComentario(Comentarios comentario){
-        String query = "SELECT ubicacion FROM notitia.Comentarios "
-        + "WHERE notitia.Comentarios.ubicacion LIKE '"+ comentario.getMarcadores()+"';";
-        Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
-        
-       try {
-            sessionObj = HibernateUtil.getSessionFactory().openSession();
-
-            System.out.println("Session " + sessionObj);
-            sessionObj.beginTransaction();
-            if (comentario != null){
-                 sessionObj.update(comentario);
-                 System.out.println("\n.......Records Saved Successfully To The Database.......\n");
-            }
-            // Committing The Transactions To The Database
-            sessionObj.getTransaction().commit();
-        } catch (HibernateException sqlException) {
+          }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
-            sqlException.printStackTrace();
         } finally {
-            if (sessionObj != null) {
-                sessionObj.close();
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }    
+          }
+          
+        if (!guardar) {
+           FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: No existe el marcador", ""));
+        } else {
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Felicidades, se agrego correctamente el comentario", ""));
+          
+        }
+    }
+
+    public void borrarComentario(Comentarios c){
+        boolean guardar = false;
+//        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        String query = "SELECT * FROM notitia.Comentarios "
+//                   + "WHERE id_comentario = "+ c.getId_comentario()+";";
+          try{
+         sessionObj.beginTransaction();
+                
+               Comentarios come = (Comentarios)sessionObj.get(Comentarios.class,c.getId_comentario()); 
+               guardar = come!=null;
+                sessionObj.delete(come); 
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
             }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }    
+          }
+          
+        if (!guardar) {
+           FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: No existe el marcador a eliminar", ""));
+        } else {
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se eliminó correctamente el comentario", ""));
+          
+        }
+    }
+    public void actualizarComentario(Comentarios comentario){
+        boolean guardar = false;
+//        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        String query = "SELECT * FROM notitia.Comentarios "
+//                   + "WHERE id_comentario = "+ c.getId_comentario()+";";
+          try{
+         sessionObj.beginTransaction();
+                
+               Comentarios come = (Comentarios)sessionObj.get(Comentarios.class,c.getId_comentario()); 
+               guardar = come!=null;
+                sessionObj.update(come); 
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }    
+          }
+          
+        if (!guardar) {
+           FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: No existe el marcador a eliminar", ""));
+        } else {
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se eliminó correctamente el comentario", ""));
+          
         }
     }
 

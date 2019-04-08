@@ -21,15 +21,15 @@ and open the template in the editor.
       </td></tr>
     </table>
     <table>
-<!--      <tr>
+      <tr>
           <td>Usuario</td>
-          <td><p:inputText value="#{comentarioController.comentario.usuario.nombre_usuario}"
+          <td><p:inputText value="#{comentarioController.usuario}"
                          required="true"
-                         id="Usuario"
+                         id="usuario"
                          size="20"/></td>
 
-      </tr>-->
-      <tr>
+      </tr>
+<!--      <tr>
           <h1>Elige tu usuario</h1>
         <h:form>
             <h:selectOneMenu value="#{comentarioController.comentario.usuario}" converter="SelectItemToEntityConverter" >
@@ -37,8 +37,8 @@ and open the template in the editor.
             </h:selectOneMenu>
         </h:form>
 
-      </tr>
-      <tr>
+      </tr>-->
+<!--      <tr>
           <h1>Elige un marcador para agregar tu comentario</h1>
         <h:form>
             <h:selectOneMenu value="#{comentarioController.marcador}" converter="SelectItemToEntityConverter" >
@@ -46,7 +46,7 @@ and open the template in the editor.
             </h:selectOneMenu>
         </h:form>
 
-      </tr>
+      </tr>-->
 <!--      <tr>
 
 
@@ -59,6 +59,15 @@ and open the template in the editor.
           
       </tr>-->
       <tr>
+          <td>Marcador</td>
+          <td><p:inputText value="#{comentarioController.t}"
+                         required="true"
+                         id="marcador"
+                         size="20"/></td>
+
+      </tr>
+
+<tr>
 
 
           <td>Comentario</td>

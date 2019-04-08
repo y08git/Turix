@@ -5,13 +5,16 @@
  */
 package com.turix.controlador;
 
+import static com.sun.faces.facelets.util.Path.context;
 import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
+import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.bean.ManagedBean;
@@ -28,14 +31,34 @@ public class ComentarioController {
     public Marcadores marcador = new Marcadores();
     public Comentarios comentario = new Comentarios();
     private Utility u = new Utility();
+    public String t ;
+    public String usuario;
+    public String ubicacion;
 
-
-    public ComentarioController() {
-        FacesContext.getCurrentInstance()
-                .getViewRoot()
-                .setLocale(new Locale("es-Mx"));
+    public String getT() {
+        return t;
     }
 
+    public void setT(String t) {
+        this.t = t;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+    
     public Comentarios getComentario() {
         return comentario;
     }
@@ -47,10 +70,18 @@ public class ComentarioController {
     public Marcadores getMarcador() {
         return marcador;
     }
-    public String ubicacion;
+
     public void setMarcador(Marcadores marcador) {
         this.marcador = marcador;
     }
+
+    public ComentarioController() {
+        FacesContext.getCurrentInstance()
+                .getViewRoot()
+                .setLocale(new Locale("es-Mx"));
+    }
+
+   
 
     public List listaComentarios() throws SQLException{
         return u.getMarca();
@@ -59,49 +90,54 @@ public class ComentarioController {
     public List listaUsuarios() throws SQLException{
         return u.getMiUsuario();
     }
-
-    public void agregarComentario(Comentarios comentario){
-        FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Felicidades, se agrego correctamente el tema", ""));
-             u.guardarComentario(comentario);
+    
+    public Marcadores existeMarcador(String t){
+       return u.existeMarcador(t);
+    }
+    
+    public Usuario existeUsuario(String t){
+        return u.existeUsuario(t);
+    }
+    public void agregarComentario(){
+//        long range = 1234567L;
+//        Random r = new Random();
+//        long number = (long)(r.nextDouble()*range);
+//       // (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+//       comentario.setId_comentario(number);
+       comentario.setMarcadores(existeMarcador(t));
+        //marcador.setTemas(existeTema(t));
+        comentario.setUsuario(existeUsuario(usuario));
+        //marcador.setInformador(existeUsuario(usuario));
+        //solucion temporal de lo de login analogo a existeTema
+            u.guardarComentario(comentario);
             comentario = null;
+         }
+    
+    public Temas existeTema(String t){
+       return u.existeTema(t);
     }
 
-    public String editarComentario(){
-        FacesContext context = getCurrentInstance();
-        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-        Usuario u2 = comentario.getUsuario();
-        if(user == null){
-            return "ingresar?faces-redirect=true";
-        }
-        else if(u2 == user){
-        FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Se editó correctamente el comentario", ""));
-             u.actualizarComentario(comentario);
-        }
-            comentario = null;
-            return null;
+//        String x = comentario.getUsuario().getNombre_usuario();
+//        if(true==u.verificaUsuario(x)){
+//            FacesContext.getCurrentInstance()
+//                    .addMessage(null,
+//                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+//                                    "Felicidades, se agrego correctamente el tema", ""));
+//             u.guardarComentario();
+//        } else {
+//            FacesContext.getCurrentInstance()
+//                    .addMessage(null,
+//                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//                                    "Fallo de registro: Las contraseñas deben coincidir", ""));
+//        }
+//            comentario = null;
+   
+
+    public void editarComentario(){
+        u.actualizarComentario(comentario);
     }
 
-    public String eliminarComentario(){
-        FacesContext context = getCurrentInstance();
-        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-        Usuario u2 = comentario.getUsuario();
-        if(user == null){
-            return "ingresar?faces-redirect=true";
-        }
-        else if(u2 == user){
-        FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Se eliminó el comentario exitosamentes", ""));
-             u.borrarComentario(comentario);
-        }
-        comentario = null;
-            return null;
+    public void eliminarComentario(){
+        u.borrarComentario(comentario);
     }
 }
