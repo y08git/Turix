@@ -19,7 +19,7 @@ mvn tomcat7:run
 Ingresamos a nuestro navegador web con la siguiente direccion
 
 #+begin_src sh
-http://localhost:8080/mi-primer-aplicacion-web/
+http://localhost:8080/Notitia/
 #+end_src
 
 Recordemos que hay que hacer
