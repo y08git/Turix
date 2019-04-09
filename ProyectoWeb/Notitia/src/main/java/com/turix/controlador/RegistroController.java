@@ -24,7 +24,17 @@ public class RegistroController {
 
     private Usuario user = new Usuario();
     private Utility u = new Utility();
+    private String confirmarContraseña;
 
+    public String getConfirmarContraseña() {
+        return confirmarContraseña;
+    }
+
+    public void setConfirmarContraseña(String confirmarContraseña) {
+        this.confirmarContraseña = confirmarContraseña;
+    }
+
+    
     public Usuario getUser() {
         return user;
     }
@@ -40,7 +50,7 @@ public class RegistroController {
     }
 
     public String agregarUsuario() {
-        if (!user.getContraseña().equals(user.getConfirmaContrasena())) {
+        if (!user.getContraseña().equals(confirmarContraseña)) {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,

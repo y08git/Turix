@@ -71,8 +71,8 @@ public class LoginController {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                              new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     "Fallo de inicio: La contraseña o el usuario no coinciden", ""));
-            return "registro?faces-redirect=true";
+                                     "Fallo de inicio: La contraseña o el usuario no coinciden",""));
+            return null;
         }
         FacesContext context = getCurrentInstance();
         context.getExternalContext().getSessionMap().put("usuario", usuario);

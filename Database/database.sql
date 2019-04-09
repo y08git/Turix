@@ -29,7 +29,7 @@ CREATE TABLE notitia.Temas
 drop table if exists notitia.Marcadores;
 CREATE TABLE notitia.Marcadores
 (
-  datos_utliles text NOT NULL,
+  datos_utiles text NOT NULL,
   descripcion text NOT NULL,
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
@@ -102,5 +102,12 @@ as $$
        where nombre ILIKE concat(concat('%',n_tema),'%');                       
 $$ language sql stable;
 
+
+create or replace function notitia.buscarMarcador(n_marcador text) returns notitia.marcadores 
+as $$
+  select *
+	from notitia.marcadores 
+       where ubicacion LIKE n_marcador;                       
+$$ language sql stable;
 
 commit;
