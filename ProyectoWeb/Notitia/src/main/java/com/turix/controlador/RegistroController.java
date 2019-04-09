@@ -34,7 +34,6 @@ public class RegistroController {
         this.confirmarContraseña = confirmarContraseña;
     }
 
-    
     public Usuario getUser() {
         return user;
     }
@@ -65,7 +64,6 @@ public class RegistroController {
                 return "inicio?faces-redirect=true";
             }
             user = null;
-            
         }
         return null;
     }

@@ -11,9 +11,14 @@
           
         <p>
           ​​<h:form>
-              <h:outputText id="output" escape="false" value="#{loginController.nombre}" />
-              <h:commandButton action="welcome?faces-redirect=true"
-                           value="Redirect"/>
+              <table>
+				<td colspan="3" align="center">
+					<p:commandButton action="ingresar?faces-redirect=true"
+                           value="Iniciar Sesión"/>
+					<p:commandButton action="registro"
+                           value="Registro"/>
+				</td>
+			</table>
           </h:form>
         </p>
 <!--        <p>

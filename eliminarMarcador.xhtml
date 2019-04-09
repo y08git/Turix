@@ -9,10 +9,10 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-  <title>Agregar Tema</title>
+  <title>Eliminar Tema</title>
 </h:head>
 <h:body>
-  <h1>Formulario agregar Tema</h1> <br/>
+  <h1>Formulario eliminar Tema</h1> <br/>
   <h:form id="myForm">
     <table>
       <tr><td>
@@ -21,30 +21,27 @@ and open the template in the editor.
     </table>
     <table>
       <tr>
-        <td>Nombre Tema</td>
-        <td><p:inputText value="#{temaController.tema.nombre}"
+        <td>Ubicacion marcador</td>
+        <td><p:inputText value="#{marcadorController.marcador.ubicacion}"
                          required="true"
                          id="Nombre"
                          size="20"/></td>
       </tr>
 
-      <tr>
-          <td>descripcion</td>
-        <td><p:inputText value="#{temaController.tema.descripcion}"
-                         required="true"
-                         id="Descripcion"
-                         size="20"/></td>
-      </tr>
+
+
+
+
       <tr>
         <td colspan="3" align="center">
-            <p:commandButton action="#{temaController.guardarTema}"
-                           value="aceptar"/>
+            <p:commandButton action="#{marcadorController.eliminarMarcador}"
+                           value="eliminar"/>
         </td>
       </tr>
     </table>
   </h:form>
   <h:form>
-      <p:commandButton action="temaInformador"
+      <p:commandButton action="marcador"
                            value="Cancel"/>
   </h:form>
 </h:body>

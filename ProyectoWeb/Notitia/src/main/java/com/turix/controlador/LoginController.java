@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.turix.controlador;
 
 import com.turix.modelo.Login;
 import com.turix.modelo.Usuario;
-import java.security.Principal;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -64,14 +59,13 @@ public class LoginController {
         
     }
     
-    
     public String openUser() {
-        usuario = u.login(login);
-        if (usuario == null ){
+        
+        if (!u.login(login, usuario)) {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                              new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                     "Fallo de inicio: La contraseña o el usuario no coinciden",""));
+                                     "Fallo de inicio: La contraseña o el usuario no coinciden", ""));
             return null;
         }
         FacesContext context = getCurrentInstance();
@@ -80,7 +74,7 @@ public class LoginController {
         
     }
     
-    
+   
     public String logout() {
         FacesContext context = getCurrentInstance();
         context.getExternalContext().invalidateSession();
@@ -92,9 +86,5 @@ public class LoginController {
         Usuario l = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
         return l != null;
     }
-    /**
-     * POR IMPLEMENTAR
-     * 
-     *funcion para hacer login en el propio objeto
-     */
 }
+

@@ -88,12 +88,5 @@ public class TemaController {
              u.eliminarTema(tema);
             
          
-     //}
-     }
-     
-     
-     
-     
-    
-    
+     }    
 }

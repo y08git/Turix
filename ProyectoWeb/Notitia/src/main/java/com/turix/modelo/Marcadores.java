@@ -38,7 +38,6 @@ public class Marcadores implements Serializable{
     @ManyToOne
     @JoinColumn(name = "nombre")
     private Temas temas;
-
     public String getUbicacion() {
         return ubicacion;
     }
@@ -63,12 +62,12 @@ public class Marcadores implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public Usuario getComentarista() {
+    public Usuario getInformador() {
         return comentarista;
     }
 
-    public void setComentarista(Usuario comentarista) {
-        this.comentarista = comentarista;
+    public void setInformador(Usuario informador) {
+        this.comentarista = informador;
     }
 
     public Temas getTemas() {

@@ -44,18 +44,16 @@ CREATE TABLE notitia.Marcadores
 drop table if exists notitia.Comentarios;
 CREATE TABLE notitia.Comentarios
 (
-  id_comentario Serial NOT NULL,
+  id_comentario serial primary key,
   comentario text NOT NULL,
   fecha DATE NOT NULL,
   calificacionPositiva int NOT NULL,
   calificacionNegativa int NOT NULL,
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
-  PRIMARY KEY (id_comentario, ubicacion),
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
     ON DELETE CASCADE
-    
 ); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false)	*/
 
@@ -93,21 +91,16 @@ create or replace function notitia.Usuario(usuari text, password text) returns b
                        contraseña = crypt(password, contraseña));
 $$ language sql stable;
 
-                       
-
-create or replace function notitia.buscarTema(n_tema text) returns TABLE(nombre text, descripcion text) 
-as $$
-  select *
-	from notitia.temas 
-       where nombre ILIKE concat(concat('%',n_tema),'%');                       
+create or replace function notitia.buscarTema(n_tema text) returns TABLE(nombre text, descripcion text) as $$
+select *
+from notitia.temas
+where nombre ILIKE concat(concat('%',n_tema),'%');
 $$ language sql stable;
 
-
-create or replace function notitia.buscarMarcador(n_marcador text) returns notitia.marcadores 
-as $$
-  select *
-	from notitia.marcadores 
-       where ubicacion LIKE n_marcador;                       
+create or replace function notitia.buscarMarcador(n_marcador text) returns notitia.Marcadores as $$
+select *
+from notitia.marcadores
+where ubicacion LIKE n_marcador;
 $$ language sql stable;
 
 commit;
