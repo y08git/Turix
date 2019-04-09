@@ -9,6 +9,7 @@ import com.turix.controlador.HibernateUtil;
 import com.turix.modelo.Temas;
 import java.util.Locale;
 import java.util.LinkedList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -61,9 +62,8 @@ public class TemaController {
          
          }
      
-     public LinkedList<Temas> listTemas(){
-         LinkedList<Temas> lista = new LinkedList<Temas>();
-         return lista;
+     public List listaTemas(){
+         return u.darTemas();
          
      }
      

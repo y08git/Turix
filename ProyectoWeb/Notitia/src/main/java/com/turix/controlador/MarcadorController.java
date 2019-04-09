@@ -9,6 +9,7 @@ import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -92,9 +93,10 @@ public class MarcadorController {
     public Usuario existeUsuario(String t){
         return u.existeUsuario(usuario);
     }
-   
     
-     
+    public List listMarcadores(){
+        return u.darMarcadores();
+    }
      
      
      public void eliminarMarcador(){

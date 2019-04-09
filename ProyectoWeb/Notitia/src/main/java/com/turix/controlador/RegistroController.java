@@ -24,7 +24,16 @@ public class RegistroController {
 
     private Usuario user = new Usuario();
     private Utility u = new Utility();
+    private String confirmarContraseña;
 
+    public String getConfirmarContraseña() {
+        return confirmarContraseña;
+    }
+
+    public void setConfirmarContraseña(String confirmarContraseña) {
+        this.confirmarContraseña = confirmarContraseña;
+    }
+    
     public Usuario getUser() {
         return user;
     }
@@ -39,21 +48,8 @@ public class RegistroController {
                 .setLocale(new Locale("es-Mx"));
     }
 
-    public String agregarUsuario() {
-        if (!user.getContraseña().equals(user.getConfirmaContrasena())) {
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo de registro: Las contraseñas deben coincidir", ""));
-        } else {
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Felicidades, el registro se ha realizado correctamente", ""));
-           
-            u.save(user);
-            user = null;
-        }
-        return null;
+    public void agregarUsuario() {
+        u.save(user);
+        user = null;
     }
 }

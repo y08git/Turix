@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import javax.faces.application.FacesMessage;
@@ -123,12 +124,24 @@ public class Utility {
         }
     }
     // Métodos para temaController
-    public void save(Usuario user) {
+    public boolean save(Usuario user) {
+        boolean guardar = false;
+          sessionObj = HibernateUtil.getSessionFactory().openSession();
+           String queryNombre = "SELECT * FROM notitia.Usuario "
+                   + "WHERE notitia.Usuario.nombre_usuario LIKE '"+ user.getNombre_usuario()+"';";
+            String queryCorreo = "SELECT * FROM notitia.Usuario "
+                   + "WHERE notitia.Usuario.correo LIKE '"+ user.getCorreo() +"';";
+           
         try {
-            sessionObj = HibernateUtil.getSessionFactory().openSession();
+          
             sessionObj.beginTransaction();
-            sessionObj.save(user);
-            sessionObj.getTransaction().commit();
+            Query q1 = sessionObj.createSQLQuery(queryNombre).addEntity(Usuario.class);
+            Query q2 = sessionObj.createSQLQuery(queryCorreo).addEntity(Usuario.class);
+            if(q1.list().isEmpty()&& q2.list().isEmpty()){
+                guardar = true;
+                sessionObj.save(user);
+                sessionObj.getTransaction().commit();
+            }
         } catch (Exception sqlException) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
@@ -140,6 +153,26 @@ public class Utility {
                 sessionObj.close();
             }
         }
+        
+          if (!user.getContraseña().equals(user.getConfirmaContrasena())) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo de registro: Las contraseñas deben coincidir", ""));
+        } else if (!guardar){
+             FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo de registro: elija un correo o usuario distinto", ""));
+         
+            
+        }else {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Felicidades, el registro se ha realizado correctamente", ""));
+        }
+          return guardar;
     }
 
     public void guardarTema(Temas tema){
@@ -315,7 +348,40 @@ public class Utility {
           
          }
     
-    
+     public List darTemas(){
+         List l = null;
+        Temas tema = new Temas();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temas ";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+        l = q.list();
+        return l;
+     }   
+     
+     public List darMarcadores(){
+         List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Marcadores ";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+        l = q.list();
+        return l;
+     }  
+//     public List darComentarios(){
+//         List l = null;
+//        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        String query = "SELECT * FROM notitia.Marcadores "
+//                   + "WHERE notitia.Marcadores.ubicacion LIKE '"+ comentario.darUbicacion() +"';";
+//        sessionObj.beginTransaction();
+//        sessionObj.getTransaction().commit();
+//        Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+//        l = q.list();
+//        return l;
+//     } 
+     
      public void eliminarMarcador(Marcadores m){
         boolean guardar = false;
         List l = null;

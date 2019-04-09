@@ -34,7 +34,17 @@ public class LoginController {
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
-
+    
+    public String getNombre(){
+        FacesContext context = getCurrentInstance();
+        usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        
+        if(usuario != null) 
+            return usuario.getNombre_usuario();
+       
+        return"Error";
+        
+    }
     public Usuario getUsuario() {
         return usuario;
     }
@@ -62,6 +72,17 @@ public class LoginController {
         System.out.println(usuario);
         return "inicio?faces-redirect=true";
         
+    }
+    public String logout() {
+        FacesContext context = getCurrentInstance();
+        context.getExternalContext().invalidateSession();
+        return "index?faces-redirect=true";
+    }
+    
+    public boolean isLogged(){
+        FacesContext context = getCurrentInstance();
+        Usuario l = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        return l != null;
     }
     
     
