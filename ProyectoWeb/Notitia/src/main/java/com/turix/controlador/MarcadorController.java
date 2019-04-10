@@ -8,6 +8,7 @@ package com.turix.controlador;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -103,6 +104,5 @@ public class MarcadorController {
              u.eliminarMarcador(marcador);  
      
      }
-    
     
 }

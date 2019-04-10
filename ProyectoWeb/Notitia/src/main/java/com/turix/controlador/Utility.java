@@ -433,6 +433,17 @@ public class Utility {
           
         }
      }
+     public List dameMarcadoresT(Temas m){
+         List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Marcadores "
+                   + "WHERE notitia.Marcadores.nombre LIKE '"+  m.getNombre()+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+        l = q.list();
+        return l;
+     } 
     //Métodos para comentariosCOntroller
      
      public List darComentarios(String m){

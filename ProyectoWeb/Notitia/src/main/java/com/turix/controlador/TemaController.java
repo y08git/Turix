@@ -53,7 +53,7 @@ public class TemaController {
      
      public void guardarTema(){
              u.guardarTema(tema);
-            tema = null;
+            tema = null;         
          }
 
      
@@ -68,4 +68,7 @@ public class TemaController {
 
      }   
      
+     public List listaTemas(){
+        return u.darTemas();
+     }
 }

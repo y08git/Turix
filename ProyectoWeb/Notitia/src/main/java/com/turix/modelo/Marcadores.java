@@ -38,7 +38,7 @@ public class Marcadores implements Serializable{
     @ManyToOne
     @JoinColumn(name = "nombre")
     private Temas temas;
-    
+
     public String getUbicacion() {
         return ubicacion;
     }
