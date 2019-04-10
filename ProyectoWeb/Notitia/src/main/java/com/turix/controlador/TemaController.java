@@ -70,11 +70,7 @@ public class TemaController {
         
          
          }
-     
-     public List listaTemas(){
-         return u.darTemas();
-         
-     }
+
      
      public String buscarTema(Temas tema){
          String id = null;

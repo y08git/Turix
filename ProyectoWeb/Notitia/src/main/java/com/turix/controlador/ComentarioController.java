@@ -93,7 +93,7 @@ public class ComentarioController {
    
 
     public List listaComentarios() throws SQLException{
-        return u.getMarca();
+        return u.darComentarios(ubicacion);
     }
     
     public List listaUsuarios() throws SQLException{

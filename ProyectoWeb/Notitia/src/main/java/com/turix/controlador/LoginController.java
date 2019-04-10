@@ -59,8 +59,8 @@ public class LoginController {
     
     
     public String openUser() {
-        
-        if (!u.login(login, usuario)) {
+        usuario = u.login(login);
+        if (usuario == null) {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                              new FacesMessage(FacesMessage.SEVERITY_ERROR,

@@ -71,17 +71,16 @@ public class Utility {
         return l;
 
     }
-    public boolean login(Login login, Usuario usuario){
+    public Usuario login(Login login){
         sessionObj = HibernateUtil.getSessionFactory().openSession();
+        Usuario usuario=null;
         String query = "SELECT *  FROM notitia.Usuario  "
                   + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
-        boolean success = false; 
         List l;
         try {
             Transaction tx = sessionObj.beginTransaction();
             Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
             usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
-            success = usuario != null;
             tx.commit();
         } catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
@@ -95,7 +94,7 @@ public class Utility {
                 sessionObj.close();
             }
         }
-        return success;
+        return usuario;
         
     }
 
@@ -268,11 +267,9 @@ public class Utility {
         Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
         l = q.list();
         if(!l.isEmpty()){
-            tema =(Temas)l.get(0);
-           
+            tema =(Temas)l.get(0);  
         }
         return tema;
-         
      }
      
     public Marcadores existeMarcador(String m){
@@ -358,17 +355,17 @@ public class Utility {
           
          }
     
-     public List darTemas(){
-         List l = null;
-        Temas tema = new Temas();
-        sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT * FROM notitia.Temas ";
-        sessionObj.beginTransaction();
-        sessionObj.getTransaction().commit();
-        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
-        l = q.list();
-        return l;
-     }   
+//     public List darTemas(){
+//         List l = null;
+//        Temas tema = new Temas();
+//        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        String query = "SELECT * FROM notitia.Temas ";
+//        sessionObj.beginTransaction();
+//        sessionObj.getTransaction().commit();
+//        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+//        l = q.list();
+//        return l;
+//     }   
      
      public List darMarcadores(){
          List l = null;
@@ -380,17 +377,17 @@ public class Utility {
         l = q.list();
         return l;
      }  
-//     public List darComentarios(){
-//         List l = null;
-//        sessionObj = HibernateUtil.getSessionFactory().openSession();
-//        String query = "SELECT * FROM notitia.Marcadores "
-//                   + "WHERE notitia.Marcadores.ubicacion LIKE '"+ comentario.darUbicacion() +"';";
-//        sessionObj.beginTransaction();
-//        sessionObj.getTransaction().commit();
-//        Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
-//        l = q.list();
-//        return l;
-//     } 
+     public List darComentarios(String m){
+         List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Comentarios "
+                   + "WHERE notitia.Comentarios.ubicacion LIKE '"+  m+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
+        l = q.list();
+        return l;
+     } 
      
      public void eliminarMarcador(Marcadores m){
         boolean guardar = false;
