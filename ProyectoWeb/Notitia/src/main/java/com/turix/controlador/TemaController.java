@@ -52,23 +52,8 @@ public class TemaController {
    
      
      public void guardarTema(){
-          if (tema.getNombre().equals(u.existeTema(tema))) {
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo: Ya existe el tema", ""));
-        } else {
-               System.out.println(u.existeTema(tema));
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Felicidades, se agrego correctamente el tema", ""));
              u.guardarTema(tema);
             tema = null;
-        }
-         
-        
-         
          }
 
      
@@ -79,24 +64,8 @@ public class TemaController {
      }
      
      public void eliminarTema(){
-          /**if (!tema.getNombre().equals(u.existeTema(tema))) {
-              System.out.println(u.existeTema(tema));
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo: No existe el tema "+u.existeTema(tema), ""));
-        } else {*/
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Se eliminó el tema exitosamentes", ""));
              u.eliminarTema(tema);
-            
-         
-     //}
+
      }   
      
-     public void irtema(){
-         u.irTema(nom);
-     }
 }
