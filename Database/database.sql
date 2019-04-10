@@ -1,10 +1,5 @@
 begin;
 
--- create role miguel with superuser;
--- alter role miguel with login;
-
--- createdb ejemplo -O miguel
-
 drop schema if exists notitia cascade;
 create schema notitia;
 
@@ -84,11 +79,10 @@ create trigger cifra
 before insert on notitia.Usuario
 for each row execute procedure notitia.hash();
 
-create or replace function notitia.Usuario(usuari text, password text) returns boolean as $$
-  select exists(select 1
-                  from notitia.Usuario 
-                 where nombre_usuario = usuari and
-                       contraseña = crypt(password, contraseña));
+create or replace function notitia.Usuario(usuari text, password text) returns notitia.usuario as $$
+  select *     from notitia.usuario 
+                 where (nombre_usuario LIKE usuari and
+                       contraseña LIKE crypt(password, contraseña));
 $$ language sql stable;
 
 create or replace function notitia.buscarTema(n_tema text) returns TABLE(nombre text, descripcion text) as $$

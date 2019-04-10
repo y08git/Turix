@@ -44,10 +44,6 @@ public class LoginController {
         this.usuario = usuario;
     }
     
-    public Usuario getUsusario(){
-        return (Usuario) u.getUsuario().get(0);
-    }
-    
     public String getNombre(){
         FacesContext context = getCurrentInstance();
         usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
@@ -60,8 +56,8 @@ public class LoginController {
     }
     
     public String openUser() {
-        
-        if (!u.login(login, usuario)) {
+        usuario = u.login(login);
+        if (usuario == null) {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                              new FacesMessage(FacesMessage.SEVERITY_ERROR,

@@ -42,33 +42,6 @@ public class Utility {
     static Comentarios c = new Comentarios();
 
 
-    public List getUsuario(){
-        List l = null;
-        try {
-            sessionObj = HibernateUtil.getSessionFactory().openSession();
-            System.out.println("Session " + sessionObj);
-            Query q = sessionObj.createSQLQuery("SELECT * "
-                    + "FROM notitia.Comentarista"
-                    + "notitia.Comentarista('"+userObj.getNombre_usuario()+"','"+userObj.getCorreo()+"')");
-            l = q.list();
-            System.out.println("\n.......Records loades Successfully from the Database.......\n");
-
-        } catch (HibernateException sqlException) {
-            if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......\n"
-                        + "Values of usu");
-                sessionObj.getTransaction().rollback();
-            }
-            l = null;
-        } finally {
-            if (sessionObj != null) {
-                sessionObj.close();
-            }
-        }
-        return l;
-        
-    }
-
     public Usuario login(Login login){
         Usuario usuario = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -94,26 +67,88 @@ public class Utility {
         }
         return usuario;        
     }
-
-  
-    // Métodos para temaController
-    public void save(Usuario user) {
+    
+    public boolean update(Usuario user, Usuario usuario){
+        boolean success = false;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
         try {
-            sessionObj = HibernateUtil.getSessionFactory().openSession();
-            sessionObj.beginTransaction();
-            sessionObj.save(user);
-            sessionObj.getTransaction().commit();
-        } catch (Exception sqlException) {
+            Transaction tx = sessionObj.beginTransaction();
+            sessionObj.delete(user);
+            sessionObj.save(usuario);
+            tx.commit();
+            success = true;
+        } catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
-            sqlException.printStackTrace();
+        } finally {
+            
+            
+            if (sessionObj != null && sessionObj.isOpen()) {
+                sessionObj.close();
+            }
+        }
+        return success;
+    }
+    
+    public void delete(Usuario user){
+         boolean guardar = false;
+//        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+          try{
+             sessionObj.beginTransaction();
+               guardar = user!=null;
+                sessionObj.delete(user); 
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }    
+          }
+          
+        if (!guardar) {
+           FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: El usuario ya a sido eliminar", ""));
+        } else {
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se eliminó correctamente el usuario", ""));
+          
+        }
+    
+    }
+
+    
+    // Métodos para temaController
+    public boolean save(Usuario user) {
+		boolean success = false;
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+            success = sessionObj.save(user) != null;
+            sessionObj.getTransaction().commit();
+        } catch (HibernateException sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
         } finally {
             if (sessionObj != null) {
                 sessionObj.close();
             }
         }
+        return success;
     }
 
     public void guardarTema(Temas tema){
@@ -137,16 +172,15 @@ public class Utility {
     public String existeTema(Temas tema){
       sessionObj = HibernateUtil.getSessionFactory().openSession();
       String id = null;
-      List l = null;
+      List l;
       try {
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT nombre FROM notitia.Temas "
         + "WHERE notitia.Temas.nombre LIKE "+ "tema.getNombre()"+";";
         Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
         l = q.list();
-        if(l.size()!=0)
-        id=l.get(0).toString();
-        System.out.println("\n.......Records loades Successfully from the Database.......\n");
+        if(!l.isEmpty())
+            id=l.get(0).toString();
 
 
       } catch (HibernateException sqlException) {
@@ -155,7 +189,6 @@ public class Utility {
           + "Values of usu");
           sessionObj.getTransaction().rollback();
         }
-        l = null;
       } finally {
         if (sessionObj != null) {
           sessionObj.close();
@@ -180,7 +213,7 @@ public class Utility {
         if (null != sessionObj.getTransaction()) {
           System.out.println("\n.......Transaction Is Being Rolled Back.......");
           sessionObj.getTransaction().rollback();
-          e.printStackTrace(); }
+}
         } finally {
           if (sessionObj != null) {
             sessionObj.close();
@@ -189,7 +222,7 @@ public class Utility {
       }
     //Métodos para marcadorController
     public Temas existeTema(String t){
-        List l = null;
+        List l;
         Temas tema = new Temas();
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Temas "
@@ -205,9 +238,14 @@ public class Utility {
         return tema;
          
      }
-     
+     /**
+      * 
+      * 
+      * @param m
+      * @return  
+      */
     public Marcadores existeMarcador(String m){
-         List l = null;
+        List l;
         Marcadores mar = new Marcadores();
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.marcadores "
@@ -242,7 +280,7 @@ public class Utility {
      }
     public void guardarMarcador(Marcadores marcador){
         boolean guardar = false;
-        List l = null;
+        List l;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Marcadores "
                    + "WHERE notitia.Marcadores.nombre LIKE '"+ marcador.getUbicacion() +"';";
@@ -317,8 +355,8 @@ public class Utility {
         } finally {
               if (sessionObj != null) {
               sessionObj.close(); 
-          }    
-          }
+              }    
+           }
           
         if (!guardar) {
            FacesContext.getCurrentInstance()
