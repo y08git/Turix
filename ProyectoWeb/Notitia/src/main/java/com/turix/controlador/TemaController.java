@@ -25,6 +25,15 @@ public class TemaController {
     
     private Temas tema = new Temas();
     private Utility u = new Utility();
+    public String nom;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
     
      public TemaController() {
         FacesContext.getCurrentInstance()
@@ -89,5 +98,9 @@ public class TemaController {
             
          
      //}
-     }    
+     }   
+     
+     public void irtema(){
+         u.irTema(nom);
+     }
 }

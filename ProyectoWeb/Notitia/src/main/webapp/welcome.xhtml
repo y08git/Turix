@@ -8,12 +8,12 @@
 
   <ui:define name="content">
   <h:head>
-    <title>Hola Mundo</title>
+    <title>Hola!</title>
   </h:head>
   <h:body>
     <h2>JSF Ejemplo Hola mundo - welcome.xhtml</h2>
-    <h2>Bienvenido #{loginController.login.usuario}</h2>
-    <h2>Contraseña #{loginController.login.contraseña} </h2>
+    <h2>Bienvenido! #{loginController.login.usuario}</h2>
+<!--    <h2>Contraseña #{loginController.login.contraseña} </h2>-->
   </h:body>
       <h:form>
       <p:commandButton action="temaInformador"
@@ -22,6 +22,10 @@
       <h:form>
       <p:commandButton action="marcador"
                            value="Marcadores"/>
+  </h:form>
+      <h:form>
+      <p:commandButton action="comentario"
+                           value="Comentarios"/>
   </h:form>
   </ui:define>
 </ui:composition>

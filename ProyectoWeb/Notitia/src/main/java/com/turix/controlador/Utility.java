@@ -224,7 +224,17 @@ public class Utility {
       return id;
 
     }
-
+    public void irTema(String temas){
+        boolean guardar = false;
+        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temas "
+                   + "WHERE notitia.Temas.nombre LIKE '"+ temas +"';";
+            Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
+            l = q.list();
+              System.out.println(q.list());      
+    }
+    
     public void eliminarTema(Temas t){
       sessionObj = HibernateUtil.getSessionFactory().openSession();
 
