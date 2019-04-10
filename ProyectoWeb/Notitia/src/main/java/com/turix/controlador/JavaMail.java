@@ -16,7 +16,7 @@ import java.util.Properties;
 
 public class JavaMail {
     private static final String envioEmail = "dianisrmz97@gmail.com";//change with your sender email
-  private static final String envioPass = "yffy vebd sjor trty";//change with your sender password
+  private static final String envioPass = "Isoftware2019";//change with your sender password
 
   public static void enviar(String to, String title, String html) throws MessagingException {
       System.out.println("Sending email to " + to);
@@ -56,10 +56,10 @@ public class JavaMail {
   }
   
   
-  public static void main(String[] args) throws MessagingException {
+ /** public static void main(String[] args) throws MessagingException {
       JavaMail.enviar("dianis0297@gmail.com",
               "Test email",
               "<h2>Java Mail Example</h2><p>hi there!</p>");
-  }
+  }*/
     
 }
