@@ -45,8 +45,8 @@ public class Utility {
     public Usuario login(Login login){
         Usuario usuario = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT *  FROM notitia.Usuario  "
-                  + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
+        String query = "SELECT *  FROM notitia.Usuario('"+login.getUsuario()+
+                "','"+login.getContraseña()+"');";
         List l;
         try {
             Transaction tx = sessionObj.beginTransaction();
