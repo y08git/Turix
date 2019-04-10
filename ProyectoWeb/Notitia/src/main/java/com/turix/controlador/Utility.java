@@ -41,7 +41,34 @@ public class Utility {
     static Marcadores marcaObj;
     static Comentarios c = new Comentarios();
 
+	public List getUsuario(){
+        List l = null;
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            System.out.println("Session " + sessionObj);
+            Query q = sessionObj.createSQLQuery("SELECT * "
+                    + "FROM notitia.Comentarista"
+                    + "notitia.Comentarista('"+userObj.getNombre_usuario()+"','"+userObj.getCorreo()+"')");
+            l = q.list();
+            System.out.println("\n.......Records loades Successfully from the Database.......\n");
 
+        } catch (HibernateException sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......\n"
+                        + "Values of usu");
+                sessionObj.getTransaction().rollback();
+            }
+            l = null;
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+
+        }
+        return l;
+
+    }
+	
     public Usuario login(Login login){
         Usuario usuario = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -90,6 +117,28 @@ public class Utility {
             }
         }
         return success;
+    }
+    
+    public void update1(Usuario usuario){
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+
+            sessionObj.update(usuario);
+            
+            // Committing The Transactions To The Database
+            sessionObj.getTransaction().commit();
+        } catch (HibernateException sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
     }
     
     public void delete(Usuario user){
@@ -329,7 +378,41 @@ public class Utility {
           
          }
     
+	public List darUsuarios() {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario ";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
     
+	 public List darTemas(){
+        List l = null;
+        Temas tema = new Temas();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temas ";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+        l = q.list();
+        return l;
+     } 
+	 	 
+	 public List darMarcadores(){
+        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Marcadores ";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+        l = q.list();
+        return l;
+     }  
+	 
      public void eliminarMarcador(Marcadores m){
         boolean guardar = false;
         List l = null;
@@ -452,37 +535,6 @@ public class Utility {
         return l;
     }
     
-    public List getMiUsuario() throws SQLException{
-        boolean guardar = false;
-        List l = null;
-        sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT nombre_usuario FROM notitia.Usuario";
-        System.out.println(query);
-        try{
-         sessionObj.beginTransaction();
-            Query q = sessionObj.createSQLQuery(query);
-            l = q.list();
-            System.out.println(l);
-            if(!l.isEmpty()){
-                guardar = true;
-                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
-                sessionObj.getTransaction().commit();
-                return l;
-            }
-        }
-            catch (HibernateException e) {
-            if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
-                sessionObj.getTransaction().rollback();
-            }
-        } finally {
-              if (sessionObj != null) {
-              sessionObj.close(); 
-          }    
-          }
-        return l;
-    }
-    
     public void guardarComentario(Comentarios comentario) {
         boolean guardar = false;
         List l = null;
@@ -531,7 +583,7 @@ public class Utility {
           
         }
     }
-
+    
     public void borrarComentario(int id_comentario){
         boolean guardar = false;
 //        List l = null;
@@ -570,7 +622,7 @@ public class Utility {
         }
     }
     
-     public Comentarios obtenerC (int id_comentario){
+    public Comentarios obtenerC (int id_comentario){
         boolean guardar = false;
 //        List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -596,9 +648,8 @@ public class Utility {
               return come;
               
               
-		}
+    }
      }
-    
     
     public void actualizarComentario(Comentarios comentario){
         boolean guardar = false;
@@ -638,4 +689,40 @@ public class Utility {
           
         }
     }
+    
+    public List getMiUsuario() throws SQLException{
+        boolean guardar = false;
+        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT nombre_usuario FROM notitia.Usuario";
+        System.out.println(query);
+        try{
+         sessionObj.beginTransaction();
+            Query q = sessionObj.createSQLQuery(query);
+            l = q.list();
+            System.out.println(l);
+            if(!l.isEmpty()){
+                guardar = true;
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+                return l;
+            }
+        }
+            catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }    
+          }
+        return l;
+    }
+    
+    public void eliminarInformador(Usuario user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

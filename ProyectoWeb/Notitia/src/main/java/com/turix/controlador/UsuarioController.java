@@ -7,12 +7,15 @@ package com.turix.controlador;
 
 import com.turix.modelo.Login;
 import com.turix.modelo.Usuario;
+import java.util.List;
 import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
 /**
  *
@@ -22,7 +25,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
     @RequestScoped
 public class UsuarioController {
     private Utility u = new Utility();
-    private Usuario usuario;
+    private Usuario user;
     private boolean bool;
     private String correo;
     private String aContraseña;
@@ -69,12 +72,12 @@ public class UsuarioController {
     
     
     
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUser() {
+        return user;
     }
 
     public void setUser(Usuario usuario) {
-        this.usuario = usuario;
+        this.user = usuario;
     }
     
     
@@ -106,18 +109,18 @@ public class UsuarioController {
                                 "La contraseña es Incorrecta", ""));
             return null;
         }
-        usuario = new Usuario();
-        usuario.setNombre_usuario(user.getNombre_usuario());
-        usuario.setEs_informador(user.isEs_informador());
-        usuario.setCorreo(user.getCorreo());
+        this.user = new Usuario();
+        this.user.setNombre_usuario(user.getNombre_usuario());
+        this.user.setEs_informador(user.isEs_informador());
+        this.user.setCorreo(user.getCorreo());
         if(contraseña.equals(confirmarContraseña)){
-            usuario.setContraseña(contraseña);
-            u.update(user, usuario);
+            this.user.setContraseña(contraseña);
+            u.update(user, this.user);
             context
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                 "Se ha actualizado los datos", ""));
-            context.getExternalContext().getSessionMap().replace("usuario", usuario);
+            context.getExternalContext().getSessionMap().replace("usuario", this.user);
             bool = true;
             return null;
         }else{
@@ -131,17 +134,70 @@ public class UsuarioController {
         
     }
     
-    public boolean doRefresh(){
-        return bool;
+    public Usuario getUser(String user_name,String contraseña) {
+        Session session = null;
+        Usuario usuario = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            usuario =  (Usuario) session.get(Usuario.class, user_name);
+        } catch (HibernateException e) {
+            usuario = null;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return usuario;
+    }
+    
+    public void eliminarInformador(){
+          /**if (!tema.getNombre().equals(u.existeTema(tema))) {
+              System.out.println(u.existeTema(tema));
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: No existe el tema "+u.existeTema(tema), ""));
+        } else {*/
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se retiraron privilegios de informador al usuario", ""));
+            u.eliminarInformador(user);
+     //}
+    }  
+    
+    
+    public String set(Usuario user) {
+        if(user != null){
+            user.setEs_informador(!user.isEs_informador());
+            u.update1(user);
+        }
+        return "listaUsuarios?faces-redirect=true";
+        
+    }
+    
+    public String inf(Usuario usuario){
+        if(usuario != null){
+            if(usuario.isEs_informador()){
+                return "Remover permisos";
+            }
+            return "Ceder Permisos";
+        }
+        return null;
+    }
+    
+    
+    public List listaUsuarios(){
+        return u.darUsuarios();
     }
     
     public String deleteUsuario(){
         FacesContext context = getCurrentInstance();
-        usuario = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-        if(usuario == null){
+        user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        if(user == null){
             return "registro?faces-redirect=true";
         }
-        u.delete(usuario);
+        u.delete(user);
         
         return "inicio?faces-redirect=true";
     }
