@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+  <title>Agregar Comentario</title>
+</h:head>
+<h:body>
+  <h1>Quieres agregar un comentario?</h1> <br/>
+  <h2>Coloca la ubicación del marcador al que quieras ponerle un comentario!</h2> <br/>
+  <h:form id="myForm">
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+    <table>
+      <tr>
+          <td>Usuario</td>
+          <td><p:inputText value="#{comentarioController.usuario}"
+                         required="true"
+                         id="usuario"
+                         size="20"/></td>
+
+      </tr>
+<!--      <tr>
+          <h1>Elige tu usuario</h1>
+        <h:form>
+            <h:selectOneMenu value="#{comentarioController.comentario.usuario}" converter="SelectItemToEntityConverter" >
+                <f:selectItems value="#{comentarioController.listaUsuarios()}"/>
+            </h:selectOneMenu>
+        </h:form>
+      </tr>-->
+<!--      <tr>
+          <h1>Elige un marcador para agregar tu comentario</h1>
+        <h:form>
+            <h:selectOneMenu value="#{comentarioController.marcador}" converter="SelectItemToEntityConverter" >
+                <f:selectItems value="#{comentarioController.listaComentarios()}"/>
+            </h:selectOneMenu>
+        </h:form>
+      </tr>-->
+<!--      <tr>
+          <td>Fecha</td>
+        <td><p:inputText value="#{comentarioController.comentario.fecha}"
+                         required="true"
+                         id="Fecha"
+                         size="20"/>
+        </td>
+          
+      </tr>-->
+      <tr>
+          <td>Marcador</td>
+          <td><p:inputText value="#{comentarioController.t}"
+                         required="true"
+                         id="marcador"
+                         size="20"/></td>
+
+      </tr>
+
+<tr>
+
+
+          <td>Comentario</td>
+        <td><p:inputText value="#{comentarioController.comentario.comentario}"
+                         required="true"
+                         id="Comentario"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+
+
+          <td>Me gusta</td>
+        <td><p:inputText value="#{comentarioController.comentario.calificacionPositiva}"
+                         required="true"
+                         id="calificacionPositiva"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+
+
+          <td>No me gusta</td>
+        <td><p:inputText value="#{comentarioController.comentario.calificacionNegativa}"
+                         required="true"
+                         id="calificacionNegativa"
+                         size="20"/></td>
+
+      </tr>
+      <tr>
+        <td colspan="3" align="center">
+            <p:commandButton action="#{comentarioController.agregarComentario}"
+                           value="aceptar"/>
+        </td>
+      </tr>
+    </table>
+  </h:form>
+<!--  <h:outputText value = "12-01-2012" >
+         <f:convertDateTime pattern = "dd-mm-yyyy" />
+      </h:outputText>-->
+  <h:form>
+      <p:commandButton action="marcador"
+                           value="Regresar a Marcador"/>
+      <p:commandButton action="welcome"
+                           value="Cancelar"/>
+  </h:form>
+</h:body>
+</html>
