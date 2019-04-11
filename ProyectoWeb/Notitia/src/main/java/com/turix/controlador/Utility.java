@@ -70,6 +70,11 @@ public class Utility {
         return l;
 
     }
+    /**Metodo que busca en la base de datos un usuario en especifico
+     * 
+     * @param login -- Un objeto de tipo login 
+     * @return Un usuario si ambos atributos en login son correctos, null si no
+     */
     public Usuario login(Login login){
         Usuario usuario = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -121,6 +126,12 @@ public class Utility {
 //        return usuario;       
 //    }
 //    
+    /**Un metodo para actualizar un usuario cuya contraseña ha sido cambiada
+     * 
+     * @param user -- Usuario a buscar
+     * @param usuario -- El mismo usuario con los cambios hechos (no por nombre)
+     * @return True si se hizo el update
+     */
     public boolean update(Usuario user, Usuario usuario){
         boolean success = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -145,6 +156,10 @@ public class Utility {
         return success;
     }
     
+    /**Un metodo para actualizar un usuario cuya contraseña no ha sido cambiada
+     * 
+     * @param usuario -- Usuario modificado (no por nombre)
+     */
     public void update1(Usuario usuario){
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -166,6 +181,10 @@ public class Utility {
             }
         }
     }
+    /**Metodo para borrar un usuario de la base de datos
+     * 
+     * @param user -- Usuario a borrar
+     */
     public void delete(Usuario user){
          boolean guardar = false;
 //        List l = null;
