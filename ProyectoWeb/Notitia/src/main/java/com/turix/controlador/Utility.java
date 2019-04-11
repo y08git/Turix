@@ -70,6 +70,11 @@ public class Utility {
         return l;
 
     }
+    /**Metodo que busca en la base de datos un usuario en especifico
+     * 
+     * @param login -- Un objeto de tipo login 
+     * @return Un usuario si ambos atributos en login son correctos, null si no
+     */
     public Usuario login(Login login){
         Usuario usuario = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -95,7 +100,38 @@ public class Utility {
         }
         return usuario;        
     }
-
+//    public Usuario login(Login login){
+//        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        Usuario usuario=null;
+//        String query = "SELECT *  FROM notitia.Usuario  "
+//                  + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
+//        List l;
+//        try {
+//            Transaction tx = sessionObj.beginTransaction();
+//            Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+//            usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
+//            tx.commit();
+//        } catch (HibernateException e) {
+//            if (null != sessionObj.getTransaction()) {
+//                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+//                sessionObj.getTransaction().rollback();
+//            }
+//        } finally {
+//            
+//            
+//            if (sessionObj != null && sessionObj.isOpen()) {
+//                sessionObj.close();
+//            }
+//        }
+//        return usuario;       
+//    }
+//    
+    /**Un metodo para actualizar un usuario cuya contraseña ha sido cambiada
+     * 
+     * @param user -- Usuario a buscar
+     * @param usuario -- El mismo usuario con los cambios hechos (no por nombre)
+     * @return True si se hizo el update
+     */
     public boolean update(Usuario user, Usuario usuario){
         boolean success = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -120,6 +156,10 @@ public class Utility {
         return success;
     }
     
+    /**Un metodo para actualizar un usuario cuya contraseña no ha sido cambiada
+     * 
+     * @param usuario -- Usuario modificado (no por nombre)
+     */
     public void update1(Usuario usuario){
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -141,6 +181,10 @@ public class Utility {
             }
         }
     }
+    /**Metodo para borrar un usuario de la base de datos
+     * 
+     * @param user -- Usuario a borrar
+     */
     public void delete(Usuario user){
          boolean guardar = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -178,6 +222,7 @@ public class Utility {
     }
     
 
+    
     public void save() {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -447,6 +492,10 @@ public class Utility {
           
          }
     
+    /**
+     * Devuelve la lista de usuarios registrados en la base
+     * @return la lista de usuarios registrados en la base
+     */
     public List darUsuarios() {
         List l;
         Usuario u = new Usuario();
@@ -801,7 +850,10 @@ public class Utility {
         }
     }
     
-    
+    /**
+     * Elimina a un informador de la base de datos
+     * @param user el usuario que desea eliminarse de la base
+     */
     public void eliminarInformador(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
