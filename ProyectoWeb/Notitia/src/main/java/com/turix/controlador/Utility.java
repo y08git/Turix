@@ -223,6 +223,7 @@ public class Utility {
     }
     
 
+    
     public void save() {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -493,6 +494,10 @@ public class Utility {
           
          }
     
+    /**
+     * Devuelve la lista de usuarios registrados en la base
+     * @return la lista de usuarios registrados en la base
+     */
     public List darUsuarios() {
         List l;
         Usuario u = new Usuario();
@@ -824,7 +829,10 @@ public class Utility {
         }
     }
     
-    
+    /**
+     * Elimina a un informador de la base de datos
+     * @param user el usuario que desea eliminarse de la base
+     */
     public void eliminarInformador(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
