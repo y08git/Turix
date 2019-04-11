@@ -1,10 +1,5 @@
 begin;
 
--- create role miguel with superuser;
--- alter role miguel with login;
-
--- createdb ejemplo -O miguel
-
 drop schema if exists notitia cascade;
 create schema notitia;
 
@@ -54,7 +49,6 @@ CREATE TABLE notitia.Comentarios
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
     ON DELETE CASCADE
-
 ); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false)	*/
 
@@ -85,11 +79,10 @@ create trigger cifra
 before insert on notitia.Usuario
 for each row execute procedure notitia.hash();
 
-create or replace function notitia.Usuario(usuari text, password text) returns boolean as $$
-  select exists(select 1
-                  from notitia.Usuario
-                 where nombre_usuario = usuari and
-                       contraseña = crypt(password, contraseña));
+create or replace function notitia.Usuario(usuari text, password text) returns notitia.usuario as $$
+  select *     from notitia.usuario
+                 where (nombre_usuario LIKE usuari and
+                       contraseña LIKE crypt(password, contraseña));
 $$ language sql stable;
 
 create or replace function notitia.buscarTema(n_tema text) returns TABLE(nombre text, descripcion text) as $$
@@ -103,25 +96,5 @@ select *
 from notitia.marcadores
 where ubicacion LIKE n_marcador;
 $$ language sql stable;
-
-drop extension if exists pgcrypto;
-create extension pgcrypto;
-
-comment on table notitia.Usuario
-is
-'El usuario USUARIO tiene la contraseña PASS después de aplicarle un hash';
-
-create or replace function notitia.hash() returns trigger as $$
-  begin
-    if TG_OP = 'INSERT' then
-       new.contraseña = crypt(new.contraseña, gen_salt('bf', 8)::text);
-    end if;
-    return new;
-  end;
-$$ language plpgsql;
-
-comment on function notitia.hash()
-is
-'Cifra la contraseña del usuario al guardarla en la base de datos.';
 
 commit;

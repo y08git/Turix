@@ -11,7 +11,7 @@
     <title>Hola!</title>
   </h:head>
   <h:body>
-    <h2>JSF Ejemplo Hola mundo - welcome.xhtml</h2>
+    <h1>HOLA</h1>
     <h2>Bienvenido! #{loginController.login.usuario}</h2>
 <!--    <h2>Contraseña #{loginController.login.contraseña} </h2>-->
   </h:body>
@@ -26,6 +26,14 @@
       <h:form>
       <p:commandButton action="comentario"
                            value="Comentarios"/>
+  </h:form>
+   <h:form>
+      <p:commandButton action="GestionarUsuario"
+                           value="Gestionar Usuario"/>
+  </h:form>
+   <h:form>
+      <p:commandButton action="listaUsuarios"
+                           value="Ver Usuarios"/>
   </h:form>
   </ui:define>
 </ui:composition>

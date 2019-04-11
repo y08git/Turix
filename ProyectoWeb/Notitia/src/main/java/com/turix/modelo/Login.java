@@ -15,6 +15,17 @@ public class Login {
     private String usuario;
     private String contraseña;
 
+    public Login() {
+    }
+    
+
+    public Login(String usuario, String contraseña) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+    }
+    
+    
+
     public String getUsuario() {
         return usuario;
     }
@@ -30,8 +41,5 @@ public class Login {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+}  
     
-    
-
-    
-}

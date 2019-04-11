@@ -54,7 +54,6 @@ public class Utility {
             l = q.list();
             System.out.println("\n.......Records loades Successfully from the Database.......\n");
 
-
         } catch (HibernateException sqlException) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction Is Being Rolled Back.......\n"
@@ -72,10 +71,10 @@ public class Utility {
 
     }
     public Usuario login(Login login){
+        Usuario usuario = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        Usuario usuario=null;
-        String query = "SELECT *  FROM notitia.Usuario  "
-                  + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
+        String query = "SELECT *  FROM notitia.Usuario('"+login.getUsuario()+
+                "','"+login.getContraseña()+"');";
         List l;
         try {
             Transaction tx = sessionObj.beginTransaction();
@@ -94,9 +93,116 @@ public class Utility {
                 sessionObj.close();
             }
         }
-        return usuario;
-        
+        return usuario;        
     }
+//    public Usuario login(Login login){
+//        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        Usuario usuario=null;
+//        String query = "SELECT *  FROM notitia.Usuario  "
+//                  + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
+//        List l;
+//        try {
+//            Transaction tx = sessionObj.beginTransaction();
+//            Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+//            usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
+//            tx.commit();
+//        } catch (HibernateException e) {
+//            if (null != sessionObj.getTransaction()) {
+//                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+//                sessionObj.getTransaction().rollback();
+//            }
+//        } finally {
+//            
+//            
+//            if (sessionObj != null && sessionObj.isOpen()) {
+//                sessionObj.close();
+//            }
+//        }
+//        return usuario;       
+//    }
+//    
+    public boolean update(Usuario user, Usuario usuario){
+        boolean success = false;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Transaction tx = sessionObj.beginTransaction();
+            sessionObj.delete(user);
+            sessionObj.save(usuario);
+            tx.commit();
+            success = true;
+        } catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+            
+            
+            if (sessionObj != null && sessionObj.isOpen()) {
+                sessionObj.close();
+            }
+        }
+        return success;
+    }
+    
+    public void update1(Usuario usuario){
+        try {
+            sessionObj = HibernateUtil.getSessionFactory().openSession();
+            sessionObj.beginTransaction();
+
+            sessionObj.update(usuario);
+            
+            // Committing The Transactions To The Database
+            sessionObj.getTransaction().commit();
+        } catch (HibernateException sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        }
+    }
+    public void delete(Usuario user){
+         boolean guardar = false;
+//        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+          try{
+             sessionObj.beginTransaction();
+               guardar = user!=null;
+                sessionObj.delete(user); 
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close(); 
+          }    
+          }
+          
+        if (!guardar) {
+           FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: El usuario ya a sido eliminar", ""));
+        } else {
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se eliminó correctamente el usuario", ""));
+          
+        }
+    
+    }
+    
 
     public void save() {
         try {
@@ -367,6 +473,18 @@ public class Utility {
           
           
          }
+    
+    public List darUsuarios() {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario ";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
     
      public List darTemas(){
          List l = null;
@@ -685,6 +803,11 @@ public class Utility {
                                     "Se eliminó correctamente el comentario", ""));
           
         }
+    }
+    
+    
+    public void eliminarInformador(Usuario user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

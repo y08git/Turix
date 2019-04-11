@@ -53,10 +53,6 @@ public class LoginController {
         this.usuario = usuario;
     }
     
-    public Usuario getUsusario(){
-        return (Usuario) u.getUsuario().get(0);
-    }
-    
     
     public String openUser() {
         usuario = u.login(login);
@@ -70,7 +66,7 @@ public class LoginController {
         FacesContext context = getCurrentInstance();
         context.getExternalContext().getSessionMap().put("usuario", usuario);
         System.out.println(usuario);
-        return "inicio?faces-redirect=true";
+        return "welcome?faces-redirect=true";
         
     }
     public String logout() {
