@@ -1,14 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition
+  template="/WEB-INF/facelets/templates/layout.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+
+  <ui:define name="content">
   <h:head>
-    <title>Hola Mundo</title>
+    <title>Hola!</title>
   </h:head>
-  <h:body bgcolor="white">
-    <h2>JSF Ejemplo Hola mundo - welcome.xhtml</h2>
-    <h2>Bienvenido #{loginController.login.usuario}</h2>
-    <h2>Contraseña #{loginController.login.contraseña} </h2>
+  <h:body>
+    <h1>HOLA</h1>
+    <h2>Bienvenido! #{loginController.login.usuario}</h2>
+<!--    <h2>Contraseña #{loginController.login.contraseña} </h2>-->
   </h:body>
-</html>
+      <h:form>
+      <p:commandButton action="temaInformador"
+                           value="Temas"/>
+  </h:form>
+      <h:form>
+      <p:commandButton action="marcador"
+                           value="Marcadores"/>
+  </h:form>
+      <h:form>
+      <p:commandButton action="comentario"
+                           value="Comentarios"/>
+  </h:form>
+   <h:form>
+      <p:commandButton action="GestionarUsuario"
+                           value="Gestionar Usuario"/>
+  </h:form>
+   <h:form>
+      <p:commandButton action="listaUsuarios"
+                           value="Ver Usuarios"/>
+  </h:form>
+  </ui:define>
+</ui:composition>

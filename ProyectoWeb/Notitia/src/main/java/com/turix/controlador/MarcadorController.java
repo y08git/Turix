@@ -8,7 +8,9 @@ package com.turix.controlador;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
+import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -74,6 +76,11 @@ public class MarcadorController {
      * y luego con el valor que nos regresa hacemos marcador.setTemas
      */
     
+    /**   
+     * Metodo que guarda un marcador
+     * manda a llamar a guardarMarcador de Utility 
+     * para guardar en la BD
+     */
     public void guardarMarcador(){
         //FacesContext context = getCurrentInstance();
         //Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
@@ -85,22 +92,46 @@ public class MarcadorController {
             marcador = null;
          }
     
+    /**
+     * Metodo para checar si existe el Tema
+     * manda a llamar a existeTema del Utility 
+     * para buscar en la BD
+     * @param t nombre del Tema a buscar
+     * @return Temas
+     */
     public Temas existeTema(String t){
        return u.existeTema(t);
     }
     
+    /**
+     * Metodo para checar si existe el Usuario
+     * manda a llamar a existeUsuario de Utility 
+     * para buscar en la BD
+     * @param t nombre del Usuario a buscar
+     * @return Usuario
+     */
     public Usuario existeUsuario(String t){
         return u.existeUsuario(usuario);
     }
-   
     
+    /**
+     * Metodo que nos regres una lista de todos los Marcadores
+     * Manda a llamar a darMarcadores de Utility
+     * para buscar los marcadores en la BD
+     * @return List 
+     */
+    public List listMarcadores(){
+        return u.darMarcadores();
+    }
      
-     
-     
+     /**
+      * Metodo que elimina al marcador
+      * manda a llamar a eliminarMarcador de Utility
+      * para eliminarlo de la BD
+      */
      public void eliminarMarcador(){
              u.eliminarMarcador(marcador);  
      
      }
-    
     
 }

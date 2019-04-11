@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -22,9 +21,13 @@ import javax.persistence.*;
 public class Comentarios implements Serializable{
     private static final long serialVersionUID = 1L;
 
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "id_comentario")
-    private long id_comentario;
+    private int id_comentario;
+    
 
     @ManyToOne
     @JoinColumn(name = "ubicacion")
@@ -54,6 +57,10 @@ public class Comentarios implements Serializable{
     public Marcadores getMarcadores() {
         return marcadores;
     }
+    
+    public String darUbicacion(){
+         return marcadores.getUbicacion();
+    }
 
     public String getComentario() {
         return comentario;
@@ -75,7 +82,7 @@ public class Comentarios implements Serializable{
         return fecha;
     }
 
-    public void setId_comentario(long id_comentario) {
+    public void setId_comentario(int id_comentario) {
         this.id_comentario = id_comentario;
     }
 
@@ -102,6 +109,5 @@ public class Comentarios implements Serializable{
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
 
 }

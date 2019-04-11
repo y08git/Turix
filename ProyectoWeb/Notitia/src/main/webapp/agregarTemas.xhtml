@@ -12,7 +12,8 @@ and open the template in the editor.
   <title>Agregar Tema</title>
 </h:head>
 <h:body>
-  <h1>Formulario agregar Tema</h1> <br/>
+  <h1>Quieres agregar un tema?</h1> <br/>
+  <h2>Coloca su nombre y la descripción!</h2> <br/>
   <h:form id="myForm">
     <table>
       <tr><td>
@@ -27,16 +28,16 @@ and open the template in the editor.
                          id="Nombre"
                          size="20"/></td>
       </tr>
-      
+
       <tr>
-          
-          
+
+
           <td>descripcion</td>
         <td><p:inputText value="#{temaController.tema.descripcion}"
                          required="true"
                          id="Descripcion"
                          size="20"/></td>
-        
+
       </tr>
       <tr>
         <td colspan="3" align="center">
@@ -50,6 +51,9 @@ and open the template in the editor.
       <p:commandButton action="temaInformador"
                            value="Cancel"/>
   </h:form>
+  <h:form>
+      <p:commandButton action="agregarMarcador"
+                           value="Agrega tu marcador"/>
+  </h:form>
 </h:body>
 </html>
-

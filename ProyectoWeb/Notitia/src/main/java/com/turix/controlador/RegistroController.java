@@ -12,7 +12,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import com.turix.modelo.Usuario;
-import javax.mail.MessagingException;
 
 
 /**
@@ -25,8 +24,16 @@ public class RegistroController {
 
     private Usuario user = new Usuario();
     private Utility u = new Utility();
-    private JavaMail mail = new JavaMail();
+    private String confirmarContraseña;
 
+    public String getConfirmarContraseña() {
+        return confirmarContraseña;
+    }
+
+    public void setConfirmarContraseña(String confirmarContraseña) {
+        this.confirmarContraseña = confirmarContraseña;
+    }
+    
     public Usuario getUser() {
         return user;
     }
@@ -40,13 +47,13 @@ public class RegistroController {
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
-
-    public void agregarUsuario() throws MessagingException {
-           
-            u.save(user);
-            user = null;
-            //mail.enviar("dianis0297@gmail.com","Test email","<h2>Java Mail Example</h2><p>hi there!</p>");
-            
-        }
-        
+    /**
+     * Metodo para guardar a un usuario
+     * mandamos a llamar a save de Utility 
+     * para gardarlo en la BD
+     */
+    public void agregarUsuario() {
+        u.save(user);
+        user = null;
     }
+}
