@@ -31,33 +31,55 @@ public class UsuarioController {
     private String aContraseña;
     private String contraseña;
     private String confirmarContraseña;
-
+    
+    /**Un metodo que regresa la anterior Contraseña
+     * 
+     * @return Un objeto de tipo String
+     */
     public String getAContraseña() {
         return aContraseña;
     }
-
+    
+    /**Un metodo que recibe la anterior Contraseña
+     * @param aContraseña -- Anterior contraseña
+     */
     public void setAContraseña(String aContraseña) {
         this.aContraseña = aContraseña;
     }
     
-    
-    
+    /**Un metodo que regresa la Contraseña
+     * @return Un objeto de tipo String
+     */
     public String getContraseña() {
         return contraseña;
     }
-
+    
+    /**Un metodo que recibe la Contraseña
+     * 
+     * @param contraseña -- Un objeto de tipo String
+     */
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-
+    /**Un metodo que regresa la confirmacion de la Contraseña
+     * 
+     * @return Un objeto de tipo String
+     */
     public String getConfirmarContraseña() {
         return confirmarContraseña;
     }
-
+    /**Un metodo que recibe la Confirmación de la Contraseña
+     * 
+     * @param confirmarContraseña -- Un objeto de tipo String
+     */
     public void setConfirmarContraseña(String confirmarContraseña) {
         this.confirmarContraseña = confirmarContraseña;
     }
-
+    
+    /**Un metodo que regresa el correo
+     * 
+     * @return Un objeto de tipo String
+     */
     public String getCorreo() {
         FacesContext context = getCurrentInstance();
         Usuario a = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
@@ -65,22 +87,32 @@ public class UsuarioController {
             return a.getCorreo();
         return null;
     }
-
+    /**Un metodo que recibe el correo
+     * 
+     * @param correo -- Un objeto de tipo String
+     */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
     
-    
-    
+    /**Un metodo que regresa el Usuario
+     * 
+     * @return Un objeto de tipo Usuario
+     */
     public Usuario getUser() {
         return user;
     }
-
+    /**Un metodo que recibe el usuario
+     * 
+     * @param usuario -- Un objeto de tipo Usuario
+     */
     public void setUser(Usuario usuario) {
         this.user = usuario;
     }
     
-    
+    /**Constructor de UsuarioController
+     * 
+     */
     public UsuarioController() {
 //        FacesContext context = getCurrentInstance();
 //        user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
@@ -91,7 +123,10 @@ public class UsuarioController {
 //               correo = user.getCorreo();
     }
     
-    
+    /**Un metodo que actualiza los datos del usuario actual
+     * 
+     * @return String de redireccion
+     */
     public String updateUsuario(){
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
@@ -133,8 +168,7 @@ public class UsuarioController {
         return null;
         
     }
-    
-    public Usuario getUser(String user_name,String contraseña) {
+    private Usuario getUser(String user_name,String contraseña) {
         Session session = null;
         Usuario usuario = null;
         try {
@@ -149,7 +183,9 @@ public class UsuarioController {
         }
         return usuario;
     }
-    
+    /**Metodo para eliminar el de esta instancia informador
+     * 
+     */
     public void eliminarInformador(){
           /**if (!tema.getNombre().equals(u.existeTema(tema))) {
               System.out.println(u.existeTema(tema));
@@ -166,6 +202,10 @@ public class UsuarioController {
      //}
     }  
     
+    /**Metodo para actualizar un usuario recibido
+     * @param user -- El usuario que se actualizara
+     * @return String de redireccion
+     */
     
     public String set(Usuario user) {
         if(user != null){
@@ -175,7 +215,11 @@ public class UsuarioController {
         return "listaUsuarios?faces-redirect=true";
         
     }
-    
+    /**Metodo para decir si es comentarista o informador 
+     * 
+     * @param usuario -- Usuario al que se le quiere cambiar su estado
+     * @return Un String que nos dice que tipo de usuario es
+     */
     public String inf(Usuario usuario){
         if(usuario != null){
             if(usuario.isEs_informador()){
@@ -186,11 +230,18 @@ public class UsuarioController {
         return null;
     }
     
-    
+    /**Metodo que regresa a todos los usuarios registrados
+     * 
+     * @return Un objeto de tipo lista
+     */
     public List listaUsuarios(){
         return u.darUsuarios();
     }
     
+    /**Un metodo para borrar el usuario en esta instancia
+     * 
+     * @return String de redireccion
+     */
     public String deleteUsuario(){
         FacesContext context = getCurrentInstance();
         user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
