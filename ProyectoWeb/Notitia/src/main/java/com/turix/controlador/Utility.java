@@ -95,32 +95,7 @@ public class Utility {
         }
         return usuario;        
     }
-//    public Usuario login(Login login){
-//        sessionObj = HibernateUtil.getSessionFactory().openSession();
-//        Usuario usuario=null;
-//        String query = "SELECT *  FROM notitia.Usuario  "
-//                  + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
-//        List l;
-//        try {
-//            Transaction tx = sessionObj.beginTransaction();
-//            Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
-//            usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
-//            tx.commit();
-//        } catch (HibernateException e) {
-//            if (null != sessionObj.getTransaction()) {
-//                System.out.println("\n.......Transaction Is Being Rolled Back.......");
-//                sessionObj.getTransaction().rollback();
-//            }
-//        } finally {
-//            
-//            
-//            if (sessionObj != null && sessionObj.isOpen()) {
-//                sessionObj.close();
-//            }
-//        }
-//        return usuario;       
-//    }
-//    
+
     public boolean update(Usuario user, Usuario usuario){
         boolean success = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -168,7 +143,6 @@ public class Utility {
     }
     public void delete(Usuario user){
          boolean guardar = false;
-//        List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
           try{
              sessionObj.beginTransaction();
@@ -321,17 +295,6 @@ public class Utility {
         }
     }
 
-//    public void irTema(String temas){
-//        boolean guardar = false;
-//        List l = null;
-//        sessionObj = HibernateUtil.getSessionFactory().openSession();
-//        String query = "SELECT * FROM notitia.Temas "
-//                   + "WHERE notitia.Temas.nombre LIKE '"+ temas +"';";
-//            Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
-//            l = q.list();
-//              System.out.println(q.list());      
-//    }
-    
     public void eliminarTema(Temas t){
       boolean guardar = false;
         List l = null;
@@ -375,6 +338,10 @@ public class Utility {
         }
       }
     //Métodos para marcadorController
+    /**
+      * Metodo para ver si existe un tema
+      * @param string 
+      */
     public Temas existeTema(String t){
         List l = null;
         Temas tema = new Temas();
@@ -390,7 +357,10 @@ public class Utility {
         }
         return tema;
      }
-     
+     /**
+      * Metodo para ver si existe un marcador
+      * @param string 
+      */
     public Marcadores existeMarcador(String m){
          List l = null;
         Marcadores mar = new Marcadores();
@@ -408,7 +378,10 @@ public class Utility {
          
      }
      
-     
+     /**
+      * Metodo para ver si existe un usuario
+      * @param string 
+      */
      public Usuario existeUsuario(String u){
         List l = null;
         Usuario usuario = new Usuario();
@@ -551,11 +524,15 @@ public class Utility {
           
         }
      }
-     public List dameMarcadoresT(Temas m){
+     /**
+      * Metodo para dar un marcador por su ubicacion
+      * @param string 
+      */
+     public List dameMarcadoresT(String m){
          List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Marcadores "
-                   + "WHERE notitia.Marcadores.nombre LIKE '"+  m.getNombre()+"';";
+                   + "WHERE notitia.Marcadores.ubicacion LIKE '"+  m +"';";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
@@ -563,7 +540,10 @@ public class Utility {
         return l;
      } 
     //Métodos para comentariosCOntroller
-     
+     /**
+      * Metodo para dar un comentario por su ubicacion
+      * @param list 
+      */
      public List darComentarios(String m){
          List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -575,7 +555,10 @@ public class Utility {
         l = q.list();
         return l;
      } 
-     
+     /**
+      * Metodo para ver si existe un usuario
+      * @param string 
+      */
      public boolean verificaUsuario(String usuario){
          boolean es = false;
          Usuario a = null;
@@ -659,7 +642,10 @@ public class Utility {
           }
         return l;
     }
-    
+    /**
+      * Metodo para guardar un comentario
+      * @param string 
+      */
     public void guardarComentario(Comentarios comentario) {
         boolean guardar = false;
         List l = null;
@@ -704,7 +690,10 @@ public class Utility {
           
         }
     }
-
+    /**
+      * Metodo para borrar un comentario
+      * @param string 
+      */
     public void borrarComentario(int id_comentario){
         boolean guardar = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -742,6 +731,10 @@ public class Utility {
         }
     }
     
+    /**
+      * Metodo auxiliar para actualizar
+      * @param string 
+      */
      public Comentarios obtenerC (int id_comentario){
         boolean guardar = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -768,7 +761,10 @@ public class Utility {
     }
      }
     
-    
+    /**
+      * Metodo para actualizar un comentario
+      * @param string 
+      */
     public void actualizarComentario(Comentarios comentario){
         boolean guardar = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();

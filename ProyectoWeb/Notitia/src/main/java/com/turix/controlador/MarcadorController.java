@@ -104,5 +104,9 @@ public class MarcadorController {
              u.eliminarMarcador(marcador);  
      
      }
+     
+     public List misMarcadores() throws SQLException{
+        return u.dameMarcadoresT(t);
+     }
     
 }

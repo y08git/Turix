@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* Clase controladora para comentarios
+* Las acciones principales es guardar, eliminar y editar comentarios
+* Las acciones secundarias son mostrar los comentarios de acuerdo a la ubicacion,
+* verificar la existencia de un usuario y de un marcador
 */
 package com.turix.controlador;
 
@@ -23,7 +24,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 
 /**
  *
- * @author dmonroy
+ * @author daniela
  */
 @ManagedBean
 @RequestScoped
@@ -91,65 +92,70 @@ public class ComentarioController {
     }
 
    
-
+    /**
+     * Metodo que llama al metodo darComentarios de utilty
+     * @return List
+     */
     public List listaComentarios() throws SQLException{
         return u.darComentarios(ubicacion);
     }
     
+    /**
+     * Metodo que llama al metodo getMiUsuario de utilty
+     * @return List
+     */
     public List listaUsuarios() throws SQLException{
         return u.getMiUsuario();
     }
     
+    /**
+     * Metodo que llama al metodo existeMarcador de utilty
+     * @return Marcadores
+     */
     public Marcadores existeMarcador(String t){
        return u.existeMarcador(t);
     }
     
+    /**
+     * Metodo que llama al metodo existeUsuario de utilty
+     * @return Usuario
+     */
     public Usuario existeUsuario(String t){
         return u.existeUsuario(t);
     }
+    
+    /**
+     * Metodo que llama a los metodos:
+     * setFecha de hoy
+     * setMarcadores con la verificacion de que existe este marcador
+     * setUsuario con la verificacion de que existe este usuario
+     * Mandamos a llamar a guardarComentario
+     * @return Usuario
+     */
     public void agregarComentario(){
-//        long range = 1234567L;
-//        Random r = new Random();
-//        long number = (long)(r.nextDouble()*range);
-//       // (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-//       comentario.setId_comentario(number);
         comentario.setFecha(new Date());
        comentario.setMarcadores(existeMarcador(t));
-        //marcador.setTemas(existeTema(t));
         comentario.setUsuario(existeUsuario(usuario));
-        //marcador.setInformador(existeUsuario(usuario));
-        //solucion temporal de lo de login analogo a existeTema
-            u.guardarComentario(comentario);
-            comentario = null;
+        u.guardarComentario(comentario);
+        comentario = null;
          }
     
+     /* Metodo que llama al metodo existeTema de utilty
+     * @return Temas
+     */
     public Temas existeTema(String t){
        return u.existeTema(t);
     }
-
-//        String x = comentario.getUsuario().getNombre_usuario();
-//        if(true==u.verificaUsuario(x)){
-//            FacesContext.getCurrentInstance()
-//                    .addMessage(null,
-//                            new FacesMessage(FacesMessage.SEVERITY_INFO,
-//                                    "Felicidades, se agrego correctamente el tema", ""));
-//             u.guardarComentario();
-//        } else {
-//            FacesContext.getCurrentInstance()
-//                    .addMessage(null,
-//                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-//                                    "Fallo de registro: Las contraseñas deben coincidir", ""));
-//        }
-//            comentario = null;
-   
-
+    /* Metodo que llama al metodo actualizar de utility
+     */
     public void editarComentario(){
         String coment = comentario.getComentario();
         comentario = u.obtenerC(id_comentario);
         comentario.setComentario(coment);
         u.actualizarComentario(comentario);
     }
-
+    /* Metodo que llama al metodo borrarComentario de utility
+     */
     public void eliminarComentario(){
         u.borrarComentario(id_comentario);
     }
