@@ -70,6 +70,12 @@ public class Utility {
         return l;
 
     }
+
+    /**Metodo que busca en la base de datos un usuario en especifico
+     * 
+     * @param login -- Un objeto de tipo login 
+     * @return Un usuario si ambos atributos en login son correctos, null si no
+     */
     public Usuario login(Login login){
         Usuario usuario = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -121,6 +127,12 @@ public class Utility {
 //        return usuario;       
 //    }
 //    
+    /**Un metodo para actualizar un usuario cuya contraseña ha sido cambiada
+     * 
+     * @param user -- Usuario a buscar
+     * @param usuario -- El mismo usuario con los cambios hechos (no por nombre)
+     * @return True si se hizo el update
+     */
     public boolean update(Usuario user, Usuario usuario){
         boolean success = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -145,6 +157,10 @@ public class Utility {
         return success;
     }
     
+    /**Un metodo para actualizar un usuario cuya contraseña no ha sido cambiada
+     * 
+     * @param usuario -- Usuario modificado (no por nombre)
+     */
     public void update1(Usuario usuario){
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -166,9 +182,14 @@ public class Utility {
             }
         }
     }
+
+//        List l = null;
+    /**Metodo para borrar un usuario de la base de datos
+     * 
+     * @param user -- Usuario a borrar
+     */
     public void delete(Usuario user){
          boolean guardar = false;
-//        List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
           try{
              sessionObj.beginTransaction();
@@ -204,6 +225,7 @@ public class Utility {
     }
     
 
+    
     public void save() {
         try {
             sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -293,6 +315,7 @@ public class Utility {
         List l = null;
        sessionObj = HibernateUtil.getSessionFactory().openSession();
        //query para verificacion
+
         String query = "SELECT * FROM notitia.Temas "
                    + "WHERE notitia.Temas.nombre LIKE '"+ tema.getNombre() +"';";
           try{
@@ -316,6 +339,7 @@ public class Utility {
           }
           
           //mensajes de error o exito
+
         if (!guardar) {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
@@ -350,6 +374,7 @@ public class Utility {
       boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
+
         //query para restricciones
         String query = "SELECT * FROM notitia.Temas "
                    + "WHERE notitia.Temas.nombre LIKE '"+ t.getNombre() +"';";
@@ -374,7 +399,7 @@ public class Utility {
               sessionObj.close(); 
           }    
           }
-          
+
           //mensajes de error o exito
         if (!guardar) {
            FacesContext.getCurrentInstance()
@@ -414,7 +439,7 @@ public class Utility {
     /**
      * Metodo auxiliar para saber si existe el marcador en la BD
      * @param m
-     * @return 
+     * @return null si no existe
      */
     public Marcadores existeMarcador(String m){
          List l = null;
@@ -434,9 +459,9 @@ public class Utility {
      }
      
      /**
-      * Metodo auxiliar para saber si existe un Usuario en la BD
-      * @param u
-      * @return 
+      * Metodo para ver si existe un usuario
+      * @param u -- un string 
+      * @return null si no existe
       */
      public Usuario existeUsuario(String u){
         List l = null;
@@ -509,6 +534,10 @@ public class Utility {
           
          }
     
+    /**
+     * Devuelve la lista de usuarios registrados en la base
+     * @return la lista de usuarios registrados en la base
+     */
     public List darUsuarios() {
         List l;
         Usuario u = new Usuario();
@@ -600,12 +629,17 @@ public class Utility {
           
         }
      }
-     //no se utiliza
-     public List dameMarcadoresT(Temas m){
+     
+     /**
+      * Metodo para dar un marcador por su ubicacion
+      * @param m -- un string
+      * @return Una lista de marcadores
+      */
+     public List dameMarcadoresT(String m){
          List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Marcadores "
-                   + "WHERE notitia.Marcadores.nombre LIKE '"+  m.getNombre()+"';";
+                   + "WHERE notitia.Marcadores.ubicacion LIKE '"+  m +"';";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
@@ -613,7 +647,11 @@ public class Utility {
         return l;
      } 
     //Métodos para comentariosCOntroller
-     
+     /**
+      * Metodo para dar un comentario por su ubicacion
+      * @param m -- Un string
+      * @return Lista de comentarios
+      */
      public List darComentarios(String m){
          List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -625,7 +663,11 @@ public class Utility {
         l = q.list();
         return l;
      } 
-     
+     /**
+      * Metodo para ver si existe un usuario
+      * @param usuario -- un string 
+      * @return  true si existe
+      */
      public boolean verificaUsuario(String usuario){
          boolean es = false;
          Usuario a = null;
@@ -694,7 +736,6 @@ public class Utility {
                 guardar = true;
                 if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
                 sessionObj.getTransaction().commit();
-                return l;
             }
         }
             catch (HibernateException e) {
@@ -709,7 +750,10 @@ public class Utility {
           }
         return l;
     }
-    
+    /**
+      * Metodo para guardar un comentario
+      * @param comentario -- Comentario a guardar
+      */
     public void guardarComentario(Comentarios comentario) {
         boolean guardar = false;
         List l = null;
@@ -754,7 +798,10 @@ public class Utility {
           
         }
     }
-
+    /**
+      * Metodo para borrar un comentario
+      * @param id_comentario -- ID del Comentario que no se guardara
+      */
     public void borrarComentario(int id_comentario){
         boolean guardar = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -792,6 +839,11 @@ public class Utility {
         }
     }
     
+    /**
+      * Metodo auxiliar para actualizar
+      * @param id_comentario-- Id del comentario que queremos obtener
+      * @return  El comentario
+      */
      public Comentarios obtenerC (int id_comentario){
         boolean guardar = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -818,7 +870,10 @@ public class Utility {
     }
      }
     
-    
+    /**
+      * Metodo para actualizar un comentario
+      * @param comentario -- Comentario a actualizar
+      */
     public void actualizarComentario(Comentarios comentario){
         boolean guardar = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -855,7 +910,10 @@ public class Utility {
         }
     }
     
-    
+    /**
+     * Elimina a un informador de la base de datos
+     * @param user -- el usuario que desea eliminarse de la base
+     */
     public void eliminarInformador(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
