@@ -14,6 +14,10 @@
           
           ...<br/><br/><br/><br/>This is the administrator view
           
+         <h:form>
+            <p:commandButton action="listaUsuarios"
+                                 value="Gestionar Usuarios"/>
+          </h:form>
           
       </c:when>
       <c:when test="#{loginController.logged}">
@@ -37,14 +41,7 @@
             <p:commandButton action="comentario"
                                  value="Comentarios"/>
         </h:form>
-         <h:form>
-            <p:commandButton action="GestionarUsuario"
-                                 value="Gestionar Usuario"/>
-        </h:form>
-         <h:form>
-            <p:commandButton action="listaUsuarios"
-                                 value="Ver Usuarios"/>
-        </h:form>
+    
       </c:when>
       <c:otherwise>
           
