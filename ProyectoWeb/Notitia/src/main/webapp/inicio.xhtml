@@ -4,22 +4,32 @@
   xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
   <ui:define name="content">
-<!--    <div class="jumbotron">
-      <div class="container">
-          
-        <p>
-          ​​<h:form>
-              <h:outputText id="output" escape="false" value="#{loginController.nombre}" />
-              <h:commandButton action="welcome?faces-redirect=true"
-                           value="Welcome"/>
-          </h:form>
-        </p>
-      </div>
-    </div>-->
-    <p>
+	  
+	<c:choose>
+           <c:when test="#{loginController.logged == false}">
+               1
+               <br/>
+               2
+               <br/>
+               3
+               <br/>
+               4
+               <br/>
+               You are not Logged in
+               
+           </c:when>
+            <c:when test="#{loginController.admin}">
+				<p>
+					Welcome Administrator
+				</p>
+          </c:when>
+          <c:otherwise>
+              
+           <p>
           ​​<h:form>
               <table>
                 <td colspan="3" align="center">
@@ -31,6 +41,9 @@
                 </table>
           </h:form>
         </p>
+          </c:otherwise>
+        </c:choose>
+		
 
   </ui:define>
 

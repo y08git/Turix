@@ -10,8 +10,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-
+import javax.mail.MessagingException;
 import com.turix.modelo.Usuario;
+import static java.lang.Math.random;
+import java.util.Random;
 
 
 /**
@@ -25,7 +27,8 @@ public class RegistroController {
     private Usuario user = new Usuario();
     private Utility u = new Utility();
     private String confirmarContraseña;
-
+    private JavaMail mail = new JavaMail();
+    private String confirmacion;
     public String getConfirmarContraseña() {
         return confirmarContraseña;
     }
@@ -52,8 +55,12 @@ public class RegistroController {
      * mandamos a llamar a save de Utility 
      * para gardarlo en la BD
      */
-    public void agregarUsuario() {
+    public void agregarUsuario() throws MessagingException {
+        Random random= new Random();
         u.save(user);
+        String correo = u.getCorreo(user);
         user = null;
+        String codigo= String.format("%04d", random.nextInt(10000));
+	mail.enviar(correo,"Test email","<h2>Java Mail Example</h2><p>Bienvenido tu código de activación es: !</p>"+ codigo);
     }
 }

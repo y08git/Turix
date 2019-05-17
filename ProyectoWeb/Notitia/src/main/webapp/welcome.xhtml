@@ -4,36 +4,55 @@
   xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:p="http://primefaces.org/ui">
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
   <ui:define name="content">
-  <h:head>
-    <title>Hola!</title>
-  </h:head>
-  <h:body>
-    <h1>HOLA</h1>
-    <h2>Bienvenido! #{loginController.login.usuario}</h2>
-<!--    <h2>Contraseña #{loginController.login.contraseña} </h2>-->
-  </h:body>
-      <h:form>
-      <p:commandButton action="temaInformador"
-                           value="Temas"/>
-  </h:form>
-      <h:form>
-      <p:commandButton action="marcador"
-                           value="Marcadores"/>
-  </h:form>
-      <h:form>
-      <p:commandButton action="comentario"
-                           value="Comentarios"/>
-  </h:form>
-   <h:form>
-      <p:commandButton action="GestionarUsuario"
-                           value="Gestionar Usuario"/>
-  </h:form>
-   <h:form>
-      <p:commandButton action="listaUsuarios"
-                           value="Ver Usuarios"/>
-  </h:form>
+    <c:choose>
+      <c:when test="#{loginController.admin}">
+          
+          
+          ...<br/><br/><br/><br/>This is the administrator view
+          
+          
+      </c:when>
+      <c:when test="#{loginController.logged}">
+        <h:head>
+          <title>Hola!</title>
+        </h:head>
+        <h:body>
+          <h1>HOLA</h1>
+          <h2>Bienvenido! #{loginController.login.usuario}</h2>
+      <!--    <h2>Contraseña #{loginController.login.contraseña} </h2>-->
+        </h:body>
+            <h:form>
+            <p:commandButton action="temaInformador"
+                                 value="Temas"/>
+        </h:form>
+            <h:form>
+            <p:commandButton action="marcador"
+                                 value="Marcadores"/>
+        </h:form>
+            <h:form>
+            <p:commandButton action="comentario"
+                                 value="Comentarios"/>
+        </h:form>
+         <h:form>
+            <p:commandButton action="GestionarUsuario"
+                                 value="Gestionar Usuario"/>
+        </h:form>
+         <h:form>
+            <p:commandButton action="listaUsuarios"
+                                 value="Ver Usuarios"/>
+        </h:form>
+      </c:when>
+      <c:otherwise>
+          
+          
+          ...<br/><br/><br/><br/>Not registered
+          
+          
+      </c:otherwise>
+    </c:choose>
   </ui:define>
 </ui:composition>
