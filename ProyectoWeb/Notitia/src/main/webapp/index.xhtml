@@ -1,38 +1,41 @@
 <ui:composition
-    template="/WEB-INF/facelets/templates/layout.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+  template="/WEB-INF/facelets/templates/layout.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
   <ui:define name="content">
-  <head>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css"/>
-    <style>
-      .map {
-        height: 400px;
-        width: 100%;
-      }
-    </style>
-    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
-    <title>OpenLayers example</title>
-  </head>
-  <body>
-    <h2>My Map</h2>
-    <div id="map" class="map"></div>
-    <script type="text/javascript">
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
+    <h:head>
+      <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css"/>
+      <style>
+        .map {
+          height: 400px;
+          width: 100%;
+        }
+      </style>
+      <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+      <title>OpenLayers example</title>
+    </h:head>
+    <h:body>
+      <h2>My Map</h2>
+      <div id="map" class="map"></div>
+      <script type="text/javascript">
+        var map = new ol.Map({
+          target: 'map',
+          layers: [
+            new ol.layer.Tile({
+              source: new ol.source.OSM()
+            })
+          ],
+          view: new ol.View({
+            center: ol.proj.fromLonLat([37.41, 8.82]),
+            zoom: 4
           })
-        ],
-        view: new ol.View({
-          center: ol.proj.fromLonLat([37.41, 8.82]),
-          zoom: 4
-        })
-      });
-    </script>
-  </body>
+        });
+      </script>
+    </h:body>
   </ui:define>
-
 </ui:composition>

@@ -7,6 +7,15 @@
 
 
 ** Repositorio de Turix
+
+#+begin_src sh
+git add .
+#+end_src
+
+#+begin_src sh
+git reset -- ProyectoWeb/Notitia/src/main/resources/hibernate.cfg.xml
+#+end_src
+
  
 * Chiu Valderrama Juan Yair
 * García Campos Jaime Arturo
