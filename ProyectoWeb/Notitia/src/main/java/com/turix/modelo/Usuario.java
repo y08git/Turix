@@ -14,6 +14,9 @@ public class Usuario implements Serializable {
     @Column(name = "nombre_usuario")
     private String nombre_usuario;
 
+    @Column(name = "en_espera")
+    private boolean en_espera;
+
     @Column(name = "contraseña")
     private String contraseña;
 
@@ -41,6 +44,14 @@ public class Usuario implements Serializable {
 
     public void setNombre_usuario(String nombre_usuario) {
         this.nombre_usuario = nombre_usuario.trim();
+    }
+
+    public boolean getEn_espera() {
+        return en_espera;
+    }
+
+    public void setEn_espera(boolean value) {
+        this.en_espera = value;
     }
 
     public String getContraseña() {

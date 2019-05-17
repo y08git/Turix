@@ -1,5 +1,5 @@
-INSERT INTO notitia.usuario (nombre_usuario,contraseña, correo, es_informador)
-VALUES ('Yo','password','asdfas',false);
+INSERT INTO notitia.usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('Yo', false, 'password','asdfas',false);
 
 
 INSERT INTO notitia.temas (nombre, descripcion)

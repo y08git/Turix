@@ -7,6 +7,7 @@ drop table if exists notitia.Usuario ;
 CREATE TABLE notitia.Usuario
 (
   nombre_usuario text NOT NULL,
+  en_espera Boolean NOT NULL,
   contraseña text NOT NULL,
   correo text NOT NULL,
   es_informador Boolean NOT NULL,
