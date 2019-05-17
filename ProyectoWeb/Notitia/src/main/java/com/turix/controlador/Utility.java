@@ -435,6 +435,25 @@ public class Utility {
         }
         return tema;
      }
+    
+    
+      public String getCorreo(Usuario t){
+        List l = null;
+        Usuario u = new Usuario();
+        String correo = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario "
+                   + "WHERE notitia.Usuario.nombre_usuario LIKE '"+t.getNombre_usuario()+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        if(!l.isEmpty()){
+             u=(Usuario)l.get(0);
+             correo=u.getCorreo();
+        }
+        return correo;
+     }
      
     /**
      * Metodo auxiliar para saber si existe el marcador en la BD
