@@ -561,7 +561,7 @@ public class Utility {
         List l;
         Usuario u = new Usuario();
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT * FROM notitia.Usuario ";
+        String query = "SELECT * FROM notitia.Usuario WHERE en_espera AND NOT es_informador";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
