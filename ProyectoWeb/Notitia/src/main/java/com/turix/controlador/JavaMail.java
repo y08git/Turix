@@ -14,11 +14,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+
 public class JavaMail {
-    private static final String envioEmail = "turixteam2019@gmail.com";//change with your sender email
+  private static final String envioEmail = "turixteam2019@gmail.com";//change with your sender email
   private static final String envioPass = "#notitia#";//change with your sender password
+  private static ValidaCorreo valida = new ValidaCorreo();
 
   public static void enviar(String to, String title, String html) throws MessagingException {
+      if(valida.validacion(to)){
       System.out.println("Sending email to " + to);
 
       Session session = crearSesion();
@@ -30,6 +33,9 @@ public class JavaMail {
       //sending message
       Transport.send(message);
       System.out.println("Done");
+      }else
+       System.out.println("No es un correo válido: " + to);
+
   }
 
   private static void prepareEmailMessage(MimeMessage message, String to, String title, String html)
@@ -53,13 +59,6 @@ public class JavaMail {
           }
       });
       return session;
-  }
-  
-  
-  public static void main(String[] args) throws MessagingException {
-      JavaMail.enviar("dianis0297@gmail.com",
-              "Test email",
-              "<h2>Java Mail Example</h2><p>hi there!</p>");
   }
     
 }

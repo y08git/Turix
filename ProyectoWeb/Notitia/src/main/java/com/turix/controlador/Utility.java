@@ -302,7 +302,7 @@ public class Utility {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Felicidades, el registro se ha realizado correctamente", ""));
+                                    "Revise su correo e ingrese el código en Confirmar", ""));
         }
           return guardar;
     }

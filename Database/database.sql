@@ -2,7 +2,8 @@ begin;
 
 drop schema if exists notitia cascade;
 create schema notitia;
-
+------Creamos usuario
+---llave nombre usuario
 drop table if exists notitia.Usuario ;
 CREATE TABLE notitia.Usuario
 (
@@ -13,6 +14,7 @@ CREATE TABLE notitia.Usuario
   PRIMARY KEY (nombre_usuario)
 );
 
+----------
 drop table if exists notitia.Temas;
 CREATE TABLE notitia.Temas
 (
