@@ -1,14 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.turix.modelo;
 
 import java.io.Serializable;
 
 import javax.persistence.*;
 
-
+/**
+ *
+ * @author dianis
+ */
 @Entity
-@Table(catalog = "notitia", schema = "notitia", name = "usuario")
-public class Usuario implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(catalog = "notitia", schema = "notitia", name = "temporal")
+public class Temporal implements Serializable{
+     private static final long serialVersionUID = 1L;
     
     @Id
     @Column(name = "nombre_usuario")
@@ -22,36 +30,13 @@ public class Usuario implements Serializable {
 
     @Column(name = "es_informador")
     private boolean es_informador;
-    
-    @Transient
-    private String confirmaContrasena;
-    
-    @Transient
-    private String codigo;
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public Usuario() {
-        this.nombre_usuario = "";
-        this.contraseña = "";
-        this.correo = "";
-        this.es_informador = false;
-    }
-    
-    
 
     public String getNombre_usuario() {
         return nombre_usuario;
     }
 
     public void setNombre_usuario(String nombre_usuario) {
-        this.nombre_usuario = nombre_usuario.trim();
+        this.nombre_usuario = nombre_usuario;
     }
 
     public String getContraseña() {
@@ -64,6 +49,20 @@ public class Usuario implements Serializable {
 
     public String getCorreo() {
         return correo;
+    }
+    
+    @Transient
+    private String confirmaContrasena;
+    
+    @Column(name = "codigo")
+    private String codigo;
+
+    public String getConfirmaContrasena() {
+        return confirmaContrasena;
+    }
+
+    public void setConfirmaContrasena(String confirmaContrasena) {
+        this.confirmaContrasena = confirmaContrasena;
     }
 
     public void setCorreo(String correo) {
@@ -78,12 +77,16 @@ public class Usuario implements Serializable {
         this.es_informador = es_informador;
     }
 
-    public String getConfirmaContrasena() {
-        return confirmaContrasena;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setConfirmaContrasena(String confirmaContrasena) {
-        this.confirmaContrasena = confirmaContrasena;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
-        
+ 
+    
+    
+    
+    
 }
