@@ -238,6 +238,14 @@ public class UsuarioController {
     public List listaUsuarios(){
         return u.darUsuarios();
     }
+
+    /**Metodo que regresa a todos los usuarios registrados
+     * 
+     * @return Un objeto de tipo lista
+     */
+    public List listaUsuariosRegistrados(){
+        return u.darUsuariosRegistrados();
+    }
     
     /**Un metodo para borrar el usuario en esta instancia
      * 

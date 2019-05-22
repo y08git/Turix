@@ -12,12 +12,17 @@
       <c:when test="#{loginController.admin}">
           
           
-          ...<br/><br/><br/><br/>This is the administrator view
-          
-         <h:form>
+          ...<br/><br/><br/><br/>Bienvenido Administrador.
+         
+        <h:form>
             <p:commandButton action="listaUsuarios"
-                                 value="Gestionar Usuarios"/>
-          </h:form>
+                                 value="Usuarios en Espera"/>
+        </h:form>
+
+        <h:form>
+            <p:commandButton action="listaUsuariosRegistrados"
+                                 value="Lista de Usuarios Registrados"/>
+        </h:form>
           
       </c:when>
       <c:when test="#{loginController.logged}">
