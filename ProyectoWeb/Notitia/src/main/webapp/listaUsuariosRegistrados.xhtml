@@ -12,47 +12,43 @@
 <h:body>
   <h1>Usuarios Registrados</h1> <br/>
   <h:form id="myorm">
-      <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" var="usuario">
-        <table>
-          <tr>
-              <td><p:messages id="messages" autoUpdate="true" closable="true"/></td>
-          </tr>
-        </table>
-          <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuariosRegistrados()}">
-    <p:column headerText="usuario">
-        <h:outputText value="#{usuario.nombre_usuario}" />
-    </p:column>
- 
-    <p:column headerText="correo">
-        <h:outputText value="#{usuario.correo}" />
-    </p:column>
- 
-    <p:column headerText="¿Es Informador?">
-        <h:outputText value="#{usuario.es_informador}" />
-    </p:column>
-
-</p:dataTable>
-          
-          
-        <!--  
-        <f:facet name="header">
-            Usuarios
-        </f:facet>
-        #{usuario.nombre_usuario}, #{usuario.correo}, #{usuario.es_informador}
-        -->
-        
-        <p:commandButton action="#{usuarioController.set(usuario)}"
-                         value="#{usuarioController.inf(usuario)}"
-                         update="@none" process="@this"
-                         />
+    <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" var="usuario">
+      <table>
+        <tr>
+          <td><p:messages id="messages" autoUpdate="true" closable="true"/></td>
+        </tr>
+      </table>
+      <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuariosRegistrados()}">
+        <p:column headerText="usuario">
+            <h:outputText value="#{usuario.nombre_usuario}" />
+        </p:column>
+     
+        <p:column headerText="correo">
+            <h:outputText value="#{usuario.correo}" />
+        </p:column>
+     
+        <p:column headerText="¿Es Informador?">
+            <h:outputText value="#{usuario.es_informador}" />
+        </p:column>
+      </p:dataTable>      
+      <!--  
+      <f:facet name="header">
+          Usuarios
+      </f:facet>
+      #{usuario.nombre_usuario}, #{usuario.correo}, #{usuario.es_informador}
+      -->      
+      <p:commandButton action="#{usuarioController.set(usuario)}"
+                       value="#{usuarioController.inf(usuario)}"
+                       update="@none" process="@this"
+                       />
     </p:dataList>
     <table>
       <tr><td>
         <p:messages id="messages" autoUpdate="true" closable="true" />
       </td></tr>
     </table>
-      <p:commandButton action="welcome"
-                           value="Regresar a Inicio"/>
+    <p:commandButton action="welcome" value="Regresar a Inicio"/>
+    <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
   </h:form>
   
   <!--
