@@ -207,14 +207,24 @@ public class UsuarioController {
      * @param user -- El usuario que se actualizara
      * @return String de redireccion
      */
-    
     public String set(Usuario user) {
         if(user != null){
             user.setEs_informador(!user.isEs_informador());
             u.update1(user);
         }
         return "listaUsuarios?faces-redirect=true";
-        
+    }
+
+    /**Metodo para actualizar un usuario recibido
+     * @param user -- El usuario que se actualizara
+     * @return String de redireccion
+     */
+    public String setRegistrados(Usuario user) {
+        if(user != null){
+            user.setEs_informador(!user.isEs_informador());
+            u.update1(user);
+        }
+        return "listaUsuariosRegistrados?faces-redirect=true";
     }
     /**Metodo para decir si es comentarista o informador 
      * 
