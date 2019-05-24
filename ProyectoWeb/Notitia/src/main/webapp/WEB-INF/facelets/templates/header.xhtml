@@ -33,21 +33,26 @@
           <c:otherwise>
               
             <h:form id="myForm" class="form-inline my-2 my-lg-0">
-               
-                <h:inputText value="#{loginController.login.usuario}"
-                           required="true" id="nombre_usuario"
-                           size="15" class="form-control mr-sm-2"
-                           a:placeholder="Nombre"/>
+               <table>
+                    <tr><td>
+                        <p:messages id="messages" autoUpdate="true" closable="true" />
+                    </td></tr>
+                </table>
+                <table>
+                    <h:inputText value="#{loginController.login.usuario}"
+                               required="true" id="nombre_usuario"
+                               size="15" class="form-control mr-sm-2"
+                               a:placeholder="Nombre"/>
 
-              <h:inputSecret value="#{loginController.login.contraseña}"
-                             required="true" id="contraseña"
-                             class="form-control mr-sm-2"
-                             a:placeholder="Contraseña"/>
+                    <h:inputSecret value="#{loginController.login.contraseña}"
+                                 required="true" id="contraseña"
+                                 class="form-control mr-sm-2"
+                                 a:placeholder="Contraseña"/>
 
-              <h:commandButton action="#{loginController.openUser()}"
-                               value="Inicia Sesión"
-                               class="btn btn-outline-success my-2 my-sm-0"/>
-
+                    <h:commandButton action="#{loginController.openUser()}"
+                                   value="Inicia Sesión"
+                                   class="btn btn-outline-success my-2 my-sm-0"/>
+                </table>
             </h:form>
               <h:form>
               <h:commandButton action="registro?faces-redirect=true"
