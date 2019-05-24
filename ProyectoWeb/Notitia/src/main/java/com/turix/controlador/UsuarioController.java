@@ -121,6 +121,7 @@ public class UsuarioController {
                 .setLocale(new Locale("es-Mx"));
 //        if(user != null)
 //               correo = user.getCorreo();
+
     }
     
     /**Un metodo que actualiza los datos del usuario actual

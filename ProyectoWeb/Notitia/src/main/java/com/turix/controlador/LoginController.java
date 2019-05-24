@@ -44,6 +44,16 @@ public class LoginController {
                 .setLocale(new Locale("es-Mx"));
     }
     
+    public Usuario getCurrentUser(){
+        FacesContext context = getCurrentInstance();
+        usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        
+        if(usuario != null) 
+            return usuario;
+       
+        return null;
+    }
+    
     /**Un metodo para declarar un Nombre en LoginController
      * 
      * @return Un objeto de tipo String
@@ -103,6 +113,16 @@ public class LoginController {
         return "index?faces-redirect=true";
     }
     
+    /**Un metodo para redireccionar si no hay un usuario en la sesión actual
+     * @return la direccion al que el usuario será redireccionado
+     */
+    public String userTest(){
+        if(isLogged())
+            return null;
+        return "index?faces-redirect=true";
+    }
+    
+    
     /**Un metodo para decir si hay un usuario en la declaración de la sesión actual
      * @return true si existe un usuario en la sesión actual
      */
@@ -110,6 +130,18 @@ public class LoginController {
         FacesContext context = getCurrentInstance();
         Usuario l = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
         return l != null;
+    }
+    
+    
+    /**Un metodo para decir si un usuario es administrador
+     * @return true si es administrador
+     */
+    public boolean isAdmin(){
+        FacesContext context = getCurrentInstance();
+        Usuario l = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        if( l == null)
+            return false;
+        return l.getNombre_usuario().equals("Admin");
     }
     
 }

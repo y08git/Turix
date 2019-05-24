@@ -50,24 +50,32 @@ public class TemaController {
     }
      
    
-     
+     /**
+      * Metodo que guarda un Tema
+      * manda a llamar a guardarTema de Utility
+      * para guardarlo en la BD
+      */
      public void guardarTema(){
              u.guardarTema(tema);
             tema = null;         
          }
 
-     
-     public String buscarTema(Temas tema){
-         String id = null;
-         return id;
-         
-     }
-     
+     /**
+      * Metodo que elimina un Tema
+      * manda a llamar a eliminarTema de Utility
+      * para eliminarlo en la BD
+      */
      public void eliminarTema(){
              u.eliminarTema(tema);
 
      }   
      
+     /**
+      * Metodo que da la lista de todos los temas
+      * manda a llamar darTema de Utility
+      * para buscarlos en la BD
+      * @return List
+      */
      public List listaTemas(){
         return u.darTemas();
      }

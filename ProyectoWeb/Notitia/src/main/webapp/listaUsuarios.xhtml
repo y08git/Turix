@@ -2,66 +2,62 @@
     template="/WEB-INF/facelets/templates/layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui" 
+    xmlns:p="http://primefaces.org/ui"
     xmlns:h="http://xmlns.jcp.org/jsf/html">
   <ui:define name="content">
       >
 <h:head>
-  <title>Lista de Usuarios Registrados</title>
+  <title>Lista de Usuarios en Espera</title>
 </h:head>
 <h:body>
-  <h1>Usuarios Registrados</h1> <br/>
+  <h1>Usuarios en Espera de Asignación</h1> <br/>
   <h:form id="myorm">
-      <p:dataList value="#{usuarioController.listaUsuarios()}" var="usuario">
-        <table>
-          <tr>
-              <td><p:messages id="messages" autoUpdate="true" closable="true"/></td>
-          </tr>
-        </table>
-          <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuarios()}">
-    <p:column headerText="usuario">
-        <h:outputText value="#{usuario.nombre_usuario}" />
-    </p:column>
- 
-    <p:column headerText="correo">
-        <h:outputText value="#{usuario.correo}" />
-    </p:column>
- 
-    <p:column headerText="¿Es Informador?">
-        <h:outputText value="#{usuario.es_informador}" />
-    </p:column>
+    <p:dataList value="#{usuarioController.listaUsuarios()}" var="usuario">
+      <table>
+        <tr>
+          <td><p:messages id="messages" autoUpdate="true" closable="true"/></td>
+        </tr>
+      </table>
+      <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuarios()}">
+        <p:column headerText="usuario">
+            <h:outputText value="#{usuario.nombre_usuario}" />
+        </p:column>
 
-</p:dataTable>
-          
-          
-        <!--  
-        <f:facet name="header">
-            Usuarios
-        </f:facet>
-        #{usuario.nombre_usuario}, #{usuario.correo}, #{usuario.es_informador}
-        -->
-        
-        <p:commandButton action="#{usuarioController.set(usuario)}"
-                         value="#{usuarioController.inf(usuario)}"
-                         update="@none" process="@this"
-                         />
+        <p:column headerText="correo">
+            <h:outputText value="#{usuario.correo}" />
+        </p:column>
+
+        <p:column headerText="¿Es Informador?">
+            <h:outputText value="#{usuario.es_informador}" />
+        </p:column>
+      </p:dataTable>
+      <!--
+      <f:facet name="header">
+          Usuarios
+      </f:facet>
+      #{usuario.nombre_usuario}, #{usuario.correo}, #{usuario.es_informador}
+      -->
+      <p:commandButton action="#{usuarioController.set(usuario)}"
+                       value="#{usuarioController.inf(usuario)}"
+                       update="@none" process="@this"
+                       />
     </p:dataList>
     <table>
       <tr><td>
         <p:messages id="messages" autoUpdate="true" closable="true" />
       </td></tr>
     </table>
-      <p:commandButton action="welcome"
-                           value="Regresar a Inicio"/>
-  </h:form>
-  
+    <p:commandButton action="welcome" value="Regresar a Inicio"/>
+    <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
+    </h:form>
+
   <!--
   <h:form>
       <p:commandButton action="buscarUsuario"
                            value="Buscar Usuario"/>
   </h:form>
   -->
-  
+
 </h:body>
   </ui:define>
 </ui:composition>

@@ -70,6 +70,7 @@ public class Utility {
         return l;
 
     }
+
     /**Metodo que busca en la base de datos un usuario en especifico
      * 
      * @param login -- Un objeto de tipo login 
@@ -181,6 +182,8 @@ public class Utility {
             }
         }
     }
+
+//        List l = null;
     /**Metodo para borrar un usuario de la base de datos
      * 
      * @param user -- Usuario a borrar
@@ -247,15 +250,20 @@ public class Utility {
             }
         }
     }
-    // Métodos para temaController
+    /**
+     * Metodo para guardar a un Usuario en la base de datos al momento de registrar
+     * @param user
+     * @return true si fue exitosa la transaccion
+     */
     public boolean save(Usuario user) {
+        //querys para hacer verificaciones
         boolean guardar = false;
           sessionObj = HibernateUtil.getSessionFactory().openSession();
            String queryNombre = "SELECT * FROM notitia.Usuario "
                    + "WHERE notitia.Usuario.nombre_usuario LIKE '"+ user.getNombre_usuario()+"';";
             String queryCorreo = "SELECT * FROM notitia.Usuario "
                    + "WHERE notitia.Usuario.correo LIKE '"+ user.getCorreo() +"';";
-           
+           //iniciamos transaccion
         try {
           
             sessionObj.beginTransaction();
@@ -277,7 +285,7 @@ public class Utility {
                 sessionObj.close();
             }
         }
-        
+        //Mensajes de exito o error 
           if (!user.getContraseña().equals(user.getConfirmaContrasena())) {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
@@ -294,15 +302,20 @@ public class Utility {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Felicidades, el registro se ha realizado correctamente", ""));
+                                    "Revise su correo e ingrese el código en Confirmar", ""));
         }
           return guardar;
     }
-
+    /**
+     * Metodo para guarda el tema en la base de datos
+     * @param tema 
+     */
     public void guardarTema(Temas tema){
       boolean guardar = false;
         List l = null;
-        sessionObj = HibernateUtil.getSessionFactory().openSession();
+       sessionObj = HibernateUtil.getSessionFactory().openSession();
+       //query para verificacion
+
         String query = "SELECT * FROM notitia.Temas "
                    + "WHERE notitia.Temas.nombre LIKE '"+ tema.getNombre() +"';";
           try{
@@ -325,6 +338,8 @@ public class Utility {
           }    
           }
           
+          //mensajes de error o exito
+
         if (!guardar) {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
@@ -340,10 +355,27 @@ public class Utility {
         }
     }
 
+//    public void irTema(String temas){
+//        boolean guardar = false;
+//        List l = null;
+//        sessionObj = HibernateUtil.getSessionFactory().openSession();
+//        String query = "SELECT * FROM notitia.Temas "
+//                   + "WHERE notitia.Temas.nombre LIKE '"+ temas +"';";
+//            Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
+//            l = q.list();
+//              System.out.println(q.list());      
+//    }
+    
+    /**
+     * Metodo para eliminar un tema de la BD
+     * @param t 
+     */
     public void eliminarTema(Temas t){
       boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
+
+        //query para restricciones
         String query = "SELECT * FROM notitia.Temas "
                    + "WHERE notitia.Temas.nombre LIKE '"+ t.getNombre() +"';";
           try{
@@ -367,7 +399,8 @@ public class Utility {
               sessionObj.close(); 
           }    
           }
-          
+
+          //mensajes de error o exito
         if (!guardar) {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
@@ -382,11 +415,11 @@ public class Utility {
           
         }
       }
-    //Métodos para marcadorController
     /**
-      * Metodo para ver si existe un tema
-      * @param string 
-      */
+     * Metodo auxiliar para saber si existe el Tema en la BD
+     * @param t
+     * @return Temas
+     */
     public Temas existeTema(String t){
         List l = null;
         Temas tema = new Temas();
@@ -402,10 +435,31 @@ public class Utility {
         }
         return tema;
      }
-     /**
-      * Metodo para ver si existe un marcador
-      * @param string 
-      */
+    
+    
+      public String getCorreo(Usuario t){
+        List l = null;
+        Usuario u = new Usuario();
+        String correo = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario "
+                   + "WHERE notitia.Usuario.nombre_usuario LIKE '"+t.getNombre_usuario()+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        if(!l.isEmpty()){
+             u=(Usuario)l.get(0);
+             correo=u.getCorreo();
+        }
+        return correo;
+     }
+     
+    /**
+     * Metodo auxiliar para saber si existe el marcador en la BD
+     * @param m
+     * @return null si no existe
+     */
     public Marcadores existeMarcador(String m){
          List l = null;
         Marcadores mar = new Marcadores();
@@ -425,7 +479,8 @@ public class Utility {
      
      /**
       * Metodo para ver si existe un usuario
-      * @param string 
+      * @param u -- un string 
+      * @return null si no existe
       */
      public Usuario existeUsuario(String u){
         List l = null;
@@ -443,16 +498,21 @@ public class Utility {
         return usuario;
          
      }
+     
+     /**
+      * Metodo para guardar un marcador en la BD
+      * @param marcador 
+      */
     public void guardarMarcador(Marcadores marcador){
         boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
+        //Querys para restricciones
         String query = "SELECT * FROM notitia.Marcadores "
                    + "WHERE notitia.Marcadores.nombre LIKE '"+ marcador.getUbicacion() +"';";
         String queryT = "SELECT * FROM notitia.Temas "
                   + "WHERE notitia.Temas.nombre LIKE '"+ marcador.getTemas().getNombre() +"';";
-          //marcador.setNombreTema(marcador);
-         // existeTema(marcador.());
+         //inicio transaccion
           try{
          sessionObj.beginTransaction();
             Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
@@ -475,6 +535,7 @@ public class Utility {
           }    
           }
           
+          //mensaje de error o exito
         if (!guardar) {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
@@ -508,6 +569,10 @@ public class Utility {
         return l;
     }
     
+    /**
+     * Metodo para enlistar todos los temas
+     * @return list
+     */
      public List darTemas(){
          List l = null;
         Temas tema = new Temas();
@@ -520,6 +585,10 @@ public class Utility {
         return l;
      }   
      
+     /**
+      * Metodo para enlistar todos los marcadores
+      * @return list
+      */
      public List darMarcadores(){
          List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -531,10 +600,15 @@ public class Utility {
         return l;
      }  
      
+     /**
+      * Metodo para eliminar un marcador de BD
+      * @param m 
+      */
      public void eliminarMarcador(Marcadores m){
         boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
+        //query para restricciones
         String query = "SELECT * FROM notitia.Marcadores "
                    + "WHERE notitia.Marcadores.ubicacion LIKE '"+ m.getUbicacion() +"';";
           try{
@@ -559,6 +633,7 @@ public class Utility {
           }    
           }
           
+          //mensajes de error o exito
         if (!guardar) {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
@@ -573,9 +648,11 @@ public class Utility {
           
         }
      }
+     
      /**
       * Metodo para dar un marcador por su ubicacion
-      * @param string 
+      * @param m -- un string
+      * @return Una lista de marcadores
       */
      public List dameMarcadoresT(String m){
          List l = null;
@@ -591,7 +668,8 @@ public class Utility {
     //Métodos para comentariosCOntroller
      /**
       * Metodo para dar un comentario por su ubicacion
-      * @param list 
+      * @param m -- Un string
+      * @return Lista de comentarios
       */
      public List darComentarios(String m){
          List l = null;
@@ -606,7 +684,8 @@ public class Utility {
      } 
      /**
       * Metodo para ver si existe un usuario
-      * @param string 
+      * @param usuario -- un string 
+      * @return  true si existe
       */
      public boolean verificaUsuario(String usuario){
          boolean es = false;
@@ -676,7 +755,6 @@ public class Utility {
                 guardar = true;
                 if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
                 sessionObj.getTransaction().commit();
-                return l;
             }
         }
             catch (HibernateException e) {
@@ -693,7 +771,7 @@ public class Utility {
     }
     /**
       * Metodo para guardar un comentario
-      * @param string 
+      * @param comentario -- Comentario a guardar
       */
     public void guardarComentario(Comentarios comentario) {
         boolean guardar = false;
@@ -741,7 +819,7 @@ public class Utility {
     }
     /**
       * Metodo para borrar un comentario
-      * @param string 
+      * @param id_comentario -- ID del Comentario que no se guardara
       */
     public void borrarComentario(int id_comentario){
         boolean guardar = false;
@@ -782,7 +860,8 @@ public class Utility {
     
     /**
       * Metodo auxiliar para actualizar
-      * @param string 
+      * @param id_comentario-- Id del comentario que queremos obtener
+      * @return  El comentario
       */
      public Comentarios obtenerC (int id_comentario){
         boolean guardar = false;
@@ -812,7 +891,7 @@ public class Utility {
     
     /**
       * Metodo para actualizar un comentario
-      * @param string 
+      * @param comentario -- Comentario a actualizar
       */
     public void actualizarComentario(Comentarios comentario){
         boolean guardar = false;
@@ -852,7 +931,7 @@ public class Utility {
     
     /**
      * Elimina a un informador de la base de datos
-     * @param user el usuario que desea eliminarse de la base
+     * @param user -- el usuario que desea eliminarse de la base
      */
     public void eliminarInformador(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

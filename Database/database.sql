@@ -2,17 +2,31 @@ begin;
 
 drop schema if exists notitia cascade;
 create schema notitia;
-
+------Creamos usuario
+---llave nombre usuario
 drop table if exists notitia.Usuario ;
 CREATE TABLE notitia.Usuario
 (
   nombre_usuario text NOT NULL,
+  en_espera Boolean NOT NULL,
   contraseña text NOT NULL,
   correo text NOT NULL,
   es_informador Boolean NOT NULL,
   PRIMARY KEY (nombre_usuario)
 );
 
+---pre registri
+CREATE TABLE notitia.Temporal
+(
+  nombre_usuario text NOT NULL,
+  contraseña text NOT NULL,
+  correo text NOT NULL,
+  es_informador Boolean NOT NULL,
+  codigo text NOT NULL,
+  timestamp timestamp NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (nombre_usuario)
+);
+----------
 drop table if exists notitia.Temas;
 CREATE TABLE notitia.Temas
 (
@@ -71,6 +85,8 @@ create or replace function notitia.hash() returns trigger as $$
   end;
 $$ language plpgsql;
 
+
+
 comment on function notitia.hash()
 is
 'Cifra la contraseña del usuario al guardarla en la base de datos.';
@@ -96,5 +112,18 @@ select *
 from notitia.marcadores
 where ubicacion LIKE n_marcador;
 $$ language sql stable;
+
+CREATE OR REPLACE FUNCTION eliminar() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  DELETE FROM notitia.Temporal WHERE timestamp < NOW() - INTERVAL '2 days';
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER eliminar_trigger
+    AFTER INSERT ON notitia.Temporal
+    EXECUTE PROCEDURE eliminar();
 
 commit;
