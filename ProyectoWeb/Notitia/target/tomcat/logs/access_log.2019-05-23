@@ -1,0 +1,9 @@
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/map.xhtml HTTP/1.1" 200 5703 http-bio-8080-exec-1 576
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/javax.faces.resource/core.js.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-3 18
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-5 20
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/javax.faces.resource/components.js.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-7 22
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/javax.faces.resource/bootstrap/4.0.0-2/css/bootstrap.min-jsf.css.xhtml?ln=webjars HTTP/1.1" 304 - http-bio-8080-exec-2 25
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-4 10
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/javax.faces.resource/components.css.xhtml?ln=primefaces&v=6.0 HTTP/1.1" 304 - http-bio-8080-exec-6 16
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/javax.faces.resource/jquery/3.3.1-1/jquery.min.js.xhtml?ln=webjars HTTP/1.1" 304 - http-bio-8080-exec-13 13
+127.0.0.1 - - [23/May/2019:15:45:50 -0500] "GET /Notitia/javax.faces.resource/bootstrap/4.0.0-2/js/bootstrap.min.js.xhtml?ln=webjars HTTP/1.1" 304 - http-bio-8080-exec-11 8
