@@ -568,6 +568,22 @@ public class Utility {
         l = q.list();
         return l;
     }
+
+    /**
+     * Devuelve la lista de usuarios registrados en la base
+     * @return la lista de usuarios registrados en la base
+     */
+    public List darUsuariosRegistrados() {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
     
     /**
      * Metodo para enlistar todos los temas

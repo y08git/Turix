@@ -1,0 +1,205 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" 
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <ui:define name="content">
+      >
+<h:head>
+  <title>Lista de Usuarios Registrados</title>
+</h:head>
+<h:body>
+  <h1>Usuarios Registrados</h1> <br/>
+  <h:form id="myorm">
+
+
+    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
+        <p:outputLabel for="basic" value="Basic:" />
+        <p:selectOneListbox id="basic" value="welcome">
+            <f:selectItem itemLabel="Option 1" itemValue="1" />
+            <f:selectItem itemLabel="Option 2" itemValue="2" />
+            <f:selectItem itemLabel="Option 3" itemValue="3" />
+        </p:selectOneListbox>
+ 
+        <p:outputLabel for="advanced" value="Advanced:" />
+        <p:selectOneListbox id="advanced" value="#{selectOneView.theme}" converter="themeConverter" var="t" filter="true" filterMatchMode="contains">
+            <f:selectItems value="#{selectOneView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
+ 
+            <p:column>
+                <h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{t.name}.png" alt="#{t.name}" styleClass="ui-theme" />
+            </p:column>
+             
+            <p:column>
+                <h:outputText value="#{t.displayName}" />
+            </p:column>
+        </p:selectOneListbox>
+    </h:panelGrid>
+ 
+    <p:separator />
+ 
+    <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="pi pi-check" />
+ 
+    <p:dialog header="Selected Values" modal="true" showEffect="fade" widgetVar="dlg" resizable="false">
+        <p:panelGrid columns="2" id="display" columnClasses="label,output">
+            <h:outputText value="Basic:" />
+            <h:outputText value="#{selectOneView.option}" />
+ 
+            <h:outputText value="Advanced:" />
+            <h:outputText value="#{selectOneView.theme}" />
+        </p:panelGrid>
+    </p:dialog>
+
+
+
+
+
+      <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" var="usuario">
+        <table>
+          <tr>
+              <td><p:messages id="messages" autoUpdate="true" closable="true"/></td>
+          </tr>
+        </table>
+          <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuariosRegistrados()}">
+    <p:column headerText="usuario">
+        <h:outputText value="#{usuario.nombre_usuario}" />
+    </p:column>
+ 
+    <p:column headerText="correo">
+        <h:outputText value="#{usuario.correo}" />
+    </p:column>
+ 
+    <p:column headerText="¿Es Informador?">
+        <h:outputText value="#{usuario.es_informador}" />
+    </p:column>
+
+</p:dataTable>
+
+
+
+    
+    <!--
+    <p:pickList id="PojoPickList" value="#{pickListView.themes}" var="theme" effect="bounce"
+                itemValue="#{theme}" itemLabel="#{theme.displayName}" showSourceControls="true" showTargetControls="true" showCheckbox="true"
+                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="theme" responsive="true">
+        
+        <f:facet name="sourceCaption">Available</f:facet>
+        <f:facet name="targetCaption">Starting</f:facet>
+ 
+        <p:ajax event="transfer" listener="#{pickListView.onTransfer}" update="msg" />
+        <p:ajax event="select" listener="#{pickListView.onSelect}" update="msg"/>
+        <p:ajax event="unselect" listener="#{pickListView.onUnselect}" update="msg"/>
+        <p:ajax event="reorder" listener="#{pickListView.onReorder}" update="msg"/>
+         
+        <p:column style="width:15%">
+            <h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{theme.name}.png" alt="#{theme.name}" styleClass="ui-theme"/>
+        </p:column>
+ 
+        <p:column style="width:85%;">
+            <h:outputText value="#{theme.displayName}" />
+        </p:column>
+    </p:pickList>
+    -->
+          
+          
+        <!--  
+        <f:facet name="header">
+            Usuarios
+        </f:facet>
+        #{usuario.nombre_usuario}, #{usuario.correo}, #{usuario.es_informador}
+        -->
+        
+        <p:commandButton action="#{usuarioController.set(usuario)}"
+                         value="#{usuarioController.inf(usuario)}"
+                         update="@none" process="@this"
+                         />
+    </p:dataList>
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+      <p:commandButton action="welcome"
+                           value="Regresar a Inicio"/>
+  </h:form>
+  
+  <!--
+  <h:form>
+      <p:commandButton action="buscarUsuario"
+                           value="Buscar Usuario"/>
+  </h:form>
+  -->
+  
+</h:body>
+  </ui:define>
+</ui:composition>
+
+
+
+
+
+
+<!--
+<h:form>
+    <p:growl id="msg" showDetail="true" escape="false" />
+     
+    <h3 style="margin-top: 0">Basic PickList</h3>
+    <p:pickList id="pickList" value="#{pickListView.cities}" var="cities" itemLabel="#{cities}" itemValue="#{cities}" />
+     
+    <p:commandButton id="citySubmit" value="Submit" update="displayCities" oncomplete="PF('cityDialog').show()" style="margin-top:5px" />
+     
+    <h3>PickList on Steroids: Pojo Support with Effect, Captions, Custom Content, Reordering, Filtering, Checkboxes, <br />
+        Ajax Events and Responsive</h3>
+    <p:pickList id="PojoPickList" value="#{pickListView.themes}" var="theme" effect="bounce"
+                itemValue="#{theme}" itemLabel="#{theme.displayName}" showSourceControls="true" showTargetControls="true" showCheckbox="true"
+                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="theme" responsive="true">
+        
+        <f:facet name="sourceCaption">Available</f:facet>
+        <f:facet name="targetCaption">Starting</f:facet>
+ 
+        <p:ajax event="transfer" listener="#{pickListView.onTransfer}" update="msg" />
+        <p:ajax event="select" listener="#{pickListView.onSelect}" update="msg"/>
+        <p:ajax event="unselect" listener="#{pickListView.onUnselect}" update="msg"/>
+        <p:ajax event="reorder" listener="#{pickListView.onReorder}" update="msg"/>
+         
+        <p:column style="width:15%">
+            <h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{theme.name}.png" alt="#{theme.name}" styleClass="ui-theme"/>
+        </p:column>
+ 
+        <p:column style="width:85%;">
+            <h:outputText value="#{theme.displayName}" />
+        </p:column>
+    </p:pickList>
+ 
+    <p:commandButton id="pojoSubmit" value="Submit" update="displayThemes" oncomplete="PF('themesDialog').show()" style="margin-top:5px" />
+                 
+    <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="cityDialog">
+        <h:panelGrid id="displayCities" columns="2">
+            <h:outputText value="Source: " style="font-weight:bold" />
+             <ui:repeat value="#{pickListView.cities.source}" var="item">
+                <h:outputText value="#{item}" style="margin-right:5px" />
+            </ui:repeat>
+ 
+            <h:outputText value="Target: " style="font-weight:bold" />
+            <ui:repeat value="#{pickListView.cities.target}" var="item">
+                <h:outputText value="#{item}" style="margin-right:5px" />
+            </ui:repeat>
+        </h:panelGrid>
+    </p:dialog>
+ 
+    <p:dialog modal="true" showEffect="fade" hideEffect="fade" widgetVar="themesDialog">
+        <h:panelGrid id="displayThemes" columns="2">
+            <h:outputText value="Source: " style="font-weight:bold" />
+            <ui:repeat value="#{pickListView.themes.source}" var="theme">
+                <h:outputText value="#{theme.name}" style="margin-right:5px" />
+            </ui:repeat>
+ 
+            <h:outputText value="Target: " style="font-weight:bold" />
+            <ui:repeat value="#{pickListView.themes.target}" var="theme">
+                <h:outputText value="#{theme.name}" style="margin-right:5px" />
+            </ui:repeat>
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+-->
