@@ -113,11 +113,8 @@ from notitia.marcadores
 where ubicacion LIKE n_marcador;
 $$ language sql stable;
 
-<<<<<<< HEAD
 CREATE OR REPLACE FUNCTION eliminar() RETURNS trigger
-=======
-CREATE FUNCTION eliminar() RETURNS trigger
->>>>>>> diana2
+
     LANGUAGE plpgsql
     AS $$
 BEGIN
@@ -130,8 +127,5 @@ CREATE TRIGGER eliminar_trigger
     AFTER INSERT ON notitia.Temporal
     EXECUTE PROCEDURE eliminar();
 
-<<<<<<< HEAD
-=======
 
->>>>>>> diana2
 commit;

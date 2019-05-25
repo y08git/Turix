@@ -36,6 +36,9 @@ public class MarcadoresController {
      
     private String title;
     private String data;
+    private String descripcion;
+    private double latitud;
+    private double longitud;
     private final Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
     private Temas tema = new Temas();
@@ -43,6 +46,32 @@ public class MarcadoresController {
     public String usuario;
     private MapModel model = new DefaultMapModel();
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+    
+    
+    
     public String getTitle() {
         return title;
     }
@@ -174,25 +203,24 @@ public class MarcadoresController {
      public List misMarcadores() throws SQLException{
         return u.dameMarcadoresT(t);
      }
-     /*
+     
      public void addMarker() {
         Marker marker = new Marker(new LatLng(latitud, longitud), descripcion);
         model.addOverlay(marker);
         Marcadores m = new Marcadores();
-        m.setDescripcion("");
+        m.setDescripcion(descripcion);
         m.setDatos_utiles(data);
-        m.setLatitud(latitud);
-        m.setLongitud(longitud);
+        m.setUbicacion(latitud+ "," + longitud);
         m.setTemas(tema);
         u.guardarMarcador(marcador);
         model.addOverlay(new Marker(new LatLng(latitud, longitud),
                 descripcion,
-                datos));
+                data));
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO,
                                 "Marcador añadido", "Lat:" + latitud + ", Lng:" + longitud));
-    }*/
+    }
      
      
     public void onMarkerSelect(OverlaySelectEvent event) {

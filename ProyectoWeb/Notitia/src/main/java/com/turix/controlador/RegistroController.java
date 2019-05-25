@@ -92,7 +92,7 @@ public class RegistroController {
         userT.setCodigo(confirma);
         boolean guardar= u.saveTemp(userT);
         String correo = u.getCorreo(userT);
-       
+      
 	if(guardar){
         mail.enviar(correo,"Correo de confirmación","<h2>Bienvenido a Notitia </h2><p>Tu código de activación es: </p>"+ confirma+"\n"+"Favor de ingresarlo en el sitio");
         }
