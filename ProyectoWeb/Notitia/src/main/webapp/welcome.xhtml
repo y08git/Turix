@@ -10,9 +10,7 @@
   <ui:define name="content">
     <c:choose>
       <c:when test="#{loginController.admin}">
-          
-          
-          ...<br/><br/><br/><br/>Bienvenido Administrador.
+        Bienvenido Administrador.
          
         <h:form>
             <p:commandButton action="listaUsuarios"
@@ -23,6 +21,7 @@
             <p:commandButton action="listaUsuariosRegistrados"
                                  value="Lista de Usuarios Registrados"/>
         </h:form>
+
           
       </c:when>
       <c:when test="#{loginController.logged}">
@@ -46,16 +45,22 @@
             <p:commandButton action="comentario"
                                  value="Comentarios"/>
         </h:form>
-    
+         <h:form>
+            <p:commandButton action="GestionarUsuario"
+                                 value="Gestionar Usuario"/>
+        </h:form>
+         <h:form>
+            <p:commandButton action="listaUsuarios"
+                                 value="Ver Usuarios"/>
+        </h:form>
       </c:when>
       <c:otherwise>
           
           
-          ...<br/><br/><br/><br/>Not registered
+          Not registered
           
           
       </c:otherwise>
     </c:choose>
-
   </ui:define>
 </ui:composition>

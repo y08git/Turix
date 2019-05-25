@@ -16,12 +16,12 @@
           <p:panel header="Registro de usuario">
             <p:panelGrid columns="2" layout="grid" style="padding: 5px">
               <h:outputText value="Nombre de usuario:"/>
-              <p:inputText value="#{registroController.user.nombre_usuario}"
+              <p:inputText value="#{registroController.userT.nombre_usuario}"
                            required="true"
                            id="Username"
                            size="40"/>
               <h:outputText value="Correo electrónico:"/>
-              <p:inputText value="#{registroController.user.correo}"
+              <p:inputText value="#{registroController.userT.correo}"
                            required="true"
                            id="correo"
                            size="40"
@@ -29,7 +29,7 @@
                   <f:validateRegex pattern="[a-zA-Z0-9_.]*@[a-zA-Z.]*" />
               </p:inputText>
               <h:outputText value="Contraseña:"/>
-              <p:password value="#{registroController.user.contraseña}"
+              <p:password value="#{registroController.userT.contraseña}"
                           required="true"
                           feedback="true"
                           id="Password"
@@ -42,7 +42,7 @@
                           strongLabel="Fuerte"
                           inline="true"/>
               <h:outputText value="Confirmar contraseña:"/>
-              <p:password value="#{registroController.user.confirmaContrasena}"
+              <p:password value="#{registroController.userT.confirmaContrasena}"
                           required="true"
                           feedback="true"
                           inline="true"

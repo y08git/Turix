@@ -28,6 +28,17 @@ public class Usuario implements Serializable {
     
     @Transient
     private String confirmaContrasena;
+    
+    @Transient
+    private String codigo;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
     public Usuario() {
         this.nombre_usuario = "";

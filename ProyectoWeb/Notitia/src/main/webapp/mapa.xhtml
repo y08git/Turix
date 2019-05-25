@@ -1,0 +1,83 @@
+<ui:composition template="/WEB-INF/facelets/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <ui:define name="content">
+    <div class="jumbotron">
+      <div class="container">
+        <h:form id="mapa" enctype="multipart/form-data">
+            <table>
+                <tr><td>
+                        <p:messages id="messages" autoUpdate="true" closable="true" />
+                    </td></tr>
+            </table>
+            <!--BLOQUES-->
+                 <div class="split left">
+  <div id="map"></div>
+    <script>
+
+      function initMap() {
+        var myLatLng = {lat: -25.363, lng: 131.044};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+      </script>
+
+ 
+
+</div>
+
+<div class="split right">
+  <div class="centered">
+    <h2>Agregar Marcadores</h2>
+    <p>Some text here too.</p>
+  </div>
+</div> 
+
+        </h:form>
+      </div>
+    </div>
+     
+      <style>
+      .split {
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+  width: 70%;
+ 
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  width: 30%;
+  background-color: red;
+}
+
+
+
+
+  </style>
+
+  </ui:define>
+
+</ui:composition>

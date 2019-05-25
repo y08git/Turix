@@ -8,27 +8,21 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Mi primer aplicación </title>
+    <title>Notitia</title>
 
     <h:outputStylesheet library="webjars" name="bootstrap/4.0.0-2/css/bootstrap.min-jsf.css" />
+    <h:outputScript library="js" name="markers.js"/>
 
 </h:head>
 <h:body>
 
     <ui:include src="./header.xhtml" />
-<<<<<<< HEAD
     <br/><br/><br/>
-=======
-    <br></br><br></br><br></br><br></br>
->>>>>>> Danisu
     <div class="container">
         <ui:include src="./content.xhtml" />
         <ui:include src="./footer.xhtml" />
     </div>
 
-    <!-- Los dejamos hasta abajo para que cargue la página más rápido-->
-    <h:outputScript library="webjars" name="jquery/3.3.1-1/jquery.min.js"/>
-    <h:outputScript library="webjars" name="bootstrap/4.0.0-2/js/bootstrap.min.js" />
 
 </h:body>
 </html>

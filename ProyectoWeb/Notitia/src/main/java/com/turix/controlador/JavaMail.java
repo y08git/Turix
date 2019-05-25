@@ -58,12 +58,5 @@ public class JavaMail {
           }
       });
       return session;
-  }
-  
-  public static void main(String[] args) throws MessagingException {
-      JavaMail.enviar("dianis0297@gmail.com",
-              "Test email",
-              "<h2>Java Mail Example</h2><p>hi there!</p>");
-  }
-    
+  }    
 }

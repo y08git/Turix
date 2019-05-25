@@ -9,6 +9,7 @@ import com.turix.modelo.Login;
 import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
+import com.turix.modelo.Temporal;
 import com.turix.modelo.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,6 +40,7 @@ public class Utility {
     static Session sessionObj;
     static Comentarios comObj;
     static Temas temaObj;
+    static Temporal temObj;
     static Marcadores marcaObj;
     static Comentarios c = new Comentarios();
 
@@ -101,32 +103,7 @@ public class Utility {
         }
         return usuario;        
     }
-//    public Usuario login(Login login){
-//        sessionObj = HibernateUtil.getSessionFactory().openSession();
-//        Usuario usuario=null;
-//        String query = "SELECT *  FROM notitia.Usuario  "
-//                  + "WHERE notitia.Usuario('"+login.getUsuario()+"','"+login.getContraseña()+"');";
-//        List l;
-//        try {
-//            Transaction tx = sessionObj.beginTransaction();
-//            Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
-//            usuario = (q.list().isEmpty())? null:(Usuario) q.list().get(0);
-//            tx.commit();
-//        } catch (HibernateException e) {
-//            if (null != sessionObj.getTransaction()) {
-//                System.out.println("\n.......Transaction Is Being Rolled Back.......");
-//                sessionObj.getTransaction().rollback();
-//            }
-//        } finally {
-//            
-//            
-//            if (sessionObj != null && sessionObj.isOpen()) {
-//                sessionObj.close();
-//            }
-//        }
-//        return usuario;       
-//    }
-//    
+
     /**Un metodo para actualizar un usuario cuya contraseña ha sido cambiada
      * 
      * @param user -- Usuario a buscar
@@ -255,7 +232,36 @@ public class Utility {
      * @param user
      * @return true si fue exitosa la transaccion
      */
-    public boolean save(Usuario user) {
+    public void save(Usuario user) {
+        
+          sessionObj = HibernateUtil.getSessionFactory().openSession();
+        try {
+          
+            sessionObj.beginTransaction();
+            sessionObj.save(user);
+            sessionObj.getTransaction().commit();
+            
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            sqlException.printStackTrace();
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+        
+        } 
+    }
+    
+    
+    /**
+     * Metodo para pre-registro de un Usuario en la base de datos 
+     * @param user
+     * @return true si fue exitosa la transaccion
+     */
+    public boolean saveTemp(Temporal user) {
         //querys para hacer verificaciones
         boolean guardar = false;
           sessionObj = HibernateUtil.getSessionFactory().openSession();
@@ -267,8 +273,8 @@ public class Utility {
         try {
           
             sessionObj.beginTransaction();
-            Query q1 = sessionObj.createSQLQuery(queryNombre).addEntity(Usuario.class);
-            Query q2 = sessionObj.createSQLQuery(queryCorreo).addEntity(Usuario.class);
+            Query q1 = sessionObj.createSQLQuery(queryNombre).addEntity(Temporal.class);
+            Query q2 = sessionObj.createSQLQuery(queryCorreo).addEntity(Temporal.class);
             if(q1.list().isEmpty()&& q2.list().isEmpty()){
                 guardar = true;
                 sessionObj.save(user);
@@ -306,6 +312,9 @@ public class Utility {
         }
           return guardar;
     }
+    
+    
+    
     /**
      * Metodo para guarda el tema en la base de datos
      * @param tema 
@@ -437,19 +446,20 @@ public class Utility {
      }
     
     
-      public String getCorreo(Usuario t){
+
+      public String getCorreo(Temporal t){
         List l = null;
-        Usuario u = new Usuario();
+        Temporal u = new Temporal();
         String correo = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT * FROM notitia.Usuario "
-                   + "WHERE notitia.Usuario.nombre_usuario LIKE '"+t.getNombre_usuario()+"';";
+        String query = "SELECT * FROM notitia.Temporal "
+                   + "WHERE notitia.Temporal.nombre_usuario LIKE '"+t.getNombre_usuario()+"';";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
-        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temporal.class);
         l = q.list();
         if(!l.isEmpty()){
-             u=(Usuario)l.get(0);
+             u=(Temporal)l.get(0);
              correo=u.getCorreo();
         }
         return correo;
@@ -952,5 +962,42 @@ public class Utility {
     public void eliminarInformador(Usuario user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+  public Usuario confirmar(String cod){
+        List l = null;
+        Usuario u = new Usuario();
+        Temporal t= new Temporal();
+        String codigo = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temporal "
+                   + "WHERE notitia.Temporal.codigo LIKE '"+cod+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temporal.class);
+        l = q.list();
+        if(l.isEmpty()){
+         FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: el código no coincide" , ""));
+       
+        }else{
+             t=(Temporal)l.get(0);
+             u.setContraseña(t.getContraseña());
+             u.setNombre_usuario(t.getNombre_usuario());
+             u.setCorreo(t.getCorreo());
+             u.setConfirmaContrasena(t.getConfirmaContrasena());
+             u.setEs_informador(t.isEs_informador());
+        
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Felicidades, se finalizó tu registro con éxito", ""));
+          
+        }
+        return u;
+    }
 
-}
+     }
+
+
