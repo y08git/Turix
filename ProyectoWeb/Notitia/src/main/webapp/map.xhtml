@@ -1,16 +1,16 @@
-<ui:composition
-    template="/WEB-INF/facelets/templates/layout.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/WEB-INF/facelets/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui">
 
    
   <ui:define name="content">
       
+ <div class="jumbotron">
+ <div class="container">
  <h:form prependId="false">
               <p:gmap center="19.323808, -99.178948" zoom="17"
                       type="TERRAIN" style="width:100%;height:600px"
@@ -31,8 +31,8 @@
                 </p:gmapInfoWindow>
               </p:gmap>
             </h:form>
+      </div>
+    </div>
      
-     
-     </ui:define>
+                  </ui:define>
 </ui:composition>
-    

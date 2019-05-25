@@ -5,7 +5,7 @@
     <artifactId>Notitia</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>mi-primer-aplicacion-web Maven Webapp</name>
+  <name>Notitia Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
