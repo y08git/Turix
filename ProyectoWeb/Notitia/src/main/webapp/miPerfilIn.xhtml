@@ -1,0 +1,47 @@
+<ui:composition
+  template="/WEB-INF/facelets/templates/layout.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui">
+
+  <ui:define name="content">
+  <h:head>
+    <title>Hola!</title>
+  </h:head>
+  <h:body>
+    <h1>Mi Perfil #{loginController.login.usuario}</h1>
+<!--    <h2>Contraseña #{loginController.login.contraseña} </h2>-->
+  </h:body>
+      <h:form>
+          <p:menuitem>
+    <h:link outcome="#">
+        <h:graphicImage value="/img/pic.png"
+                        style="float:left;"/>
+    </h:link>
+</p:menuitem>
+      </h:form>
+      <h:form>
+      <p:commandLink action="welcome">
+    <h:graphicImage value="/img/back.png"
+                    style="float:right;"/>
+      </p:commandLink>
+  </h:form>
+       <hr />
+      <h:form>
+          <h4>Mi Nombre de Usuario</h4>
+          <h:outputText value="#{usuarioController.user}"/>
+      </h:form>
+      <h:form>
+          <h4>Mi Correo</h4>
+          <h:outputText value="#{usuarioController.correo}"/>
+      </h:form>
+      <hr />
+  <h:form>
+      <p:commandLink action="editarPerfilIn">
+    <h:graphicImage value="/img/conf.png" />
+      </p:commandLink>
+  </h:form>
+  </ui:define>
+</ui:composition>

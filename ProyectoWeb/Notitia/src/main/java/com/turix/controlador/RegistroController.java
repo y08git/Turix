@@ -29,6 +29,18 @@ public class RegistroController {
     private String confirmarContraseña;
     private JavaMail mail = new JavaMail();
     private String confirmacion;
+    private String codigo;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+    private JavaMail mail = new JavaMail();
+    
+
     public String getConfirmarContraseña() {
         return confirmarContraseña;
     }
@@ -59,6 +71,12 @@ public class RegistroController {
         Random random= new Random();
         u.save(user);
         String correo = u.getCorreo(user);
+        boolean guardar= u.save(user);
+        String correo = u.getCorreo(user);
+        codigo= String.format("%04d", random.nextInt(10000));
+	if(guardar){
+        mail.enviar(correo,"Correo de confirmación","<h2>Bienvenido a Notitia </h2><p>Tu código de activación es: </p>"+ codigo+"\n"+"Favor de ingresarlo en el sitio");
+        }
         user = null;
         String codigo= String.format("%04d", random.nextInt(10000));
 	mail.enviar(correo,"Test email","<h2>Java Mail Example</h2><p>Bienvenido tu código de activación es: !</p>"+ codigo);

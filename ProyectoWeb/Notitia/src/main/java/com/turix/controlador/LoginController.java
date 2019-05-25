@@ -44,6 +44,16 @@ public class LoginController {
                 .setLocale(new Locale("es-Mx"));
     }
     
+    public Usuario getCurrentUser(){
+        FacesContext context = getCurrentInstance();
+        usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+        
+        if(usuario != null) 
+            return usuario;
+       
+        return null;
+    }
+    
     /**Un metodo para declarar un Nombre en LoginController
      * 
      * @return Un objeto de tipo String

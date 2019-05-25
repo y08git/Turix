@@ -1,0 +1,103 @@
+<ui:composition
+  template="/WEB-INF/facelets/templates/layout.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <ui:define name="content">
+      <c:choose>
+<!-- A D M I N I S T R A D O R-->
+<c:when test="#{loginController.admin}">
+              
+</c:when>
+<!--I N F O R M A D O R-->
+          <c:when test="#{loginController.currentUser.es_informador}">
+              <h:body>
+    <h1>Mi Perfil #{loginController.login.usuario}</h1>
+  </h:body>
+      <h:form>
+          <p:menuitem>
+    <h:link outcome="#">
+        <h:graphicImage value="/img/pic.png"
+                        style="float:left;"/>
+    </h:link>
+</p:menuitem>
+      </h:form>
+      <h:form>
+      <p:commandLink action="welcome">
+    <h:graphicImage value="/img/back.png"
+                    style="float:right;"/>
+      </p:commandLink>
+  </h:form>
+       <hr />
+      <h:form>
+          <h4>Mi Nombre de Usuario</h4>
+          <h:outputText value="#{usuarioController.user}"/>
+      </h:form>
+      <h:form>
+          <h4>Mi Correo</h4>
+          <h:outputText value="#{usuarioController.correo}"/>
+      </h:form>
+      <hr />
+  <h:form>
+      <p:commandLink action="editarPerfilIn">
+    <h:graphicImage value="/img/conf.png" />
+      </p:commandLink>
+  </h:form>
+          </c:when>
+<!--C O M E N T A R I S T A-->
+          <c:when test="#{loginController.logged}">
+  <h:head>
+    <title>Hola!</title>
+  </h:head>
+  <h:body>
+    <h1>Mi Perfil #{loginController.login.usuario}</h1>
+    
+<!--    <h2>Contraseña #{loginController.login.contraseña} </h2>-->
+  </h:body>
+      <h:form>
+          <p:menuitem>
+    <h:link outcome="#">
+        <h:graphicImage value="/img/pic.png"
+                        style="float:left;"/>
+    </h:link>
+</p:menuitem>
+      </h:form>
+      <h:form>
+      <p:commandLink action="welcome">
+    <h:graphicImage value="/img/back.png"
+                    style="float:right;"/>
+      </p:commandLink>
+  </h:form>
+       <hr />
+      <h:form>
+          <h4>Mi Nombre de Usuario</h4>
+          <h:outputText value="#{usuarioController.user}"/>
+      </h:form>
+      <h:form>
+          <h4>Mi Correo</h4>
+          <h:outputText value="#{usuarioController.correo}"/>
+      </h:form>
+      <hr />
+  <h:form>
+      <p:commandLink action="paginaComentario">
+    <h:graphicImage value="/img/come.png" />
+      </p:commandLink>
+      <p:commandLink action="editarPerfilCo">
+    <h:graphicImage value="/img/conf.png" />
+      </p:commandLink>
+  </h:form>
+      </c:when>
+          
+          
+          <c:otherwise>
+              <p>
+					Welcome noone
+				</p>
+          </c:otherwise>
+      </c:choose>
+  </ui:define>
+</ui:composition>

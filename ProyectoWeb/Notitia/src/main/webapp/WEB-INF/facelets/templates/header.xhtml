@@ -15,6 +15,11 @@
       <div class="navbar-nav ml-auto">
         <c:choose>
             <c:when test="#{loginController.logged}">
+                <h:form id="return">
+              <p:commandLink action="miPerfilCo">
+                  <h:graphicImage value="/img/ph.png" />
+              </p:commandLink>
+           </h:form>
             <div class="my-2 my-lg-0">>
               <button class="btn btn-primary" style="height:42px;">
                 <i class="fa fa-sign-in" aria-hidden="true"></i>
@@ -22,12 +27,14 @@
               </button>
             </div>
             <div class ="my-2 my-lg-0">
+                
               <h:form id="exit">
                   <h:commandButton action="#{loginController.logout()}"
                                value="Cerrar Sesión"
                                class="btn btn-outline-success my-2 my-sm-0"
                                style="height:48px;"/>
               </h:form>
+                
             </div>
           </c:when>
           <c:otherwise>

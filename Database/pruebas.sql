@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INSERT INTO notitia.usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Yo', false, 'password','asdfas',false);
 
@@ -6,6 +7,19 @@ VALUES ('Admin', false, 'contraseña','turixteam2019@gmail.com',false);
 
 INSERT INTO notitia.usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('wait', true, 'contraseña','wait@gmail.com',false);
+=======
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('Yo', false, 'password','asdfas',false);
+
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('Admin', true, 'contraseña','turixteam2019@gmail.com',false);
+
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('wait', true, 'contraseña','wait@gmail.com',false);
+
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('info', false, 'infoc','hola@gmail.com',true);
+>>>>>>> Danisu
 
 INSERT INTO notitia.temas (nombre, descripcion)
 VALUES ('rigoberto','magic');
