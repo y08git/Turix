@@ -12,13 +12,18 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
+import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 /**
  *
@@ -30,7 +35,7 @@ import org.primefaces.model.map.MapModel;
 public class MarcadorController {
 
     
-   private MapModel model =new DefaultMapModel();
+   private MapModel model ;
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
     private Temas tema = new Temas();
@@ -38,6 +43,58 @@ public class MarcadorController {
     public String usuario;
     private String title;
     private String data;
+    private String descripcion;
+    private String datos;
+    private double lng;
+    private double lat;
+
+    @PostConstruct
+    public void init() {
+        model = new DefaultMapModel();
+        List<Marcadores> marcadores = u.darMarcadores();
+        marcadores.forEach((marcador) -> {
+           String[] coordenadas= marcador.getUbicacion().split("");
+           double c1=Double.parseDouble(coordenadas[0]);
+           double c2=Double.parseDouble(coordenadas[1]); 
+            model.addOverlay(new Marker(new LatLng(c1, c2),
+                    marcador.getDescripcion()));
+        });
+    }
+    
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getDatos() {
+        return datos;
+    }
+
+    public void setDatos(String datos) {
+        this.datos = datos;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+  
+    
     public MapModel getModel() {
         return model;
     }
@@ -113,13 +170,29 @@ public class MarcadorController {
      * para guardar en la BD
      */
     public void guardarMarcador(){
+         Marker marker = new Marker(new LatLng(lat, lng),title);
+           model.addOverlay(marker);
+           
         //FacesContext context = getCurrentInstance();
         //Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
         //marcador.setInformador(user);
-        marcador.setTemas(existeTema(t));
+        
+        //Codigo original nuestro para la BD
+       /** marcador.setTemas(existeTema(t));
         marcador.setInformador(existeUsuario(usuario));
         //solucion temporal de lo de login analogo a existeTema
             u.guardarMarcador(marcador);
+           String[] coordenadas= marcador.getUbicacion().split("");
+           double latitud=Double.parseDouble(coordenadas[0]);
+           double longitud=Double.parseDouble(coordenadas[1]);*/
+       
+       //Codigo Miguel
+        //marcador.setDescripcion(descripcion);
+        //marcador.setDatos_utiles(datos);
+        //marcador.setUbicacion(latitud);
+        //marcador.setTemaId(tema);
+           //model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDescripcion()));
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
             marcador = null;
          }
     /**
@@ -165,5 +238,12 @@ public class MarcadorController {
      public List misMarcadores() throws SQLException{
         return u.dameMarcadoresT(t);
      }
+     
+      public void onMarkerSelect(OverlaySelectEvent event) {
+        Marker marker = (Marker) event.getOverlay();
+        data = (String) marker.getData();
+        title = (String) marker.getTitle();
+    }
+     
 
 }
