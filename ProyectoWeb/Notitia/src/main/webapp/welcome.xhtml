@@ -11,10 +11,17 @@
       <c:choose>
         <!-- A D M I N I S T R A D O R-->
         <c:when test="#{loginController.admin}">
-            <h:form>
-    <p:commandButton action="listaUsuarios"
-                         value="Ver Usuarios"/>
-</h:form>
+        Bienvenido Administrador.
+
+      <h:form>
+          <p:commandButton action="listaUsuarios"
+                               value="Usuarios en Espera"/>
+      </h:form>
+
+      <h:form>
+          <p:commandButton action="listaUsuariosRegistrados"
+                               value="Lista de Usuarios Registrados"/>
+      </h:form>
         </c:when>
           <c:when test="#{loginController.currentUser.es_informador}">
   <h:head>
