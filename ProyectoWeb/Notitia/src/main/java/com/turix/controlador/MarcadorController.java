@@ -43,8 +43,6 @@ public class MarcadorController {
     public String usuario;
     private String datos_utiles;
     private String data;
-    private String descripcion;
-    private String datos;
     private double lng;
     private double lat;
 
@@ -69,22 +67,6 @@ public class MarcadorController {
         this.datos_utiles = datos_utiles;
     }
     
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getDatos() {
-        return datos;
-    }
-
-    public void setDatos(String datos) {
-        this.datos = datos;
-    }
-
     public double getLng() {
         return lng;
     }
@@ -170,34 +152,17 @@ public class MarcadorController {
     public void guardarMarcador(){
          Marker marker = new Marker(new LatLng(lat, lng),datos_utiles);
            model.addOverlay(marker);
-           
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
         marcador.setInformador(user);
-       // marcador.setDescripcion(descripcion);
-        //marcador.setDatos_utiles(datos_utiles);
-        //System.out.println(datos_utiles);
-        //String ub1=
-        //String ub2=
-        //marcador.setUbicacion();
-        
-        //Codigo original nuestro para la BD
-       /** marcador.setTemas(existeTema(t));
-        marcador.setInformador(existeUsuario(usuario));
-        //solucion temporal de lo de login analogo a existeTema
-            u.guardarMarcador(marcador);
-           String[] coordenadas= marcador.getUbicacion().split("");
-           double latitud=Double.parseDouble(coordenadas[0]);
-           double longitud=Double.parseDouble(coordenadas[1]);*/
-       
-       //Codigo Miguel
-        //marcador.setDescripcion(descripcion);
-        //marcador.setDatos_utiles(datos);
-        //marcador.setUbicacion(latitud);
-        //marcador.setTemaId(tema);
-           //model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDescripcion()));
+        marcador.setTemas(u.existeTema(t));
+        String ub1= String.valueOf(lat);
+        String ub2= String.valueOf(lng);
+        marcador.setUbicacion(ub1+""+ub2);
+         u.guardarMarcador(marcador);
+         model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDatos_utiles()));
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
-            marcador = null;
+        marcador = null;
          }
     /**
      * Metodo para checar si existe el Tema

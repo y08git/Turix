@@ -79,4 +79,16 @@ public class TemaController {
      public List listaTemas(){
         return u.darTemas();
      }
+     
+     /**
+      * Metodo que da la lista de todos los temas
+      * manda a llamar darTema de Utility
+      * para buscarlos en la BD
+      * @return List
+      */
+     public List getListaNomTemas(){
+        return u.darNomTemas();
+     }
+     
+     
 }
