@@ -49,7 +49,7 @@ public class RegistroController {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-    
+
 
     public String getConfirmarContraseña() {
         return confirmarContraseña;
@@ -58,7 +58,7 @@ public class RegistroController {
     public void setConfirmarContraseña(String confirmarContraseña) {
         this.confirmarContraseña = confirmarContraseña;
     }
-    
+
     public Usuario getUser() {
         return user;
     }
@@ -72,17 +72,17 @@ public class RegistroController {
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
-    
+
      public void confirmacion(){
        user= u.confirmar(codigo);
         u.save(user);
         user = null;
     }
-    
-    
+
+
     /**
      * Metodo para guardar a un usuario
-     * mandamos a llamar a save de Utility 
+     * mandamos a llamar a save de Utility
      * para gardarlo en la BD
      * @throws javax.mail.MessagingException
      */
@@ -92,7 +92,7 @@ public class RegistroController {
         userT.setCodigo(confirma);
         boolean guardar= u.saveTemp(userT);
         String correo = u.getCorreo(userT);
-      
+
 	if(guardar){
         mail.enviar(correo,"Correo de confirmación","<h2>Bienvenido a Notitia </h2><p>Tu código de activación es: </p>"+ confirma+"\n"+"Favor de ingresarlo en el sitio");
         }

@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Table(catalog = "notitia", schema = "notitia", name = "temporal")
 public class Temporal implements Serializable{
      private static final long serialVersionUID = 1L;
-    
+
     @Id
     @Column(name = "nombre_usuario")
     private String nombre_usuario;
@@ -50,10 +50,10 @@ public class Temporal implements Serializable{
     public String getCorreo() {
         return correo;
     }
-    
+
     @Transient
     private String confirmaContrasena;
-    
+
     @Column(name = "codigo")
     private String codigo;
 
@@ -84,9 +84,9 @@ public class Temporal implements Serializable{
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
- 
-    
-    
-    
-    
+
+
+
+
+
 }

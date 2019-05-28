@@ -14,6 +14,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+
 public class JavaMail {
   private static final String envioEmail = "turixteam2019@gmail.com";//change with your sender email
   private static final String envioPass = "#notitia#";//change with your sender password
@@ -58,5 +59,6 @@ public class JavaMail {
           }
       });
       return session;
-  }    
+  }
+    
 }
