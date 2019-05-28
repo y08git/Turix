@@ -24,9 +24,20 @@ import org.hibernate.*;
 public class TemaController {
     
     private Temas tema = new Temas();
-    private Utility u = new Utility();
+    private final Utility u = new Utility();
+    private boolean f = false;
     public String nom;
 
+    public boolean isF() {
+        return f;
+    }
+
+    public void setF(boolean f) {
+        this.f = f;
+    }
+    
+    
+    
     public String getNom() {
         return nom;
     }
@@ -77,6 +88,21 @@ public class TemaController {
       * @return List
       */
      public List listaTemas(){
-        return u.darTemas();
+        return u.darTemas(); 
      }
+     
+
+     /**
+      * Metodo que busca temas en la BD
+      * @return List - lista que coincida el regex
+      */
+     public List buscarTemas(){
+         return u.buscarTemas(nom);
+     }
+     
+     public String redir(){
+         f = true;
+         return "buscarTemas";
+     }
+     
 }

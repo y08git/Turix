@@ -88,7 +88,17 @@ public class MarcadoresController {
         this.data = data;
     }
 
-    
+    public boolean getCoordinates(){
+        String m = marcador.getUbicacion();
+        if(m == null)
+            return false;
+        String[] s = m.split(",");
+        if(s.length < 2 )
+            return false;
+        latitud = Integer.getInteger(s[0]);
+        longitud = Integer.getInteger(s[1]);
+        return true;
+    }
     
     
     public MapModel getModel() {

@@ -363,17 +363,28 @@ public class Utility {
           
         }
     }
-
-//    public void irTema(String temas){
-//        boolean guardar = false;
-//        List l = null;
-//        sessionObj = HibernateUtil.getSessionFactory().openSession();
-//        String query = "SELECT * FROM notitia.Temas "
-//                   + "WHERE notitia.Temas.nombre LIKE '"+ temas +"';";
-//            Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
-//            l = q.list();
-//              System.out.println(q.list());      
-//    }
+    /**
+     * Metodo para buscar una lista de temas de la BD
+     * @param temas -- Una cadena la cual se usara como regex
+     * @return Lista que coinciden con la regex
+     */
+    public List buscarTemas(String temas){
+        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "select * from notitia.Temas where nombre ILIKE '%"+ temas +"%';";
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+        try{
+            l = q.list();
+        }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+            l = null;
+        } finally {    
+            return l;
+        }
+    }
     
     /**
      * Metodo para eliminar un tema de la BD

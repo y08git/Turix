@@ -8,15 +8,7 @@
   <ui:define name="content">
     <c:choose>
            <c:when test="#{loginController.logged == false}">
-               1
-               <br/>
-               2
-               <br/>
-               3
-               <br/>
-               4
-               <br/>
-               You are not Logged in
+               <meta http-equiv = "refresh" content = "0; url = http://localhost:8080/Notitia/" />
                
            </c:when>
             <c:when test="#{not loginController.admin}">

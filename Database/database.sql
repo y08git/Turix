@@ -44,8 +44,8 @@ CREATE TABLE notitia.Marcadores
   nombre_usuario text NOT NULL,
   nombre text NOT NULL,
   PRIMARY KEY (ubicacion),
-  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario),
-  FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre)
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE,
+  FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre) 
   ON DELETE CASCADE
 );
 
@@ -60,8 +60,8 @@ CREATE TABLE notitia.Comentarios
   calificacionNegativa int NOT NULL,
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
-  FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
-  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
+  FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion) ON DELETE CASCADE,
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) 
     ON DELETE CASCADE
 ); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false)	*/
@@ -101,10 +101,10 @@ create or replace function notitia.Usuario(usuari text, password text) returns n
                        contraseña LIKE crypt(password, contraseña));
 $$ language sql stable;
 
-create or replace function notitia.buscarTema(n_tema text) returns TABLE(nombre text, descripcion text) as $$
+create or replace function notitia.buscarTema(n_tema text) returns notitia.Temas as $$
 select *
-from notitia.temas
-where nombre ILIKE concat(concat('%',n_tema),'%');
+from notitia.temas a
+where a.nombre ILIKE concat('%',concat(n_tema,'%'));
 $$ language sql stable;
 
 create or replace function notitia.buscarMarcador(n_marcador text) returns notitia.Marcadores as $$
@@ -112,6 +112,7 @@ select *
 from notitia.marcadores
 where ubicacion LIKE n_marcador;
 $$ language sql stable;
+
 
 CREATE OR REPLACE FUNCTION eliminar() RETURNS trigger
 
