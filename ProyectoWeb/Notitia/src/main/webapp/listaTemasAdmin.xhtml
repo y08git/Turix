@@ -20,9 +20,9 @@ and open the template in the editor.
             Temas
         </f:facet>
         #{Temas.nombre}, #{Temas.descripcion}
-        <p:commandButton action="#{temaController.eliminarTema()}"
+        <p:commandButton action="#{temaController.eliminarTema(Temas)}"
                        value="Eliminar Tema"
-                       update="@none" process="@this"
+                       update="myForm" process="@this"
                        />    
     </p:dataList>
     <table>
