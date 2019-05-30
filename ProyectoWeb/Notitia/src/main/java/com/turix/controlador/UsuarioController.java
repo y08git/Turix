@@ -226,7 +226,31 @@ public class UsuarioController {
         }
         return "listaUsuariosRegistrados?faces-redirect=true";
     }
-    
+
+    /**Metodo para actualizar un usuario recibido (se invoca desde la lista de informadores)
+     * @param user -- El usuario que se actualizara
+     * @return String de redireccion
+     */
+    public String setRegistradosInf(Usuario user) {
+        if(user != null){
+            user.setEs_informador(!user.isEs_informador());
+            u.update1(user);
+        }
+        return "listaInformadores?faces-redirect=true";
+    }
+
+    /**Metodo para actualizar un usuario recibido (se invoca desde la lista de comentaristas)
+     * @param user -- El usuario que se actualizara
+     * @return String de redireccion
+     */
+    public String setRegistradosCom(Usuario user) {
+        if(user != null){
+            user.setEs_informador(!user.isEs_informador());
+            u.update1(user);
+        }
+        return "listaComentaristas?faces-redirect=true";
+    }
+
     /**Metodo para decir si es comentarista o informador
      *
      * @param usuario -- Usuario al que se le quiere cambiar su estado

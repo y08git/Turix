@@ -43,7 +43,7 @@
       </f:facet>
       #{usuario.nombre_usuario}, #{usuario.correo}, #{usuario.es_informador}
       -->
-      <p:commandButton action="#{usuarioController.setRegistrados(usuario)}"
+      <p:commandButton action="#{usuarioController.setRegistradosCom(usuario)}"
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
