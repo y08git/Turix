@@ -12,7 +12,7 @@ CREATE TABLE notitia.Usuario
   contraseña text NOT NULL,
   correo text NOT NULL,
   es_informador Boolean NOT NULL,
-  PRIMARY KEY (nombre_usuario)
+  PRIMARY KEY (nombre_usuario) 
 );
 
 ---pre registri
@@ -45,8 +45,7 @@ CREATE TABLE notitia.Marcadores
   nombre text NOT NULL,
   PRIMARY KEY (ubicacion),
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE,
-  FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre) 
-  ON DELETE CASCADE
+  FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre) ON DELETE CASCADE
 );
 
 
@@ -61,8 +60,7 @@ CREATE TABLE notitia.Comentarios
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion) ON DELETE CASCADE,
-  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) 
-    ON DELETE CASCADE
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
 ); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false)	*/
 
@@ -115,7 +113,6 @@ $$ language sql stable;
 
 
 CREATE OR REPLACE FUNCTION eliminar() RETURNS trigger
-
     LANGUAGE plpgsql
     AS $$
 BEGIN
@@ -127,6 +124,5 @@ $$;
 CREATE TRIGGER eliminar_trigger
     AFTER INSERT ON notitia.Temporal
     EXECUTE PROCEDURE eliminar();
-
 
 commit;

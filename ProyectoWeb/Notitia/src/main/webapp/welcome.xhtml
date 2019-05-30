@@ -8,59 +8,61 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
   <ui:define name="content">
-    <c:choose>
-      <c:when test="#{loginController.admin}">
-        Bienvenido Administrador.
-         
-        <h:form>
-            <p:commandButton action="listaUsuarios"
-                                 value="Usuarios en Espera"/>
-        </h:form>
+      <c:choose>
+      
+        <!-- A D M I N I S T R A D O R-->
+        <c:when test="#{loginController.admin}">
+        
+          Bienvenido Administrador.
+          
+          <h:form>  
+              <p:commandButton action="listaUsuariosRegistrados"
+                                   value="Usuarios Registrados"/>
+          </h:form>
+          <h:form>
+              <p:commandButton action="listaUsuarios"
+                                   value="Usuarios en Espera de Asignación"/>
+          </h:form>
+          
+          <h:form>
+              <p:commandButton action="listaTemasAdmin"
+                                   value="Eliminar Temas"/>
+          </h:form>
+          <h:form>
+              <p:commandButton action="listaComentarios"
+                                   value="Eliminar Comentarios"/>
+          </h:form>
+        </c:when>
 
-        <h:form>
-            <p:commandButton action="listaUsuariosRegistrados"
-                                 value="Lista de Usuarios Registrados"/>
-        </h:form>
+        <!-- I N F O R M A D O R-->
+        <c:when test="#{loginController.currentUser.es_informador}">
+          <h:head>
+            <title>Hola!</title>
+          </h:head>
+          <h:body>
+            <h2>Bienvenido! #{loginController.login.usuario}</h2>
+          </h:body>
+              <h:form>
+              <p:commandButton action="temaInformador"
+                                   value="Temas"/>
+          </h:form>
+              <h:form>
+              <p:commandButton action="marcador"
+                                   value="Marcadores"/>
+          </h:form>
+              <h:form>
+              <p:commandButton action="comentario"
+                                   value="Comentarios"/>
+          </h:form>
+        </c:when>
 
-          
-      </c:when>
-      <c:when test="#{loginController.logged}">
-        <h:head>
-          <title>Hola!</title>
-        </h:head>
-        <h:body>
-          <h1>HOLA</h1>
-          <h2>Bienvenido! #{loginController.login.usuario}</h2>
-      <!--    <h2>Contraseña #{loginController.login.contraseña} </h2>-->
-        </h:body>
-            <h:form>
-            <p:commandButton action="temaInformador"
-                                 value="Temas"/>
-        </h:form>
-            <h:form>
-            <p:commandButton action="marcador"
-                                 value="Marcadores"/>
-        </h:form>
-            <h:form>
-            <p:commandButton action="comentario"
-                                 value="Comentarios"/>
-        </h:form>
-         <h:form>
-            <p:commandButton action="GestionarUsuario"
-                                 value="Gestionar Usuario"/>
-        </h:form>
-         <h:form>
-            <p:commandButton action="listaUsuarios"
-                                 value="Ver Usuarios"/>
-        </h:form>
-      </c:when>
-      <c:otherwise>
-          
-          
-          Not registered
-          
-          
-      </c:otherwise>
-    </c:choose>
+
+        <c:when test="#{loginController.logged}">
+          <h:form>
+          <p:commandButton action="comentario"
+                               value="Comentarios"/>
+          </h:form>
+        </c:when>
+      </c:choose>
   </ui:define>
 </ui:composition>

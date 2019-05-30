@@ -31,53 +31,53 @@ public class UsuarioController {
     private String aContraseña;
     private String contraseña;
     private String confirmarContraseña;
-    
+
     /**Un metodo que regresa la anterior Contraseña
-     * 
+     *
      * @return Un objeto de tipo String
      */
     public String getAContraseña() {
         return aContraseña;
     }
-    
+
     /**Un metodo que recibe la anterior Contraseña
      * @param aContraseña -- Anterior contraseña
      */
     public void setAContraseña(String aContraseña) {
         this.aContraseña = aContraseña;
     }
-    
+
     /**Un metodo que regresa la Contraseña
      * @return Un objeto de tipo String
      */
     public String getContraseña() {
         return contraseña;
     }
-    
+
     /**Un metodo que recibe la Contraseña
-     * 
+     *
      * @param contraseña -- Un objeto de tipo String
      */
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
     /**Un metodo que regresa la confirmacion de la Contraseña
-     * 
+     *
      * @return Un objeto de tipo String
      */
     public String getConfirmarContraseña() {
         return confirmarContraseña;
     }
     /**Un metodo que recibe la Confirmación de la Contraseña
-     * 
+     *
      * @param confirmarContraseña -- Un objeto de tipo String
      */
     public void setConfirmarContraseña(String confirmarContraseña) {
         this.confirmarContraseña = confirmarContraseña;
     }
-    
+
     /**Un metodo que regresa el correo
-     * 
+     *
      * @return Un objeto de tipo String
      */
     public String getCorreo() {
@@ -88,30 +88,30 @@ public class UsuarioController {
         return null;
     }
     /**Un metodo que recibe el correo
-     * 
+     *
      * @param correo -- Un objeto de tipo String
      */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
+
     /**Un metodo que regresa el Usuario
-     * 
+     *
      * @return Un objeto de tipo Usuario
      */
     public Usuario getUser() {
         return user;
     }
     /**Un metodo que recibe el usuario
-     * 
+     *
      * @param usuario -- Un objeto de tipo Usuario
      */
     public void setUser(Usuario usuario) {
         this.user = usuario;
     }
-    
+
     /**Constructor de UsuarioController
-     * 
+     *
      */
     public UsuarioController() {
 //        FacesContext context = getCurrentInstance();
@@ -123,9 +123,9 @@ public class UsuarioController {
 //               correo = user.getCorreo();
 
     }
-    
+
     /**Un metodo que actualiza los datos del usuario actual
-     * 
+     *
      * @return String de redireccion
      */
     public String updateUsuario(){
@@ -134,10 +134,10 @@ public class UsuarioController {
         bool = false;
         if(user == null)
             return "registro?faces-redirect=true";
-        
+
 //        if(correo != null && !correo.equals(""))
 //            user.setCorreo(correo);
-        
+
         if(u.login(new Login(user.getNombre_usuario(),aContraseña)) == null){
             context
                 .addMessage(null,
@@ -165,9 +165,9 @@ public class UsuarioController {
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                     "Las contraseñas no coinciden", ""));
         }
-        
+
         return null;
-        
+
     }
     private Usuario getUser(String user_name,String contraseña) {
         Session session = null;
@@ -185,7 +185,7 @@ public class UsuarioController {
         return usuario;
     }
     /**Metodo para eliminar el de esta instancia informador
-     * 
+     *
      */
     public void eliminarInformador(){
           /**if (!tema.getNombre().equals(u.existeTema(tema))) {
@@ -201,8 +201,8 @@ public class UsuarioController {
                                     "Se retiraron privilegios de informador al usuario", ""));
             u.eliminarInformador(user);
      //}
-    }  
-    
+    }
+
     /**Metodo para actualizar un usuario recibido
      * @param user -- El usuario que se actualizara
      * @return String de redireccion
@@ -226,50 +226,118 @@ public class UsuarioController {
         }
         return "listaUsuariosRegistrados?faces-redirect=true";
     }
-    /**Metodo para decir si es comentarista o informador 
-     * 
+
+    /**Metodo para actualizar un usuario recibido (se invoca desde la lista de informadores)
+     * @param user -- El usuario que se actualizara
+     * @return String de redireccion
+     */
+    public String setRegistradosInf(Usuario user) {
+        if(user != null){
+            user.setEs_informador(!user.isEs_informador());
+            u.update1(user);
+        }
+        return "listaInformadores?faces-redirect=true";
+    }
+
+    /**Metodo para actualizar un usuario recibido (se invoca desde la lista de comentaristas)
+     * @param user -- El usuario que se actualizara
+     * @return String de redireccion
+     */
+    public String setRegistradosCom(Usuario user) {
+        if(user != null){
+            user.setEs_informador(!user.isEs_informador());
+            u.update1(user);
+        }
+        return "listaComentaristas?faces-redirect=true";
+    }
+
+    /**Metodo para decir si es comentarista o informador
+     *
      * @param usuario -- Usuario al que se le quiere cambiar su estado
      * @return Un String que nos dice que tipo de usuario es
      */
     public String inf(Usuario usuario){
         if(usuario != null){
             if(usuario.isEs_informador()){
-                return "Remover permisos";
+                return "Hacer Comentarista";
             }
-            return "Ceder Permisos";
+            return "Hacer informador";
         }
         return null;
     }
-    
-    /**Metodo que regresa a todos los usuarios registrados
-     * 
+
+    /**Metodo que regresa a todos los usuarios registrados en espera de asignación
+     *
      * @return Un objeto de tipo lista
      */
     public List listaUsuarios(){
         return u.darUsuarios();
     }
 
-    /**Metodo que regresa a todos los usuarios registrados
-     * 
+    /**Metodo que regresa a todos los usuarios registrados en la base
+     *
      * @return Un objeto de tipo lista
      */
     public List listaUsuariosRegistrados(){
         return u.darUsuariosRegistrados();
     }
-    
+
+    /**Metodo que regresa a todos los informadores registrados
+     *
+     * @return Un objeto de tipo lista
+     */
+    public List listaInformadores(){
+        return u.darInformadores();
+    }
+
+    /**Metodo que regresa a todos los comentaristas registrados
+     *
+     * @return Un objeto de tipo lista
+     */
+    public List listaComentaristas(){
+        return u.darComentaristas();
+    }
+
     /**Un metodo para borrar el usuario en esta instancia
-     * 
+     *
      * @return String de redireccion
      */
-    public String deleteUsuario(){
-        FacesContext context = getCurrentInstance();
-        user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-        if(user == null){
+    public String deleteUsuario(Usuario usuario){
+        //FacesContext context = getCurrentInstance();
+        //user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        if(usuario == null){
             return "registro?faces-redirect=true";
         }
-        u.delete(user);
-        
-        return "inicio?faces-redirect=true";
+        u.delete(usuario);
+        return "listaUsuariosRegistrados?faces-redirect=true";
     }
-    
+
+    /**Un metodo para borrar informadores
+     *
+     * @return String de redireccion
+     */
+    public String deleteInformador(Usuario usuario){
+        //FacesContext context = getCurrentInstance();
+        //user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        if(usuario == null){
+            return "registro?faces-redirect=true";
+        }
+        u.delete(usuario);
+        return "listaInformadores?faces-redirect=true";
+    }
+
+    /**Un metodo para borrar comentaristas
+     *
+     * @return String de redireccion
+     */
+    public String deleteComentarista(Usuario usuario){
+        //FacesContext context = getCurrentInstance();
+        //user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        if(usuario == null){
+            return "registro?faces-redirect=true";
+        }
+        u.delete(usuario);
+        return "listaComentaristas?faces-redirect=true";
+    }
+
 }

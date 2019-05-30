@@ -1,0 +1,84 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+  <ui:define name="content">
+<h:head>
+  <title>Comentaristas Registrados</title>
+</h:head>
+<h:body>
+
+  <h:form id="myorm">
+
+    <h1>Comentaristas Registrados</h1>
+
+    <p:commandButton action="welcome" value="Inicio"/> 
+    <p:commandButton action="listaUsuariosRegistrados" value="Todos"/>
+    <p:commandButton action="listaInformadores" value="Informadores"/>
+    <p:commandButton action="buscarUsuario" value="Buscar"/>
+    <br></br><br></br>
+
+    <p:dataList value="#{usuarioController.listaComentaristas()}" var="usuario">
+      
+      <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaComentaristas()}">
+
+        <p:column headerText="Nombre de Usuario">
+            <h:outputText value="#{usuario.nombre_usuario}" />
+        </p:column>
+
+        <p:column headerText="Correo Electrónico">
+            <h:outputText value="#{usuario.correo}" />
+        </p:column>
+
+        <p:column headerText="¿Es Informador?">
+            <h:outputText value="#{usuario.es_informador}" />
+        </p:column>
+
+      </p:dataTable>
+      <!--
+      <f:facet name="header">
+          Usuarios
+      </f:facet>
+      #{usuario.nombre_usuario}, #{usuario.correo}, #{usuario.es_informador}
+      -->
+      <p:commandButton action="#{usuarioController.setRegistradosCom(usuario)}"
+                       value="#{usuarioController.inf(usuario)}"
+                       update="@none" process="@this"
+                       />
+
+      <p:commandButton action="#{usuarioController.deleteComentarista(usuario)}"
+                       value="Eliminar"
+                       update="@none" process="@this"
+                       />                 
+                       
+      <p></p>
+
+    </p:dataList>
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+
+    <!-- POR IMPLEMENTAR 
+         BOTÓN PARA BUSCAR USUARIO
+    <p:inputText value="#{usuarioController.user.nombre_usuario}"
+                         required="true"
+                         id="Nombre"
+                         size="15"/>
+    -->
+
+  </h:form>
+
+  <!--
+  <h:form>
+      <p:commandButton action="buscarUsuario"
+                           value="Buscar Usuario"/>
+  </h:form>
+  -->
+
+</h:body>
+  </ui:define>
+</ui:composition>
