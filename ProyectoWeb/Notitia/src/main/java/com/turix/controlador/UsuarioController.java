@@ -235,9 +235,9 @@ public class UsuarioController {
     public String inf(Usuario usuario){
         if(usuario != null){
             if(usuario.isEs_informador()){
-                return "Remover permisos";
+                return "Hacer Comentarista";
             }
-            return "Ceder Permisos";
+            return "Hacer informador";
         }
         return null;
     }
