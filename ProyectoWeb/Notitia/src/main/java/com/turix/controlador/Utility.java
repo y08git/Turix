@@ -432,7 +432,6 @@ public class Utility {
       boolean guardar = false;
         List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-
         //query para restricciones
         String query = "SELECT * FROM notitia.Temas "
                    + "WHERE notitia.Temas.nombre LIKE '"+ t.getNombre() +"';";
@@ -620,7 +619,7 @@ public class Utility {
         List l;
         Usuario u = new Usuario();
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT * FROM notitia.Usuario WHERE en_espera AND NOT es_informador";
+        String query = "SELECT * FROM notitia.Usuario WHERE en_espera AND NOT es_informador AND NOT nombre_usuario = 'Admin'";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
