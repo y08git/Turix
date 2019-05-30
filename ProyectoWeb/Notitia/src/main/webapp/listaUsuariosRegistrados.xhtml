@@ -14,6 +14,7 @@
     <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" var="usuario">
       
       <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuariosRegistrados()}">
+
         <p:column headerText="Nombre de Usuario">
             <h:outputText value="#{usuario.nombre_usuario}" />
         </p:column>
@@ -25,6 +26,7 @@
         <p:column headerText="¿Es Informador?">
             <h:outputText value="#{usuario.es_informador}" />
         </p:column>
+
       </p:dataTable>
       <!--
       <f:facet name="header">
@@ -41,6 +43,9 @@
                        value="Eliminar Usuario"
                        update="@none" process="@this"
                        />                 
+                       
+      <p></p>
+
     </p:dataList>
     <table>
       <tr><td>
@@ -49,6 +54,15 @@
     </table>
     <p:commandButton action="welcome" value="Regresar a Inicio"/>
     <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
+
+    <!-- POR IMPLEMENTAR 
+         BOTÓN PARA BUSCAR USUARIO
+    <p:inputText value="#{usuarioController.user.nombre_usuario}"
+                         required="true"
+                         id="Nombre"
+                         size="15"/>
+    -->
+
   </h:form>
 
   <!--
