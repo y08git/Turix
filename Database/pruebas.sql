@@ -1,14 +1,13 @@
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Yo', false, 'password','asdfas',false);
-
+VALUES ('Angel', false, 'pass','angel@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Admin', true, 'contraseña','turixteam2019@gmail.com',false);
-
+VALUES ('Admin', false, 'pass','turixteam2019@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('wait', true, 'contraseña','wait@gmail.com',false);
-
+VALUES ('Pablo', true, 'pass','pablo@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('info', false, 'infoc','hola@gmail.com',true);
+VALUES ('Yo', false, 'pass','yo@gmail.com',true);
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('Miguel', false, 'pass','miguel@gmail.com',true);
 
 INSERT INTO notitia.temas (nombre, descripcion)
 VALUES ('rigoberto','magic');
@@ -18,9 +17,12 @@ INSERT INTO notitia.temas (nombre, descripcion)
 VALUES ('roberto','magic');
 INSERT INTO notitia.temas (nombre, descripcion)
 VALUES ('canto','mahou');
+INSERT INTO notitia.temas (nombre, descripcion)
+VALUES ('museo','en el museo');
+INSERT INTO notitia.temas (nombre, descripcion)
+VALUES ('restoran','comes bien');
 
 INSERT INTO notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre)
-VALUES ('datos inutiles','much impressive WOW','2342.23423,23423.34242','Yo','rigoberto');
-
+VALUES ('datos inutiles','much impressive WOW','93.23423, 94.34242','Yo','rigoberto');
 INSERT INTO notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre)
-VALUES ('rigoberto','magic','42','Yo','roberto');
+VALUES ('rigoberto','magic','91.333242, 23.25235325','Yo','roberto');
