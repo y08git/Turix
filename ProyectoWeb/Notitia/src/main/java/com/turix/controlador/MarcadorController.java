@@ -44,6 +44,15 @@ public class MarcadorController {
     private double lat;
     private String title;
     private Marker marker;
+    private String ubicacion;
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
 
     public Marker getMarker() {
         return marker;
@@ -69,8 +78,11 @@ public class MarcadorController {
            String[] coordenadas= marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
            double c2=Double.parseDouble(coordenadas[1]); 
+           System.out.println(marcador.getDatos_utiles());
+           System.out.println(marcador.getDescripcion());
             model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
                     marcador.getDescripcion()));
+            
         });
         
     }
@@ -213,6 +225,7 @@ public class MarcadorController {
       * para eliminarlo de la BD
       */
      public void eliminaMarcador(){
+         System.out.println(ubicacion);
              u.eliminarMarcador(marcador);
 
      }
@@ -222,6 +235,13 @@ public class MarcadorController {
      
       public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();
+        //System.out.println( marker.getLatlng());
+        String ub1= String.valueOf(lat);
+        String ub2= String.valueOf(lng);
+        ubicacion= ub1+","+ub2;
+        
+       // data = (String) marker.getData();
+       // title = (String) marker.getTitle();
   
     }
      
