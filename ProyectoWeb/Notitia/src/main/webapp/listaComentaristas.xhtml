@@ -9,8 +9,17 @@
   <title>Comentaristas Registrados</title>
 </h:head>
 <h:body>
-  <h1>Comentaristas Registrados</h1> <br/>
+
   <h:form id="myorm">
+
+    <h1>Comentaristas Registrados</h1>
+
+    <p:commandButton action="welcome" value="Inicio"/> 
+    <p:commandButton action="listaUsuariosRegistrados" value="Todos"/>
+    <p:commandButton action="listaInformadores" value="Informadores"/>
+    <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
+    <br></br><br></br>
+
     <p:dataList value="#{usuarioController.listaComentaristas()}" var="usuario">
       
       <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaComentaristas()}">
@@ -52,10 +61,6 @@
         <p:messages id="messages" autoUpdate="true" closable="true" />
       </td></tr>
     </table>
-    <p:commandButton action="welcome" value="Regresar a Inicio"/> 
-    <p:commandButton action="listaInformadores" value="Ver Informadores"/>
-    <p:commandButton action="listaComentaristas" value="Ver Comentaristas"/>
-    <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
 
     <!-- POR IMPLEMENTAR 
          BOTÓN PARA BUSCAR USUARIO

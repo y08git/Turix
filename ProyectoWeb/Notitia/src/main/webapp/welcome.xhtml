@@ -12,16 +12,19 @@
       
         <!-- A D M I N I S T R A D O R-->
         <c:when test="#{loginController.admin}">
-        Bienvenido Administrador.
+        
+          Bienvenido Administrador.
+          
+          <h:form>  
+              <p:commandButton action="listaUsuariosRegistrados"
+                                   value="Usuarios Registrados"/>
+          </h:form>
           <h:form>
               <p:commandButton action="listaUsuarios"
                                    value="Usuarios en Espera de Asignación"/>
           </h:form>
+          
           <h:form>
-              <p:commandButton action="listaUsuariosRegistrados"
-                                   value="Lista de Usuarios Registrados"/>
-          </h:form>
-         <h:form>
               <p:commandButton action="listaTemasAdmin"
                                    value="Eliminar Temas"/>
           </h:form>

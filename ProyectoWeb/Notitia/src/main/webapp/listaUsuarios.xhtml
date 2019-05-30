@@ -9,9 +9,15 @@
   <title>Lista de Usuarios en Espera</title>
 </h:head>
 <h:body>
-  <h1>Usuarios en Espera de Asignación</h1> <br/>
+
   <h:form id="myorm">
+
+    <h1>Usuarios en Espera de Asignación</h1> 
     
+    <p:commandButton action="welcome" value="Inicio"/>
+    <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
+    <br></br><br></br>
+
     <p:dataList value="#{usuarioController.listaUsuarios()}" var="usuario">
 
       <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuarios()}">
@@ -44,9 +50,6 @@
         <p:messages id="messages" autoUpdate="true" closable="true" />
       </td></tr>
     </table>
-
-    <p:commandButton action="welcome" value="Regresar a Inicio"/>
-    <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
     
     </h:form>
 
