@@ -1,6 +1,8 @@
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Angel', false, 'pass','angel@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('Roberto', true, 'pass','roberto@gmail.com',false);
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Admin', false, 'pass','turixteam2019@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Pablo', true, 'pass','pablo@gmail.com',false);

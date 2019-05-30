@@ -8,22 +8,24 @@
   <ui:define name="content">
 
 <h:head>
-  <title>Lista de Usuarios Registrados</title>
+  <title>Buscar Usuario</title>
 </h:head>
 
 <h:body>
+    <p:commandButton action="welcome" value="Inicio"/> 
 
   <h:form id="myorm">
 
-    <h1>Usuarios Registrados</h1>
+    <h1>Buscar Usuario</h1>
 
-    <p:commandButton action="welcome" value="Inicio"/> 
-    <p:commandButton action="listaInformadores" value="Informadores"/>
-    <p:commandButton action="listaComentaristas" value="Comentaristas"/>
-    <p:commandButton action="buscarUsuarios" value="Buscar"/>
+    <p:commandButton action="buscarUsuario" value="Buscar" update="myorm"/>
+    <p:inputText value="#{usuarioController.nombre}"
+                         required="true"
+                         id="Nombre"
+                         size="12"/>
     <br></br><br></br>
 
-    <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" var="usuario">
+    <p:dataList value="#{usuarioController.listaEncontrados()}" var="usuario">
       
       <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuariosRegistrados()}">
 
@@ -64,22 +66,7 @@
       </td></tr>
     </table>
 
-    <!-- POR IMPLEMENTAR 
-         BOTÓN PARA BUSCAR USUARIO
-    <p:inputText value="#{usuarioController.user.nombre_usuario}"
-                         required="true"
-                         id="Nombre"
-                         size="15"/>
-    -->
-
   </h:form>
-
-  <!--
-  <h:form>
-      <p:commandButton action="buscarUsuario"
-                           value="Buscar Usuario"/>
-  </h:form>
-  -->
 
 </h:body>
   </ui:define>

@@ -27,10 +27,20 @@ public class UsuarioController {
     private Utility u = new Utility();
     private Usuario user;
     private boolean bool;
+    private String nombre;
     private String correo;
     private String aContraseña;
     private String contraseña;
     private String confirmarContraseña;
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String name) {
+        this.nombre = name;
+    }
 
     /**Un metodo que regresa la anterior Contraseña
      *
@@ -102,6 +112,7 @@ public class UsuarioController {
     public Usuario getUser() {
         return user;
     }
+
     /**Un metodo que recibe el usuario
      *
      * @param usuario -- Un objeto de tipo Usuario
@@ -296,6 +307,14 @@ public class UsuarioController {
      */
     public List listaComentaristas(){
         return u.darComentaristas();
+    }
+
+    /**Metodo que regresa a todos los comentaristas registrados
+     *
+     * @return Un objeto de tipo lista
+     */
+    public List listaEncontrados(){
+        return u.darEncontrados(nombre);
     }
 
     /**Un metodo para borrar el usuario en esta instancia

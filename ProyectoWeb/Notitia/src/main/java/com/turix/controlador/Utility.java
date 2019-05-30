@@ -688,6 +688,22 @@ public class Utility {
     }
 
     /**
+     * Devuelve la lista de comentaristas registrados en la base
+     * @return la lista de comentaristas registrados en la base
+     */
+    public List darEncontrados(String nombre) {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario WHERE NOT nombre_usuario = 'Admin' AND nombre_usuario ILIKE '%"+nombre+"%'";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
+
+    /**
      * Metodo para enlistar todos los temas
      * @return list
      */
