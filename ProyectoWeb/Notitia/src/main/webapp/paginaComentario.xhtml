@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -16,23 +17,55 @@ and open the template in the editor.
         <h1>Quieres editar o eliminar tu comentario?</h1> <br/>
         <h2>Solo agrega el id del comentario que elegiste y listo!</h2> <br/>
       <h:form>
-        <table>
-            <tr>
-        <td>ID</td>
-        <td><p:inputText value="#{comentarioController.id_comentario}"
-                         required="true"
-                         id="id_comentario"
-                         size="20"/></td>
-      </tr>
-            <td colspan="3" align="center">
-                <p:commandButton action="#{comentarioController.eliminarComentario}"
-                           value="Eliminar"/>
-                <p:commandButton action="editarComentario"
-                           value="Editar"/>
-                <p:commandButton action="comentario"
-                           value="Regresar a Comentario"/>
-            </td>
-        </table>
+        <h1>Usuarios en Espera de Asignación</h1> <br/>
+  <h:form id="myorm">
+      <p:dataList value="#{comentarioController.listaComentarios()}" var="comentario">
+      <table>
+        <tr>
+          <td><p:messages id="messages" autoUpdate="true" closable="true"/></td>
+        </tr>
+      </table>
+        <p:dataTable var="Comentarios" value="#{comentarioController.listaComentarios()}">
+        <p:column headerText="usuario">
+            <h:outputText value="#{comentario.usuario.nombre_usuario}" />
+        </p:column>
+
+
+        <p:column headerText="comentario">
+            <h:outputText value="#{comentario.comentario}" />
+        </p:column>
+         <p:column id="display" headerText="calificación">
+             <h:outputText value="#{comentario.calificacionPositiva  + comentario.calificacionNegativa}" />
+        </p:column>
+      </p:dataTable>
+      <h:form>
+    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+        <p:selectOneButton value="#{selectOneView.option}">
+            <f:selectItem itemLabel="Me gusta"/>
+            <f:selectItem itemLabel="No me Gusta"/>
+        </p:selectOneButton>
+         
+        <p:commandButton value="Submit" action="index" icon="pi pi-check" />
+        <p:spacer />
+    </h:panelGrid>
+</h:form>
+    </p:dataList>
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+    <p:commandButton action="welcome" value="Regresar a Inicio"/>
+    <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
+    </h:form>
+
+  <!--
+  <h:form>
+      <p:commandButton action="buscarUsuario"
+                           value="Buscar Usuario"/>
+  </h:form>
+  -->
+
       </h:form>
     </h:body>
 </html>

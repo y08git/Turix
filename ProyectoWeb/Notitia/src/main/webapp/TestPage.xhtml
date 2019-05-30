@@ -15,36 +15,27 @@ and open the template in the editor.
   <h1>Formulario de ingreso</h1> <br/>
   <h:form id="myForm">
     <table>
-      <tr><td>
+      <tr>
+          <td>
         <p:messages id="messages" autoUpdate="true" closable="true" />
-      </td></tr>
+          </td>
+      </tr>
     </table>
     <table>
       <tr>
-        <td>Nombre de usuario</td>
-        <td><p:inputText value="#{loginController.login.usuario}"
+        <td>Nombre de marcador</td>
+        <td><p:inputText value="#{comentarioController.ubicacion}"
                          required="true"
                          id="Username"
                          size="40"/></td>
       </tr>
-      
-      <tr>
-        <td>Contraseña</td>
-        <td><p:password value="#{loginController.login.contraseña}"
-                        required="true"
-                        id="Password"/></td>
-      </tr>
       <tr>
         <td colspan="3" align="center">
-            <p:commandButton action="#{loginController.openUser()}"
-                           value="Login"/>
+            <p:commandButton action="paginaComentario"
+                           value="entering"/>
         </td>
       </tr>
     </table>
-  </h:form>
-  <h:form>
-      <p:commandButton action="testView"
-                           value="Cancel"/>
   </h:form>
 </h:body>
 </html>

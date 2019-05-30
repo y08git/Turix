@@ -51,7 +51,8 @@ public class MarcadorController {
         model = new DefaultMapModel();
         List<Marcadores> marcadores = u.darMarcadores();
         marcadores.forEach((marcador) -> {
-           String[] coordenadas= marcador.getUbicacion().split("");
+           String[] coordenadas;
+            coordenadas = marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
            double c2=Double.parseDouble(coordenadas[1]); 
             model.addOverlay(new Marker(new LatLng(c1, c2),
@@ -158,7 +159,7 @@ public class MarcadorController {
         marcador.setTemas(u.existeTema(t));
         String ub1= String.valueOf(lat);
         String ub2= String.valueOf(lng);
-        marcador.setUbicacion(ub1+""+ub2);
+        marcador.setUbicacion(ub1+","+ub2);
          u.guardarMarcador(marcador);
          model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDatos_utiles()));
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
