@@ -59,8 +59,7 @@ public class TemaController {
     public void setTema(Temas tema) {
         this.tema = tema;
     }
-     
-   
+        
      /**
       * Metodo que guarda un Tema
       * manda a llamar a guardarTema de Utility
@@ -79,8 +78,18 @@ public class TemaController {
      public void eliminarTema(){
              u.eliminarTema(tema);
 
+     }  
+
+     /**
+      * Metodo que elimina un Tema
+      * manda a llamar a eliminarTema de Utility
+      * para eliminarlo en la BD
+      */
+     public void eliminarTema(Temas t){
+             u.eliminarTema(t);
+
      }   
-     
+
      /**
       * Metodo que da la lista de todos los temas
       * manda a llamar darTema de Utility
