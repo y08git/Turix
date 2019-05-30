@@ -11,32 +11,40 @@
 <h:body>
   <h1>Usuarios en Espera de Asignación</h1> <br/>
   <h:form id="myorm">
+    
     <p:dataList value="#{usuarioController.listaUsuarios()}" var="usuario">
+
       <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuarios()}">
-        <p:column headerText="usuario">
+
+        <p:column headerText="Nombre de Usuario">
             <h:outputText value="#{usuario.nombre_usuario}" />
         </p:column>
 
-        <p:column headerText="correo">
+        <p:column headerText="Correo Electrónico">
             <h:outputText value="#{usuario.correo}" />
         </p:column>
 
         <p:column headerText="¿Es Informador?">
             <h:outputText value="#{usuario.es_informador}" />
         </p:column>
+
       </p:dataTable>
+      
       <p:commandButton action="#{usuarioController.set(usuario)}"
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
     </p:dataList>
+
     <table>
       <tr><td>
         <p:messages id="messages" autoUpdate="true" closable="true" />
       </td></tr>
     </table>
+
     <p:commandButton action="welcome" value="Regresar a Inicio"/>
     <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
+    
     </h:form>
 
   <!--
