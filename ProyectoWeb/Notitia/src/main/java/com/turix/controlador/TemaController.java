@@ -27,6 +27,7 @@ public class TemaController {
     private Utility u = new Utility();
     public String nom;
 
+
     public String getNom() {
         return nom;
     }
@@ -57,6 +58,7 @@ public class TemaController {
       */
      public void guardarTema(){
              u.guardarTema(tema);
+             
             tema = null;         
          }
 

@@ -9,14 +9,12 @@ import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 import org.primefaces.event.map.OverlaySelectEvent;
@@ -31,11 +29,10 @@ import org.primefaces.model.map.Marker;
  */
 @ManagedBean
 @RequestScoped
-@ViewScoped
 public class MarcadorController {
 
     
-   private MapModel model ;
+   private final MapModel model = new DefaultMapModel();
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
     private Temas tema = new Temas();
@@ -45,18 +42,37 @@ public class MarcadorController {
     private String data;
     private double lng;
     private double lat;
+    private String title;
+    private Marker marker;
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @PostConstruct
     public void init() {
-        model = new DefaultMapModel();
         List<Marcadores> marcadores = u.darMarcadores();
+        System.out.println("Elementos " + marcadores.size());
         marcadores.forEach((marcador) -> {
-           String[] coordenadas= marcador.getUbicacion().split("");
+           String[] coordenadas= marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
            double c2=Double.parseDouble(coordenadas[1]); 
-            model.addOverlay(new Marker(new LatLng(c1, c2),
+            model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
                     marcador.getDescripcion()));
         });
+        
     }
     
       public String getDatos_utiles() {
@@ -86,10 +102,6 @@ public class MarcadorController {
     
     public MapModel getModel() {
         return model;
-    }
-
-    public void setModel(MapModel model) {
-        this.model = model;
     }
 
     public String getData() {
@@ -158,7 +170,7 @@ public class MarcadorController {
         marcador.setTemas(u.existeTema(t));
         String ub1= String.valueOf(lat);
         String ub2= String.valueOf(lng);
-        marcador.setUbicacion(ub1+""+ub2);
+        marcador.setUbicacion(ub1+","+ub2);
          u.guardarMarcador(marcador);
          model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDatos_utiles()));
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
@@ -209,9 +221,8 @@ public class MarcadorController {
      }
      
       public void onMarkerSelect(OverlaySelectEvent event) {
-        Marker marker = (Marker) event.getOverlay();
-        data = (String) marker.getData();
-     
+        marker = (Marker) event.getOverlay();
+  
     }
      
 
