@@ -17,7 +17,7 @@
     <p:commandButton action="welcome" value="Inicio"/> 
     <p:commandButton action="listaUsuariosRegistrados" value="Todos"/>
     <p:commandButton action="listaInformadores" value="Informadores"/>
-    <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
+    <p:commandButton action="buscarUsuario" value="Buscar"/>
     <br></br><br></br>
 
     <p:dataList value="#{usuarioController.listaComentaristas()}" var="usuario">
@@ -49,7 +49,7 @@
                        />
 
       <p:commandButton action="#{usuarioController.deleteComentarista(usuario)}"
-                       value="Eliminar Usuario"
+                       value="Eliminar"
                        update="@none" process="@this"
                        />                 
                        
