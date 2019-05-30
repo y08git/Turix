@@ -644,6 +644,38 @@ public class Utility {
     }
 
     /**
+     * Devuelve la lista de informadores registrados en la base
+     * @return la lista de informadores registrados en la base
+     */
+    public List darInformadores() {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario WHERE not nombre_usuario = 'Admin' AND es_informador";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
+
+    /**
+     * Devuelve la lista de comentaristas registrados en la base
+     * @return la lista de comentaristas registrados en la base
+     */
+    public List darComentaristas() {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario WHERE NOT nombre_usuario = 'Admin' AND NOT es_informador";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
+
+    /**
      * Metodo para enlistar todos los temas
      * @return list
      */

@@ -242,7 +242,7 @@ public class UsuarioController {
         return null;
     }
 
-    /**Metodo que regresa a todos los usuarios registrados
+    /**Metodo que regresa a todos los usuarios registrados en espera de asignación
      *
      * @return Un objeto de tipo lista
      */
@@ -250,12 +250,28 @@ public class UsuarioController {
         return u.darUsuarios();
     }
 
-    /**Metodo que regresa a todos los usuarios registrados
+    /**Metodo que regresa a todos los usuarios registrados en la base
      *
      * @return Un objeto de tipo lista
      */
     public List listaUsuariosRegistrados(){
         return u.darUsuariosRegistrados();
+    }
+
+    /**Metodo que regresa a todos los informadores registrados
+     *
+     * @return Un objeto de tipo lista
+     */
+    public List listaInformadores(){
+        return u.darInformadores();
+    }
+
+    /**Metodo que regresa a todos los comentaristas registrados
+     *
+     * @return Un objeto de tipo lista
+     */
+    public List listaComentaristas(){
+        return u.darComentaristas();
     }
 
     /**Un metodo para borrar el usuario en esta instancia
@@ -270,6 +286,34 @@ public class UsuarioController {
         }
         u.delete(usuario);
         return "listaUsuariosRegistrados?faces-redirect=true";
+    }
+
+    /**Un metodo para borrar informadores
+     *
+     * @return String de redireccion
+     */
+    public String deleteInformador(Usuario usuario){
+        //FacesContext context = getCurrentInstance();
+        //user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        if(usuario == null){
+            return "registro?faces-redirect=true";
+        }
+        u.delete(usuario);
+        return "listaInformadores?faces-redirect=true";
+    }
+
+    /**Un metodo para borrar comentaristas
+     *
+     * @return String de redireccion
+     */
+    public String deleteComentarista(Usuario usuario){
+        //FacesContext context = getCurrentInstance();
+        //user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        if(usuario == null){
+            return "registro?faces-redirect=true";
+        }
+        u.delete(usuario);
+        return "listaComentaristas?faces-redirect=true";
     }
 
 }
