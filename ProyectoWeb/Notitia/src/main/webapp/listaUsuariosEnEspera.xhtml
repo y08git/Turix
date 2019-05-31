@@ -47,8 +47,8 @@
             <h:outputText value="#{usuario.correo}" />
         </p:column>
 
-        <p:column headerText="¿Es Informador?">
-            <h:outputText value="#{usuario.es_informador}" />
+        <p:column headerText="Calidad">
+            <h:outputText value="#{usuario.es_informador ? 'Informador' : 'Comentarista'}" />
         </p:column>
 
       </p:dataTable>

@@ -162,6 +162,7 @@ public class ComentarioController {
         comentario.setComentario(coment);
         u.actualizarComentario(comentario);
     }
+    
     /* Metodo que llama al metodo borrarComentario de utility
      */
     public void eliminarComentario(){

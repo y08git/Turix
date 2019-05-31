@@ -467,7 +467,7 @@ public class Utility {
               if (sessionObj != null) {
               sessionObj.close();
           }
-          }
+        }
 
           //mensajes de error o exito
         if (!guardar) {
@@ -1123,5 +1123,4 @@ public class Utility {
         }
         return u;
     }
-
-     }
+}
