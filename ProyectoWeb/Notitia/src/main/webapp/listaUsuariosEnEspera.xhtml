@@ -17,7 +17,7 @@
     }
  
     .ui-datalist-item {
-        padding:6px;
+        padding:4px;
     }
  
     .paginated .ui-datalist-data {
@@ -31,8 +31,8 @@
 
     <h1>Usuarios en Espera de Asignación</h1> 
     
-    <p:commandButton action="welcome" value="Inicio"/>
-    <p:commandButton action="buscarUsuario" value="Buscar"/>
+    <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/>
+    <p:commandButton action="buscarUsuario?faces-redirect=true" value="Buscar"/>
     <br></br><br></br>
 
     <p:dataList value="#{usuarioController.listaUsuariosEnEspera()}" type="unordered" paginator="true" rows="10" var="usuario">

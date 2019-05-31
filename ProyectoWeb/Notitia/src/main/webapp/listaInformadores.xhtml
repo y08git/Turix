@@ -31,9 +31,9 @@
 
     <h1>Informadores Registrados</h1>
     
-    <p:commandButton action="welcome" value="Inicio"/> 
-    <p:commandButton action="listaUsuariosRegistrados" value="Todos"/>
-    <p:commandButton action="listaComentaristas" value="Comentaristas"/>
+    <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/> 
+    <p:commandButton action="listaUsuariosRegistrados?faces-redirect=true" value="Todos"/>
+    <p:commandButton action="listaComentaristas?faces-redirect=true" value="Comentaristas"/>
     <br></br><br></br>
     
     <p:dataList value="#{usuarioController.listaInformadores()}" type="unordered" paginator="true" rows="10" var="usuario">
