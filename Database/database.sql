@@ -61,11 +61,7 @@ CREATE TABLE notitia.Comentarios
   nombre_usuario text NOT NULL,
   FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion) ON DELETE CASCADE,
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
-); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
-		VALUES ('Yo','password','asdfasd@adds',false)	*/
-
-
-
+); 
 
 drop extension if exists pgcrypto;
 create extension pgcrypto;
