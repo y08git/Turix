@@ -91,7 +91,15 @@ public class ComentarioController {
                 .setLocale(new Locale("es-Mx"));
     }
 
-   
+
+    /**
+     * Metodo que llama al metodo darComentarios de utilty
+     * @return List
+     */
+    public List listaComentariosAdmin() throws SQLException{
+        return u.darComentariosAdmin();
+    }
+
     /**
      * Metodo que llama al metodo darComentarios de utilty
      * @return List

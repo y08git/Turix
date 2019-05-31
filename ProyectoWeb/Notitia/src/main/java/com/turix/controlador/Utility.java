@@ -621,7 +621,7 @@ public class Utility {
         }
 
 
-         }
+    }
 
     /**
      * Devuelve la lista de usuarios registrados en la base
@@ -708,7 +708,7 @@ public class Utility {
      * @return list
      */
      public List darTemas(){
-         List l = null;
+        List l = null;
         Temas tema = new Temas();
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Temas ";
@@ -724,7 +724,7 @@ public class Utility {
       * @return list
       */
      public List darMarcadores(){
-         List l = null;
+        List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Marcadores ";
         sessionObj.beginTransaction();
@@ -733,6 +733,24 @@ public class Utility {
         l = q.list();
         return l;
      }
+
+
+    /**
+     * Metodo para enlistar todos los comentarios
+     * @return list
+     */
+     public List darComentariosAdmin(){
+        List l = null;
+        Comentarios coment = new Comentarios();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Comentarios ";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
+        l = q.list();
+        return l;
+     }
+
 
      /**
       * Metodo para eliminar un marcador de BD
