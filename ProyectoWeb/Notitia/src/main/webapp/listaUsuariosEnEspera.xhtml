@@ -10,6 +10,21 @@
   <title>Lista de Usuarios en Espera</title>
 </h:head>
 
+<style type="text/css">
+    .ui-datalist {
+        width: auto;
+        margin-bottom: 10px;
+    }
+ 
+    .ui-datalist-item {
+        padding:6px;
+    }
+ 
+    .paginated .ui-datalist-data {
+        padding-left: 10px;
+    }
+</style>
+
 <h:body>
 
   <h:form id="myorm">
@@ -20,7 +35,7 @@
     <p:commandButton action="buscarUsuario" value="Buscar"/>
     <br></br><br></br>
 
-    <p:dataList value="#{usuarioController.listaUsuariosEnEspera()}" var="usuario">
+    <p:dataList value="#{usuarioController.listaUsuariosEnEspera()}" type="unordered" paginator="true" rows="10" var="usuario">
 
       <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuariosEnEspera()}">
 
@@ -42,8 +57,6 @@
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
-                       
-      <p></p>
 
     </p:dataList>
 

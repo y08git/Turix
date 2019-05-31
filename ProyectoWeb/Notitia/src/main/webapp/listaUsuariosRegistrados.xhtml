@@ -9,6 +9,21 @@
   <title>Lista de Usuarios Registrados</title>
 </h:head>
 
+<style type="text/css">
+    .ui-datalist {
+        width: auto;
+        margin-bottom: 10px;
+    }
+ 
+    .ui-datalist-item {
+        padding:4px;
+    }
+ 
+    .paginated .ui-datalist-data {
+        padding-left: 10px;
+    }
+</style>
+
 <h:body>
 
   <h:form id="myorm">
@@ -21,7 +36,7 @@
     <p:commandButton action="buscarUsuarios" value="Buscar"/>
     <br></br><br></br>
 
-    <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" var="usuario">
+    <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" type="unordered" paginator="true" rows="10" var="usuario">
       
       <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuariosRegistrados()}">
 
@@ -52,8 +67,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-      <p></p>
-      
+
     </p:dataList>
     <table>
       <tr><td>
