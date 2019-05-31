@@ -223,7 +223,7 @@ public class UsuarioController {
             user.setEs_informador(!user.isEs_informador());
             u.update1(user);
         }
-        return "listaUsuarios?faces-redirect=true";
+        return "listaUsuariosEnEspera?faces-redirect=true";
     }
 
     /**Metodo para actualizar un usuario recibido
@@ -281,7 +281,7 @@ public class UsuarioController {
      *
      * @return Un objeto de tipo lista
      */
-    public List listaUsuarios(){
+    public List listaUsuariosEnEspera(){
         return u.darUsuarios();
     }
 

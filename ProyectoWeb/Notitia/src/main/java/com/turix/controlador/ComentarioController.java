@@ -104,7 +104,7 @@ public class ComentarioController {
      * Metodo que llama al metodo getMiUsuario de utilty
      * @return List
      */
-    public List listaUsuarios() throws SQLException{
+    public List listaUsuariosEnEspera() throws SQLException{
         return u.getMiUsuario();
     }
     

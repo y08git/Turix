@@ -20,9 +20,9 @@
     <p:commandButton action="buscarUsuario" value="Buscar"/>
     <br></br><br></br>
 
-    <p:dataList value="#{usuarioController.listaUsuarios()}" var="usuario">
+    <p:dataList value="#{usuarioController.listaUsuariosEnEspera()}" var="usuario">
 
-      <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuarios()}">
+      <p:dataTable var="Usuarios Registrados" value="{#{usuarioController.listaUsuariosEnEspera()}">
 
         <p:column headerText="Nombre de Usuario">
             <h:outputText value="#{usuario.nombre_usuario}" />

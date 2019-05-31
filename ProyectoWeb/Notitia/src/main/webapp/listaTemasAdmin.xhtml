@@ -22,11 +22,11 @@
         <f:facet name="header">
             Temas
         </f:facet>
-        #{Temas.nombre}, #{Temas.descripcion}
         <p:commandButton action="#{temaController.eliminarTema(Temas)}"
-                       value="Eliminar"
+                       value="X"
                        update="myForm" process="@this"
                        />    
+        #{Temas.nombre}, #{Temas.descripcion}
     </p:dataList>
     <table>
       <tr><td>
