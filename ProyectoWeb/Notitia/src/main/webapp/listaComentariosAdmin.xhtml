@@ -26,10 +26,12 @@
         <f:facet name="header">
             Comentarios
         </f:facet>        
+        
         <p:commandButton action="#{comentarioController.eliminarComentarios(Comentarios)}"
                        value="X" style="margin-bottom: 2px;" class="pi pi-times-circle"
                        update="myForm" process="@this"
                        />    
+        
         #{Comentario.usuario}, #{Comentarios.fecha}, #{Comentarios.comentario}, #{Comentarios.calificacionPositiva}
     </p:dataList>
     <table>

@@ -39,7 +39,7 @@
 
     <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" type="unordered" paginator="true" rows="10" var="usuario">
       
-      <p:dataTable value="{#{usuarioController.listaUsuariosRegistrados()}" var="Usuarios Registrados" >
+      <p:dataTable value="{#usuario}" var="Usuarios Registrados" >
 
         <p:column headerText="Nombre de Usuario">
             <h:outputText value="#{usuario.nombre_usuario}" />
