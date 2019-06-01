@@ -142,11 +142,11 @@ public class ComentarioController {
      */
     public void agregarComentario(){
         comentario.setFecha(new Date());
-       comentario.setMarcadores(existeMarcador(t));
+        comentario.setMarcadores(existeMarcador(t));
         comentario.setUsuario(existeUsuario(usuario));
         u.guardarComentario(comentario);
         comentario = null;
-         }
+    }
     
      /* Metodo que llama al metodo existeTema de utilty
      * @return Temas

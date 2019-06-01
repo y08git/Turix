@@ -5,15 +5,15 @@ VALUES ('Admin', false, 'pass','turixteam2019@gmail.com',false);
 /* U S U A R I O S */
 /* EN ESPERA */
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Arthur', true, 'pass','jarturoga1337@gmail.com',false);
+VALUES ('Arthur García', true, 'pass','jarturogaaaaa1337@gmail.com',false);
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('Diana Ramirez', true, 'pass','dianissssss@ciencias.unam.mx',false);
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('Daniela Monroy', true, 'pass','danisuuuuuu@ciencias.unam.mx',false);
+INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('Miguel', true, 'pass','miguellllll@gmail.com',false);
 
 /* ASIGNADOS */
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Angel', true, 'pass','angel@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Yo', true, 'pass','yo@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Miguel', true, 'pass','miguel@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Ernesto', false, 'pass','ernesto@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)

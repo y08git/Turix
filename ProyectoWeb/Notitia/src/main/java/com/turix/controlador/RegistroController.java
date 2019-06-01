@@ -35,6 +35,7 @@ public class RegistroController {
     public void setUserT(Temporal userT) {
         this.userT = userT;
     }
+
     private Usuario user = new Usuario();
     private Utility u = new Utility();
     private String confirmarContraseña;
@@ -79,6 +80,17 @@ public class RegistroController {
         user = null;
     }
 
+   /**
+     * Metodo para guardar a un usuario
+     * mandamos a llamar a save de Utility
+     * para gardarlo en la BD
+     * @throws javax.mail.MessagingException
+     */
+    public void agregarInformador() throws MessagingException {
+        String correo = user.getCorreo();
+        System.out.println(correo);
+        mail.enviar(correo,"Correo de confirmación","<h2>¡Felicidades! ¡Ya eres Informador en Notitia!</h2>");
+    }
 
     /**
      * Metodo para guardar a un usuario

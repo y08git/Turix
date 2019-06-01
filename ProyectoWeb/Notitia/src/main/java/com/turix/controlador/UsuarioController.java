@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -32,6 +33,7 @@ public class UsuarioController {
     private String aContraseña;
     private String contraseña;
     private String confirmarContraseña;
+    private JavaMail mail = new JavaMail();
 
 
     public String getNombre() {
@@ -387,5 +389,17 @@ public class UsuarioController {
     
     public void deleteItself(){
         if (user != null) u.delete(user);
+    }
+
+      /**
+     * Metodo para guardar a un usuario
+     * mandamos a llamar a save de Utility
+     * para gardarlo en la BD
+     * @throws javax.mail.MessagingException
+     */
+    public void agregarInformador(Usuario user) throws MessagingException {
+        String correo = user.getCorreo();
+        System.out.println(correo);
+        mail.enviar(correo,"Correo de confirmación","<h2>¡Felicidades! ¡Ya eres Informador en Notitia!</h2>");
     }
 }
