@@ -7,7 +7,7 @@
     <!-- Database Connection Settings -->
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/notitia</property>
-    <property name="hibernate.connection.username">dmonroy</property>
+    <property name="hibernate.connection.username">arthur</property>
     <property name="hibernate.connection.password"/>
     <property name="show_sql">true</property>
     <!-- Specifying Session Context -->
