@@ -201,7 +201,55 @@ public class Utility {
 
     }
 
+    /**
+     * Metodo para eliminar un tema de la BD
+     * @param t
+     */
+    public void eliminarUsuario(Usuario user){
+      boolean guardar = false;
+        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
 
+        //query para restricciones
+        String query = "SELECT * FROM notitia.Usuario "
+                   + "WHERE notitia.Usuario.nombre = '"+ user.getNombre_usuario() +"';";
+          try{
+            sessionObj.beginTransaction();
+            Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+            l = q.list();
+            if(!l.isEmpty()){
+                guardar = true;
+                Usuario usuario = (Usuario)sessionObj.get(Usuario.class, user.getNombre_usuario());
+                sessionObj.delete(usuario);
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+            }
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close();
+          }
+        }
+
+          //mensajes de error o exito
+        if (!guardar) {
+           FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: No existe el Tema a eliminar", ""));
+        } else {
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se eliminó correctamente el tema", ""));
+
+        }
+      }
 
     public void save() {
         try {
@@ -424,6 +472,53 @@ public class Utility {
 
         }
       }
+    
+    public void eliminarTema2(Temas t,String n){
+      boolean guardar = false;
+        List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+
+        //query para restricciones
+        String query = "SELECT * FROM notitia.Temas "
+                   + "WHERE notitia.Temas.nombre LIKE '"+ n +"';";
+          try{
+         sessionObj.beginTransaction();
+            Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+            l = q.list();
+            if(!l.isEmpty()){
+                guardar = true;
+               Temas tema = (Temas)sessionObj.get(Temas.class,t.getNombre());
+                sessionObj.delete(tema);
+                if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+            }
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+              if (sessionObj != null) {
+              sessionObj.close();
+          }
+          }
+
+          //mensajes de error o exito
+        if (!guardar) {
+           FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Fallo: No existe el Tema a eliminar", ""));
+        } else {
+
+            FacesContext.getCurrentInstance()
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Se eliminó correctamente el tema", ""));
+
+        }
+      }
+    
     /**
      * Metodo auxiliar para saber si existe el Tema en la BD
      * @param t
@@ -596,14 +691,74 @@ public class Utility {
     }
 
     /**
+     * Devuelve la lista de informadores registrados en la base
+     * @return la lista de informadores registrados en la base
+     */
+    public List darInformadores() {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario WHERE not nombre_usuario = 'Admin' AND es_informador";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
+
+    /**
+     * Devuelve la lista de comentaristas registrados en la base
+     * @return la lista de comentaristas registrados en la base
+     */
+    public List darComentaristas() {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario WHERE NOT nombre_usuario = 'Admin' AND NOT es_informador";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
+
+    /**
+     * Devuelve la lista de comentaristas registrados en la base
+     * @return la lista de comentaristas registrados en la base
+     */
+    public List darEncontrados(String nombre) {
+        List l;
+        Usuario u = new Usuario();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Usuario WHERE NOT nombre_usuario = 'Admin' AND nombre_usuario ILIKE '%"+nombre+"%'";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Usuario.class);
+        l = q.list();
+        return l;
+    }
+
+    /**
      * Metodo para enlistar todos los temas
      * @return list
      */
      public List darTemas(){
-         List l = null;
-        Temas tema = new Temas();
+        List l = null;
+        sessionObj.beginTransaction();
+        Query qr;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
-        String query = "SELECT * FROM notitia.Temas ";
+        String query = "FROM notitia.Temas";
+        qr = sessionObj.createQuery(query);
+        sessionObj.getTransaction().commit();
+        l = qr.list();
+        return l;
+     }
+     
+     public List darMisTemas(String m){
+         List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temas "
+                   + "WHERE notitia.Temas.nombre_usuario LIKE '"+  m+"';";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
@@ -702,6 +857,22 @@ public class Utility {
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Comentarios "
                    + "WHERE notitia.Comentarios.ubicacion LIKE '"+  m+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
+        l = q.list();
+        return l;
+     }
+
+     /**
+     * Metodo para enlistar todos los comentarios
+     * @return list
+     */
+     public List darComentariosAdmin(){
+        List l = null;
+        Comentarios coment = new Comentarios();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Comentarios ";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);

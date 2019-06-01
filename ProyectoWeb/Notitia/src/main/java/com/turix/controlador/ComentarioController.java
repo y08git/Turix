@@ -68,7 +68,7 @@ public class ComentarioController {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-    
+
     public Comentarios getComentario() {
         return comentario;
     }
@@ -91,15 +91,15 @@ public class ComentarioController {
                 .setLocale(new Locale("es-Mx"));
     }
 
-   
+
     /**
      * Metodo que llama al metodo darComentarios de utilty
      * @return List
      */
-    public List listaComentarios() throws SQLException{
-        return u.darComentarios(ubicacion);
+    public List listaComentariosAdmin() throws SQLException{
+        return u.darComentariosAdmin();
     }
-    
+
     /**
      * Metodo que llama al metodo getMiUsuario de utilty
      * @return List
@@ -109,13 +109,29 @@ public class ComentarioController {
     }
     
     /**
+     * Metodo que llama al metodo darComentarios de utilty
+     * @return List
+     */
+    public List listaComentarios() throws SQLException{
+        return u.darComentarios(ubicacion);
+    }
+
+    /**
+     * Metodo que llama al metodo getMiUsuario de utilty
+     * @return List
+     */
+    public List listaUsuariosEnEspera() throws SQLException{
+        return u.getMiUsuario();
+    }
+
+    /**
      * Metodo que llama al metodo existeMarcador de utilty
      * @return Marcadores
      */
     public Marcadores existeMarcador(String t){
        return u.existeMarcador(t);
     }
-    
+
     /**
      * Metodo que llama al metodo existeUsuario de utilty
      * @return Usuario
@@ -123,7 +139,7 @@ public class ComentarioController {
     public Usuario existeUsuario(String t){
         return u.existeUsuario(t);
     }
-    
+
     /**
      * Metodo que llama a los metodos:
      * setFecha de hoy
@@ -139,7 +155,7 @@ public class ComentarioController {
         u.guardarComentario(comentario);
         comentario = null;
          }
-    
+
      /* Metodo que llama al metodo existeTema de utilty
      * @return Temas
      */
@@ -154,9 +170,19 @@ public class ComentarioController {
         comentario.setComentario(coment);
         u.actualizarComentario(comentario);
     }
+    
+    //public void calificarPositivo(){
+        
+    //}
+
     /* Metodo que llama al metodo borrarComentario de utility
      */
     public void eliminarComentario(){
         u.borrarComentario(id_comentario);
     }
+    public void eliminarComentario(Comentarios c){
+        u.borrarComentario((int)c.getId_comentario());
+    }
+    
+    
 }

@@ -1,0 +1,50 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+<ui:define name="content">
+
+<h:head>
+
+<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+  <title>Ver Temas</title>
+</h:head>
+
+<h:body>
+
+<i class="pi pi-times-circle"></i>
+
+  <h:form id="myForm">
+
+  <h1>Lista de Temas</h1> <br/>
+
+  <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/>
+
+  <br></br><br></br>
+
+    <p:dataList value="#{temaController.listaTemas()}" type="unordered" paginator="true" rows="10" var="Temas">
+
+      <p:dataTable value="#Temas" var="Listado de Temas" style="width: 50%">
+
+        <p:column headerText="Nombre" style="width: 30%">
+          <h:outputText value="#{Temas.nombre}" style="float: center;"/>
+        </p:column>
+        <p:column headerText="Descripción">
+          <h:outputText value="#{Temas.descripcion}" />
+        </p:column>
+      </p:dataTable>
+    </p:dataList>
+
+
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+  </h:form>
+
+</h:body>
+  </ui:define>
+</ui:composition>

@@ -21,10 +21,6 @@ function handlePointClick(event) {
 }
 
 function markerAddComplete() {
-    var title = document.getElementById('titulo');
-    currentMarker.setTitle(title.value);
-    title.value = "";
-
     currentMarker = null;
     PF('dialog').hide();
 }

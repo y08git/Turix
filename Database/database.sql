@@ -32,7 +32,9 @@ CREATE TABLE notitia.Temas
 (
   nombre text NOT NULL,
   descripcion text NOT NULL,
-  PRIMARY KEY (nombre)
+  nombre_usuario text NOT NULL,
+  PRIMARY KEY (nombre),
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
 );
 
 drop table if exists notitia.Marcadores;
@@ -44,9 +46,8 @@ CREATE TABLE notitia.Marcadores
   nombre_usuario text NOT NULL,
   nombre text NOT NULL,
   PRIMARY KEY (ubicacion),
-  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario),
-  FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre)
-  ON DELETE CASCADE
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE,
+  FOREIGN KEY (nombre) REFERENCES notitia.Temas(nombre) ON DELETE CASCADE
 );
 
 
@@ -60,13 +61,21 @@ CREATE TABLE notitia.Comentarios
   calificacionNegativa int NOT NULL,
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
-  FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion),
-  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario)
-    ON DELETE CASCADE
+  FOREIGN KEY (ubicacion) REFERENCES notitia.Marcadores(ubicacion) ON DELETE CASCADE,
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
 ); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false)	*/
 
-
+drop table if exists notitia.Calificar;
+CREATE TABLE notitia.Calificar
+(
+  gustar boolean NOT NULL,
+  id_comentario int NOT NULL,
+  nombre_usuario text NOT NULL,
+  PRIMARY KEY (id_comentario,nombre_usuario),
+  FOREIGN KEY (id_comentario) REFERENCES notitia.Comentarios(id_comentario) ON DELETE CASCADE,
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
+);
 
 
 drop extension if exists pgcrypto;
@@ -101,10 +110,10 @@ create or replace function notitia.Usuario(usuari text, password text) returns n
                        contraseña LIKE crypt(password, contraseña));
 $$ language sql stable;
 
-create or replace function notitia.buscarTema(n_tema text) returns TABLE(nombre text, descripcion text) as $$
+create or replace function notitia.buscarTema(n_tema text) returns notitia.Temas as $$
 select *
-from notitia.temas
-where nombre ILIKE concat(concat('%',n_tema),'%');
+from notitia.temas a
+where a.nombre ILIKE concat('%',concat(n_tema,'%'));
 $$ language sql stable;
 
 create or replace function notitia.buscarMarcador(n_marcador text) returns notitia.Marcadores as $$
@@ -112,6 +121,7 @@ select *
 from notitia.marcadores
 where ubicacion LIKE n_marcador;
 $$ language sql stable;
+
 
 CREATE OR REPLACE FUNCTION eliminar() RETURNS trigger
     LANGUAGE plpgsql

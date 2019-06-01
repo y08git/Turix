@@ -21,15 +21,15 @@
                            id="correo"
                            size="40"
                            validatorMessage="El correo no es valido">
-                  <f:validateRegex pattern="[a-zA-Z0-9_]*@[a-zA-Z.]*" />
+                  <f:validateRegex pattern="[a-zA-Z0-9_.]*@[a-zA-Z.]*" />
               </p:inputText>
               <h:outputText value="Contraseña:"/>
               <p:password value="#{registroController.codigo}"
                           required="true"
                           id="Password"
                         />
-             
-            </p:panelGrid> 
+
+            </p:panelGrid>
             <p:commandButton action="#{registroController.confirmacion}"
                              value="Aceptar"
                              ajax="false"/>
@@ -48,4 +48,3 @@
   </ui:define>
 
 </ui:composition>
-

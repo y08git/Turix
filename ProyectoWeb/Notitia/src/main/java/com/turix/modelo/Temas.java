@@ -27,6 +27,10 @@ public class Temas implements Serializable{
     
     @Column(name = "descripcion")
     private String descripcion;
+    
+    @ManyToOne
+    @JoinColumn(name = "nombre_usuario")
+    private Usuario infor;
 
     public String getNombre() {
         return nombre;
@@ -44,6 +48,13 @@ public class Temas implements Serializable{
         this.descripcion = descripcion;
     }
     
+    public Usuario getInformador() {
+        return infor;
+    }
+
+    public void setInformador(Usuario informador) {
+        this.infor = informador;
+    }
     
     
 }

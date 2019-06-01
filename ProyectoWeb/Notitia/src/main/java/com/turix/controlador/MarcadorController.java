@@ -41,7 +41,7 @@ public class MarcadorController {
     private Temas tema = new Temas();
     public String t ;
     public String usuario;
-    private String title;
+    private String datos_utiles;
     private String data;
     private String descripcion;
     private String datos;
@@ -61,6 +61,13 @@ public class MarcadorController {
         });
     }
 
+      public String getDatos_utiles() {
+        return datos_utiles;
+    }
+
+    public void setDatos_utiles(String datos_utiles) {
+        this.datos_utiles = datos_utiles;
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -101,15 +108,6 @@ public class MarcadorController {
 
     public void setModel(MapModel model) {
         this.model = model;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getData() {
@@ -170,12 +168,18 @@ public class MarcadorController {
      * para guardar en la BD
      */
     public void guardarMarcador(){
-         Marker marker = new Marker(new LatLng(lat, lng),title);
+         Marker marker = new Marker(new LatLng(lat, lng),datos_utiles);
            model.addOverlay(marker);
 
-        //FacesContext context = getCurrentInstance();
-        //Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-        //marcador.setInformador(user);
+        FacesContext context = getCurrentInstance();
+        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        marcador.setInformador(user);
+       // marcador.setDescripcion(descripcion);
+        //marcador.setDatos_utiles(datos_utiles);
+        //System.out.println(datos_utiles);
+        //String ub1=
+        //String ub2=
+        //marcador.setUbicacion();
 
         //Codigo original nuestro para la BD
        /** marcador.setTemas(existeTema(t));
@@ -242,7 +246,7 @@ public class MarcadorController {
       public void onMarkerSelect(OverlaySelectEvent event) {
         Marker marker = (Marker) event.getOverlay();
         data = (String) marker.getData();
-        title = (String) marker.getTitle();
+
     }
 
 
