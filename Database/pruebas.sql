@@ -11,7 +11,7 @@ VALUES ('Arthur', true, 'pass','jarturoga1337@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Angel', true, 'pass','angel@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Yo', true, 'pass','yo@gmail.com',false);
+VALUES ('Yo', false, 'pass','yo@gmail.com',true);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Miguel', true, 'pass','miguel@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
@@ -32,6 +32,8 @@ INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_
 VALUES ('Will', false, 'pass','will@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Miriam', false, 'pass','miriam@gmail.com',false);
+INSERT INTO notitia.usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
+VALUES ('info', true, 'contraseña','info@gmail.com',true);
 
 /* T E M A S */
 INSERT INTO notitia.temas (nombre, descripcion)
