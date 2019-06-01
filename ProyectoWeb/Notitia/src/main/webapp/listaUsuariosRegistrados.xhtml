@@ -47,21 +47,19 @@
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
+      <h:form>
+        <p:growl id="message" showDetail="true" />
 
-      <p:commandButton action="#{usuarioController.deleteUsuario(usuario)}"
-                       value="Eliminar"
-                       update="@none" process="@this"
-                       />                 
-      <p:growl id="message" showDetail="true" />
-     
-      <p:commandButton value="Destroy the World" action="#{dialogView.destroyWorld}" update="message">
-          <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
-      </p:commandButton>
-       
-      <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-          <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-          <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-      </p:confirmDialog>      
+        <p:commandButton value="Destroy the World" action="#{usuarioController.deleteUsuario(usuario)}"
+                         update="message">
+            <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
+        </p:commandButton>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+        </p:confirmDialog> 
+      </h:form>
                        
       <p></p>
 

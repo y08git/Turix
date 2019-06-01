@@ -63,8 +63,19 @@ CREATE TABLE notitia.Comentarios
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
 ); /*  INSERT INTO notitai.usuario (nombre_usuario, contraseña, correo, es_informador)
 		VALUES ('Yo','password','asdfasd@adds',false)	*/
+		
+drop table if exists notitia.Calificar;
+CREATE TABLE notitia.Calificar
+(
+  gustar boolean NOT NULL,
+  id_comentario int NOT NULL,
+  nombre_usuario text NOT NULL,
+  PRIMARY KEY (id_comentario,nombre_usuario),
+  FOREIGN KEY (id_comentario) REFERENCES notitia.Comentarios(id_comentario) ON DELETE CASCADE,
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
+);
 
-
+	
 
 
 drop extension if exists pgcrypto;
