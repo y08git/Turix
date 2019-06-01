@@ -34,7 +34,7 @@
 
     <p:commandButton action="buscarUsuario" value="Buscar" update="myorm"/>
     <p:inputText value="#{usuarioController.nombre}"
-                         required="true"
+                         required="false"
                          id="Nombre"
                          size="12"/>
     <br></br><br></br>
@@ -58,13 +58,13 @@
       </p:dataTable>
 
       <h:form>
-      <p:commandButton action="#{usuarioController.setRegistradosBus(Usr)}"
+      <p:commandButton action="#{usuarioController.setRegistradosBus(usuario)}"
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
 
       <p:growl id="message" showDetail="true" />
-      <p:commandButton value="Eliminar" action="#{usuarioController.deleteItself()}" update="message" oncomplete="listaEncontrados.filter()">
+      <p:commandButton value="Eliminar" action="#{usuarioController.deleteUsuario(usuario)}" update="message" >
               <p:confirm header="Confirmación" message="¿Está Seguro?" icon="pi pi-exclamation-triangle" />
           </p:commandButton>
             <p:confirmDialog global="true" >
