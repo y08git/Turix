@@ -111,7 +111,17 @@ public class TemaController {
      
      public String redir(){
          f = true;
-         return "buscarTemas";
+         return "buscarTemas?faces-redirect=true";
      }
+     /**
+      * Metodo que da la lista de todos los temas
+      * manda a llamar darTema de Utility
+      * para buscarlos en la BD
+      * @return List
+      */
+     public List getListaNomTemas(){
+        return u.darNomTemas();
+     }
+     
      
 }

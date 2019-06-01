@@ -1,4 +1,6 @@
+
 /*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,6 +16,7 @@ var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?c
         new google.maps.Point(10, 34));
 
 
+
 function handlePointClick(event) {
     console.log(event);
     if (currentMarker === null) {
@@ -22,6 +25,7 @@ function handlePointClick(event) {
         currentMarker = new google.maps.Marker({
             position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()),
             icon: pinImage
+
         });
         PF('map').addOverlay(currentMarker);
         PF('dialog').show();
@@ -29,10 +33,6 @@ function handlePointClick(event) {
 }
 
 function markerAddComplete() {
-    var title = document.getElementById('titulo');
-    currentMarker.setTitle(title.value);
-    title.value = "";
-
     currentMarker = null;
     PF('dialog').hide();
 }

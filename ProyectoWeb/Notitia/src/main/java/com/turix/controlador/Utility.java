@@ -720,6 +720,23 @@ public class Utility {
      }
 
      /**
+     * Metodo para enlistar todos los temas
+     * @return list
+     */
+     public List darNomTemas(){
+         List l = null;
+        Temas tema = new Temas();
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT nombre FROM notitia.Temas ";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query);
+        l = q.list();
+        
+        return l;
+     }   
+     
+     /**
       * Metodo para enlistar todos los marcadores
       * @return list
       */
