@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+
+<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+  <title>Ver Temas</title>
+</h:head>
+
+<h:body>
+
+<i class="pi pi-times-circle"></i>
+
+  <h:form id="myForm">
+
+  <h1>Lista de Temas</h1> <br/>
+
+  <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/>
+  
+  <br></br><br></br>
+
+    <p:dataList value="#{temaController.listaTemas()}" type="unordered" paginator="true" rows="10" var="Temas">
+      <!--  
+      <p:commandButton action="#{temaController.eliminarTema(Temas)}"
+                       value="X" style="margin-bottom: 2px;" class="pi pi-times-circle"
+                       update="myForm" process="@this"
+                       />    
+      -->
+      <p:dataTable value="#{temaController.listaTemas()}" var="Listado de Temas" >
+        
+        <p:column headerText="Nombre">
+          <h:outputText value="#{Temas.nombre}" />
+        </p:column>
+        <p:column headerText="Descripción">
+          <h:outputText value="#{Temas.descripcion}" />
+        </p:column>
+      </p:dataTable>
+    </p:dataList>
+
+
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+  </h:form>
+
+</h:body>
+</html>

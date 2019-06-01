@@ -57,13 +57,13 @@
 
       </p:dataTable>
 
-      <p:commandButton action="#{usuarioController.setRegistrados(usuario)}"
+      <p:commandButton action="#{usuarioController.setRegistradosBus(usuario)}"
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
 
       <p:growl id="message" showDetail="true" />
-        <p:commandButton value="Eliminar" action="#{usuarioController.deleteUsuario(usuario)}" update="message" >
+        <p:commandButton value="Eliminar" action="#{usuarioController.deleteBuscar(usuario)}" update="message" oncomplete="listaEncontrados.filter()">
               <p:confirm header="Confirmación" message="¿Está Seguro?" icon="pi pi-exclamation-triangle" />
           </p:commandButton>
             <p:confirmDialog global="true" >

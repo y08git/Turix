@@ -53,12 +53,7 @@
         </p:column>
 
       </p:dataTable>
-      <!--
-      <f:facet name="header">
-          Usuarios
-      </f:facet>
-      #{usuario.nombre_usuario}, #{usuario.correo}, #{usuario.es_informador}
-      -->
+
       <p:commandButton action="#{usuarioController.setRegistradosCom(usuario)}"
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
@@ -76,22 +71,7 @@
       </td></tr>
     </table>
 
-    <!-- POR IMPLEMENTAR 
-         BOTÓN PARA BUSCAR USUARIO
-    <p:inputText value="#{usuarioController.user.nombre_usuario}"
-                         required="true"
-                         id="Nombre"
-                         size="15"/>
-    -->
-
   </h:form>
-
-  <!--
-  <h:form>
-      <p:commandButton action="buscarUsuario"
-                           value="Buscar Usuario"/>
-  </h:form>
-  -->
 
 </h:body>
   </ui:define>
