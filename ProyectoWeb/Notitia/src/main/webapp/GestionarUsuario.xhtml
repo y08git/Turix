@@ -1,0 +1,77 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+  <ui:define name="content">
+    <c:choose>
+           <c:when test="#{loginController.logged == false}">
+               <meta http-equiv = "refresh" content = "0; url = http://localhost:8080/Notitia/" />
+               
+           </c:when>
+            <c:when test="#{not loginController.admin}">
+		<h:head>
+          <title>Usuario Comentario</title>
+        </h:head>
+        <h:body>
+          <h1>Edita tus datos</h1> <br/>
+          <h:form id="myForm">
+            <table>
+              <tr><td>
+                <p:messages id="messages" autoUpdate="true" closable="true" />
+              </td></tr>
+            </table>
+            <table>
+                <tr>
+                <td>Anterior Contraseña</td>
+                <td><p:password value="#{usuarioController.AContraseña}"
+                                 required="true"
+                                 id="aContraseña"
+                                 size="20"/></td>
+                </tr>
+                <tr>
+                <td>Nueva Contraseña</td>
+                <td><p:password value="#{usuarioController.contraseña}"
+                                 required="true"
+                                 id="contraseña"
+                                 size="20"/></td>
+                </tr>
+                <tr>
+                <td>Confirmacion Nueva Contraseña</td>
+                <td><p:password value="#{usuarioController.confirmarContraseña}"
+                                 required="true"
+                                 id="confirmarContraseña"
+                                 size="20"/></td>
+                </tr>
+                <tr>
+
+                <td colspan="3" align="center">
+                    <p:commandButton action="#{usuarioController.updateUsuario()}"
+                                   value="aceptar"/>
+
+                </td>
+              </tr>
+            </table>
+          </h:form>
+          <h:form>
+              <p:commandButton action="welcome"
+                                   value="Cancel"/>
+          </h:form>
+          </h:body>
+          </c:when>
+          <c:otherwise>
+              
+           
+              
+              --Vista para Mr.Administrador
+              
+              
+              
+              
+          </c:otherwise>
+    </c:choose>
+  </ui:define>
+
+</ui:composition>

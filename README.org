@@ -1,0 +1,24 @@
+
+
+#+title: Turix
+#+author: Yair Chiu
+#+date: [2019-02-19 mar 15:08]
+
+
+
+** Repositorio de Turix
+
+#+begin_src sh
+git add .
+#+end_src
+
+#+begin_src sh
+git reset -- ProyectoWeb/Notitia/src/main/resources/hibernate.cfg.xml
+#+end_src
+
+ 
+* Chiu Valderrama Juan Yair
+* García Campos Jaime Arturo
+* Ramírez García Diana Isabel
+* Vega Monroy Daniela Susana
+

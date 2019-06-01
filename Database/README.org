@@ -1,0 +1,75 @@
+
+#+title: Turix
+#+author: Yair Chiu
+#+date: [2019-02-19 mar 15:08]
+
+
+
+** Inicializando la base de datos
+
+Si todavia no se tienen los permisos concedidos para que posgresql pueda manejar la base de datos al final 
+escribire los comandos para conceder los permisos a postgres
+
+Si ya se tienen los permisos solo seguimos
+los siguientes comandos:
+
+
+creamos la base de datos(Si no existe)
+ #+begin_src sh
+$ createdb <NOMBRE_BD>
+#+end_src
+
+
+En la terminal abriremos la direccion donde guardamos la carpeta donde esta el archivo "database.sql"
+#+begin_src sh
+$ cd Database
+#+end_src
+
+
+Accedemos a la base de datos
+#+begin_src sh
+$ psql <NOMBRE_BD>
+#+end_src
+
+
+Nos aparecera el Shell de postgres
+#+begin_src sh
+<NOMBRE_BD>#=
+#+end_src
+
+Ingresamos el siguiente comando
+ #+begin_src sh
+\i database.sql
+#+end_src
+
+La base de datos debería ser creada (en esté caso como estamos en fase de pruebas estamos usando solo esquemas)
+
+
+*Si no hemos dado los permisos para navegar libremente por las bases que nos proporciona posgres ingresamos los siguientes comandos
+
+Cambia el usuario a postgres :
+ #+begin_src sh
+su - postgres
+#+end_src
+
+Crea un usuario para postgres
+ #+begin_src sh
+$ createuser testuser
+#+end_src
+
+Creadoms una base de datos
+ #+begin_src sh
+$ createdb testdb
+#+end_src
+
+
+Ingresamos al Shell de postgres
+ #+begin_src sh
+psql ( enter the password for postgressql)
+#+end_src
+
+Proveemos los privilegios para el usuario de postgres
+ #+begin_src sh
+$ alter user testuser with encrypted password 'qwerty';
+$ grant all privileges on database testdb to testuser;
+#+end_src

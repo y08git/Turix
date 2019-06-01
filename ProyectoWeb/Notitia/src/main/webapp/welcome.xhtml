@@ -1,0 +1,69 @@
+<ui:composition
+  template="/WEB-INF/facelets/templates/layout.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <ui:define name="content">
+      <c:choose>
+      
+        <!-- A D M I N I S T R A D O R-->
+        <c:when test="#{loginController.admin}">
+        
+          Bienvenido Administrador.
+          
+          <h:form>  
+              <p:commandButton action="listaUsuariosRegistrados?faces-redirect=true" style="margin-bottom: 3px;"
+                                   value="Usuarios Registrados"/>
+          </h:form>
+          <h:form>
+              <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
+                                   value="Usuarios en Espera de Asignación"/>
+          </h:form>
+          
+          <h:form>
+              <p:commandButton action="listaTemasAdminB?faces-redirect=true" style="margin-bottom: 3px;"
+                                   value="Eliminar Temas"/>
+          </h:form>
+          
+          <h:form>
+              <p:commandButton action="listaComentariosAdmin?faces-redirect=true"
+                                   value="Eliminar Comentarios"/>
+          </h:form>
+        </c:when>
+
+        <!-- I N F O R M A D O R-->
+        <c:when test="#{loginController.currentUser.es_informador}">
+          <h:head>
+            <title>Hola!</title>
+          </h:head>
+          <h:body>
+            <h2>Bienvenido! #{loginController.login.usuario}</h2>
+          </h:body>
+              <h:form>
+              <p:commandButton action="temaInformador"
+                                   value="Temas"/>
+          </h:form>
+              <h:form>
+              <p:commandButton action="marcador"
+                                   value="Marcadores"/>
+          </h:form>
+              <h:form>
+              <p:commandButton action="comentario"
+                                   value="Comentarios"/>
+          </h:form>
+        </c:when>
+
+
+        <c:when test="#{loginController.logged}">
+          <h:form>
+          <p:commandButton action="comentario"
+                               value="Comentarios"/>
+          </h:form>
+        </c:when>
+      </c:choose>
+  </ui:define>
+</ui:composition>

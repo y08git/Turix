@@ -1,0 +1,47 @@
+<ui:composition
+  template="/WEB-INF/facelets/templates/layout.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <ui:define name="content">
+<h:head>
+  <title>Ver Marcadores</title>
+</h:head>
+<h:body>
+  <h1>Ver Marcadores</h1> <br/>
+  <h:form>
+      <tr>
+          <td>Tema</td>
+          <td><p:inputText value="#{marcadorController.t}"
+                         required="true"
+                         id="usuario"
+                         size="20"/></td>
+
+      </tr>
+  </h:form>
+  <h:form id="myForm">
+      <p:dataList value="#{marcadorController.misMarcadores()}" var="Marcadores">
+        <f:facet name="header">
+            Marcadores
+        </f:facet>
+        #{Marcadores.ubicacion}, #{Marcadores.datos_utiles}, #{Marcadores.descripcion}
+    </p:dataList>
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+  </h:form>
+  <h:form>
+      <p:commandButton action="agregarMarcador"
+                           value="Agrega Marcadores"/>
+      <p:commandButton action="comentario"
+                           value="Regresar a Comentarios"/>
+  </h:form>
+</h:body>
+  </ui:define>
+</ui:composition>

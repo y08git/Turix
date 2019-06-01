@@ -1,0 +1,86 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+<ui:define name="content">
+
+<h:head>
+  <title>Buscar Usuario</title>
+</h:head>
+
+<style type="text/css">
+    .ui-datalist {
+        width: auto;
+        margin-bottom: 10px;
+    }
+ 
+    .ui-datalist-item {
+        padding:4px;
+    }
+ 
+    .paginated .ui-datalist-data {
+        padding-left: 10px;
+    }
+</style>
+
+<h:body>
+    <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/> 
+
+  <h:form id="myorm">
+
+    <h1>Buscar Usuario</h1>
+
+    <p:commandButton action="buscarUsuario" value="Buscar" update="myorm"/>
+    <p:inputText value="#{usuarioController.nombre}"
+                         required="false"
+                         id="Nombre"
+                         size="12"/>
+    <br></br><br></br>
+
+    <p:dataList value="#{usuarioController.listaEncontrados()}" type="unordered" paginator="true" rows="10" var="usuario">
+      
+      <p:dataTable var="Usr" value="{#usuario}">
+
+        <p:column headerText="Nombre de Usuario">
+            <h:outputText value="#{usuario.nombre_usuario}" />
+        </p:column>
+
+        <p:column headerText="Correo Electrónico">
+            <h:outputText value="#{usuario.correo}" />
+        </p:column>
+
+        <p:column headerText="Calidad">
+            <h:outputText value="#{usuario.es_informador ? 'Informador' : 'Comentarista'}" />
+        </p:column>
+
+      </p:dataTable>
+
+      <h:form>
+      <p:commandButton action="#{usuarioController.setRegistradosBus(usuario)}"
+                       value="#{usuarioController.inf(usuario)}"
+                       update="@none" process="@this"
+                       />
+
+      <p:growl id="message" showDetail="true" />
+      <p:commandButton value="Eliminar" action="#{usuarioController.deleteUsuario(usuario)}" update="message" >
+              <p:confirm header="Confirmación" message="¿Está Seguro?" icon="pi pi-exclamation-triangle" />
+          </p:commandButton>
+            <p:confirmDialog global="true" >
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+          </h:form>
+    </p:dataList>
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+
+  </h:form>
+
+</h:body>
+  </ui:define>
+</ui:composition>
