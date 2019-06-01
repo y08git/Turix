@@ -7,13 +7,13 @@
 <ui:define name="content">
 
 <h:head>
-  <title>Lista de Usuarios Registrados</title>
+  <title>Buscar Usuario</title>
 </h:head>
 
 <style type="text/css">
     .ui-datalist {
         width: auto;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
  
     .ui-datalist-item {
@@ -26,20 +26,22 @@
 </style>
 
 <h:body>
+    <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/> 
 
   <h:form id="myorm">
 
-    <h1>Usuarios Registrados</h1>
+    <h1>Buscar Usuario</h1>
 
-    <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/> 
-    <p:commandButton action="listaInformadores?faces-redirect=true" value="Informadores"/>
-    <p:commandButton action="listaComentaristas?faces-redirect=true" value="Comentaristas"/>
-    <p:commandButton action="buscarUsuarios?faces-redirect=true" value="Buscar"/>
+    <p:commandButton action="buscarUsuario" value="Buscar" update="myorm"/>
+    <p:inputText value="#{usuarioController.nombre}"
+                         required="true"
+                         id="Nombre"
+                         size="12"/>
     <br></br><br></br>
 
-    <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" type="unordered" paginator="true" rows="10" var="usuario">
+    <p:dataList value="#{usuarioController.listaEncontrados()}" type="unordered" paginator="true" rows="10" var="usuario">
       
-      <p:dataTable value="{#usuario}" var="Usuarios Registrados" >
+      <p:dataTable var="Usr" value="{#usuario}">
 
         <p:column headerText="Nombre de Usuario">
             <h:outputText value="#{usuario.nombre_usuario}" />
@@ -54,22 +56,22 @@
         </p:column>
 
       </p:dataTable>
-    <h:form id="om">
-      <p:commandButton action="#{usuarioController.setRegistrados(usuario)}"
+
+      <h:form>
+      <p:commandButton action="#{usuarioController.setRegistradosBus(Usr)}"
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
-      
 
-      <p:growl id="message" showDetail="true"/>
-        <p:commandButton value="Eliminar" action="#{usuarioController.deleteUsuario(usuario)}" update="om">
-              <p:confirm header="Confirmación" message="¿Está Seguro?" icon="pi pi-exclamation-triangle"/>
+      <p:growl id="message" showDetail="true" />
+      <p:commandButton value="Eliminar" action="#{usuarioController.deleteItself()}" update="message" oncomplete="listaEncontrados.filter()">
+              <p:confirm header="Confirmación" message="¿Está Seguro?" icon="pi pi-exclamation-triangle" />
           </p:commandButton>
-            <p:confirmDialog global="true">
+            <p:confirmDialog global="true" >
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-      </h:form>
+          </h:form>
     </p:dataList>
     <table>
       <tr><td>

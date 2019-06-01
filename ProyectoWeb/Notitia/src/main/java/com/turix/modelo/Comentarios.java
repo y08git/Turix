@@ -28,7 +28,6 @@ public class Comentarios implements Serializable{
     @Column(name = "id_comentario")
     private int id_comentario;
     
-
     @ManyToOne
     @JoinColumn(name = "ubicacion")
     private Marcadores marcadores;

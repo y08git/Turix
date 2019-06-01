@@ -91,7 +91,15 @@ public class ComentarioController {
                 .setLocale(new Locale("es-Mx"));
     }
 
-   
+
+    /**
+     * Metodo que llama al metodo darComentarios de utilty
+     * @return List
+     */
+    public List listaComentariosAdmin() throws SQLException{
+        return u.darComentariosAdmin();
+    }
+
     /**
      * Metodo que llama al metodo darComentarios de utilty
      * @return List
@@ -104,7 +112,7 @@ public class ComentarioController {
      * Metodo que llama al metodo getMiUsuario de utilty
      * @return List
      */
-    public List listaUsuarios() throws SQLException{
+    public List listaUsuariosEnEspera() throws SQLException{
         return u.getMiUsuario();
     }
     
@@ -154,9 +162,14 @@ public class ComentarioController {
         comentario.setComentario(coment);
         u.actualizarComentario(comentario);
     }
+    
     /* Metodo que llama al metodo borrarComentario de utility
      */
     public void eliminarComentario(){
         u.borrarComentario(id_comentario);
+    }
+    
+    public void eliminarComentario(Comentarios c){
+        u.borrarComentario((int)c.getId_comentario());
     }
 }

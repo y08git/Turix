@@ -3,7 +3,8 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:define name="content">
 
 <h:head>
@@ -11,17 +12,26 @@
 </h:head>
 
 <style type="text/css">
-    .ui-datalist {
-        width: auto;
-        margin-bottom: 5px;
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
     }
- 
-    .ui-datalist-item {
-        padding:4px;
+     
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
     }
- 
-    .paginated .ui-datalist-data {
-        padding-left: 10px;
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+     
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+     
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
     }
 </style>
 
@@ -37,6 +47,27 @@
     <p:commandButton action="buscarUsuarios?faces-redirect=true" value="Buscar"/>
     <br></br><br></br>
 
+    <p:dataTable id="checkboxDT" var="car" value="#{usuarioController.listaUsuariosRegistrados()}" selection="#{dtSelectionView.selectedCars}" rowKey="#{car.id}" style="margin-bottom:0">
+      <f:facet name="header">
+          Checkbox
+      </f:facet>
+      <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+      <p:column headerText="Id">
+          <h:outputText value="#{car.id}" />
+      </p:column>
+      <p:column headerText="Year">
+          <h:outputText value="#{car.year}" />
+      </p:column>
+      <p:column headerText="Brand">
+          <h:outputText value="#{car.brand}" />
+      </p:column>
+      <p:column headerText="Color">
+          <h:outputText value="#{car.color}" />
+      </p:column>
+      <f:facet name="footer">
+          <p:commandButton process="checkboxDT" update=":form:multiCarDetail" icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
+      </f:facet>
+    </p:dataTable>
     <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" type="unordered" paginator="true" rows="10" var="usuario">
       
       <p:dataTable value="{#usuario}" var="Usuarios Registrados" >
@@ -54,22 +85,21 @@
         </p:column>
 
       </p:dataTable>
-    <h:form id="om">
+
       <p:commandButton action="#{usuarioController.setRegistrados(usuario)}"
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
-      
 
       <p:growl id="message" showDetail="true"/>
-        <p:commandButton value="Eliminar" action="#{usuarioController.deleteUsuario(usuario)}" update="om">
+        <p:commandButton value="Eliminar" action="#{usuarioController.deleteUsuario(usuario)}" update="message">
               <p:confirm header="Confirmación" message="¿Está Seguro?" icon="pi pi-exclamation-triangle"/>
           </p:commandButton>
             <p:confirmDialog global="true">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-      </h:form>
+
     </p:dataList>
     <table>
       <tr><td>

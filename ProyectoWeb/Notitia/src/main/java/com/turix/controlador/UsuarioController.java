@@ -27,10 +27,20 @@ public class UsuarioController {
     private Utility u = new Utility();
     private Usuario user;
     private boolean bool;
+    private String nombre;
     private String correo;
     private String aContraseña;
     private String contraseña;
     private String confirmarContraseña;
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String name) {
+        this.nombre = name;
+    }
 
     /**Un metodo que regresa la anterior Contraseña
      *
@@ -102,6 +112,7 @@ public class UsuarioController {
     public Usuario getUser() {
         return user;
     }
+
     /**Un metodo que recibe el usuario
      *
      * @param usuario -- Un objeto de tipo Usuario
@@ -212,7 +223,7 @@ public class UsuarioController {
             user.setEs_informador(!user.isEs_informador());
             u.update1(user);
         }
-        return "listaUsuarios?faces-redirect=true";
+        return "listaUsuariosEnEspera?faces-redirect=true";
     }
 
     /**Metodo para actualizar un usuario recibido
@@ -251,6 +262,18 @@ public class UsuarioController {
         return "listaComentaristas?faces-redirect=true";
     }
 
+    /**Metodo para actualizar un usuario recibido (se invoca desde la lista de búsqueda de usuarios)
+     * @param user -- El usuario que se actualizara
+     * @return String de redireccion
+     */
+    public String setRegistradosBus(Usuario user) {
+        if(user != null){
+            user.setEs_informador(!user.isEs_informador());
+            u.update1(user);
+        }
+        return "buscarUsuarios?faces-redirect=true";
+    }
+
     /**Metodo para decir si es comentarista o informador
      *
      * @param usuario -- Usuario al que se le quiere cambiar su estado
@@ -270,7 +293,7 @@ public class UsuarioController {
      *
      * @return Un objeto de tipo lista
      */
-    public List listaUsuarios(){
+    public List listaUsuariosEnEspera(){
         return u.darUsuarios();
     }
 
@@ -298,6 +321,14 @@ public class UsuarioController {
         return u.darComentaristas();
     }
 
+    /**Metodo que regresa a todos los comentaristas registrados
+     *
+     * @return Un objeto de tipo lista
+     */
+    public List listaEncontrados(){
+        return u.darEncontrados(nombre);
+    }
+
     /**Un metodo para borrar el usuario en esta instancia
      *
      * @return String de redireccion
@@ -312,7 +343,7 @@ public class UsuarioController {
         return "listaUsuariosRegistrados?faces-redirect=true";
     }
 
-    /**Un metodo para borrar informadores
+    /**Un metodo para borrar usuarios desde la vista de Informadores
      *
      * @return String de redireccion
      */
@@ -326,7 +357,7 @@ public class UsuarioController {
         return "listaInformadores?faces-redirect=true";
     }
 
-    /**Un metodo para borrar comentaristas
+    /**Un metodo para borrar usuarios desde la vista de Comentaristas
      *
      * @return String de redireccion
      */
@@ -340,4 +371,21 @@ public class UsuarioController {
         return "listaComentaristas?faces-redirect=true";
     }
 
+    /**Un metodo para borrar usuarios desde la vista de Búsqueda de usuarios
+     *
+     * @return String de redireccion
+     */
+    public String deleteBuscar(Usuario usuario){
+        //FacesContext context = getCurrentInstance();
+        //user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        if(usuario == null){
+            return "registro?faces-redirect=true";
+        }
+        u.delete(usuario);
+        return "buscarUsuarios?faces-redirect=true";
+    }
+    
+    public void deleteItself(){
+        if (user != null) u.delete(user);
+    }
 }

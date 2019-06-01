@@ -75,8 +75,6 @@ CREATE TABLE notitia.Calificar
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
 );
 
-	
-
 
 drop extension if exists pgcrypto;
 create extension pgcrypto;

@@ -16,20 +16,21 @@
           Bienvenido Administrador.
           
           <h:form>  
-              <p:commandButton action="listaUsuariosRegistrados"
+              <p:commandButton action="listaUsuariosRegistrados?faces-redirect=true" style="margin-bottom: 3px;"
                                    value="Usuarios Registrados"/>
           </h:form>
           <h:form>
-              <p:commandButton action="listaUsuarios"
+              <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
                                    value="Usuarios en Espera de Asignación"/>
           </h:form>
           
           <h:form>
-              <p:commandButton action="listaTemasAdmin"
+              <p:commandButton action="listaTemasAdminB?faces-redirect=true" style="margin-bottom: 3px;"
                                    value="Eliminar Temas"/>
           </h:form>
+          
           <h:form>
-              <p:commandButton action="listaComentarios"
+              <p:commandButton action="listaComentariosAdmin?faces-redirect=true"
                                    value="Eliminar Comentarios"/>
           </h:form>
         </c:when>
