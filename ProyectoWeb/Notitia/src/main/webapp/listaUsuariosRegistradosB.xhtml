@@ -1,0 +1,113 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+<ui:define name="content">
+
+<h:head>
+  <title>Lista de Usuarios Registrados</title>
+</h:head>
+
+<style type="text/css">
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+     
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+     
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+</style>
+
+<h:body>
+
+  <h:form id="myorm">
+
+    <h1>Usuarios Registrados</h1>
+
+    <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/> 
+    <p:commandButton action="listaInformadores?faces-redirect=true" value="Informadores"/>
+    <p:commandButton action="listaComentaristas?faces-redirect=true" value="Comentaristas"/>
+    <p:commandButton action="buscarUsuarios?faces-redirect=true" value="Buscar"/>
+    <br></br><br></br>
+
+    <p:dataTable id="checkboxDT" var="car" value="#{usuarioController.listaUsuariosRegistrados()}" selection="#{dtSelectionView.selectedCars}" rowKey="#{car.id}" style="margin-bottom:0">
+      <f:facet name="header">
+          Checkbox
+      </f:facet>
+      <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+      <p:column headerText="Id">
+          <h:outputText value="#{car.id}" />
+      </p:column>
+      <p:column headerText="Year">
+          <h:outputText value="#{car.year}" />
+      </p:column>
+      <p:column headerText="Brand">
+          <h:outputText value="#{car.brand}" />
+      </p:column>
+      <p:column headerText="Color">
+          <h:outputText value="#{car.color}" />
+      </p:column>
+      <f:facet name="footer">
+          <p:commandButton process="checkboxDT" update=":form:multiCarDetail" icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
+      </f:facet>
+    </p:dataTable>
+    <p:dataList value="#{usuarioController.listaUsuariosRegistrados()}" type="unordered" paginator="true" rows="10" var="usuario">
+      
+      <p:dataTable value="{#usuario}" var="Usuarios Registrados" >
+
+        <p:column headerText="Nombre de Usuario">
+            <h:outputText value="#{usuario.nombre_usuario}" />
+        </p:column>
+
+        <p:column headerText="Correo Electrónico">
+            <h:outputText value="#{usuario.correo}" />
+        </p:column>
+
+        <p:column headerText="Calidad">
+            <h:outputText value="#{usuario.es_informador ? 'Informador' : 'Comentarista'}" />
+        </p:column>
+
+      </p:dataTable>
+
+      <p:commandButton action="#{usuarioController.setRegistrados(usuario)}"
+                       value="#{usuarioController.inf(usuario)}"
+                       update="@none" process="@this"
+                       />
+
+      <p:growl id="message" showDetail="true"/>
+        <p:commandButton value="Eliminar" action="#{usuarioController.deleteUsuario(usuario)}" update="message">
+              <p:confirm header="Confirmación" message="¿Está Seguro?" icon="pi pi-exclamation-triangle"/>
+          </p:commandButton>
+            <p:confirmDialog global="true">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+    </p:dataList>
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+
+  </h:form>
+
+</h:body>
+  </ui:define>
+</ui:composition>
