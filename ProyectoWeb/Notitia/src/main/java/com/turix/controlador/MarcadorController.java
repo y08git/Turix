@@ -34,8 +34,8 @@ public class MarcadorController {
 
     
 
-   private final MapModel model = new DefaultMapModel();
-   private final MapModel modelFiltro = new DefaultMapModel();
+   private MapModel model = new DefaultMapModel();
+   private MapModel modelFiltro = new DefaultMapModel();
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
     private Temas tema = new Temas();
@@ -52,7 +52,23 @@ public class MarcadorController {
     private String ubicacion;
     private String filtro;
 
-   
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getDatos() {
+        return datos;
+    }
+
+    public void setDatos(String datos) {
+        this.datos = datos;
+    }
+    
+    
 
     public String getUbicacion() {
         return ubicacion;
