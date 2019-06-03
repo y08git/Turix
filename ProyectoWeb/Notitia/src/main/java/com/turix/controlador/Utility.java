@@ -110,13 +110,12 @@ public class Utility {
      * @param usuario -- El mismo usuario con los cambios hechos (no por nombre)
      * @return True si se hizo el update
      */
-    public boolean update(Usuario user, Usuario usuario){
+    public boolean update(Usuario user){
         boolean success = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         try {
             Transaction tx = sessionObj.beginTransaction();
-            sessionObj.delete(user);
-            sessionObj.save(usuario);
+            sessionObj.update(user);
             tx.commit();
             success = true;
         } catch (HibernateException e) {

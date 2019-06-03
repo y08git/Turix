@@ -141,47 +141,16 @@ public class UsuarioController {
      *
      * @return String de redireccion
      */
-    public String updateUsuario(){
+    public void updateUsuario(){
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
         bool = false;
         if(user == null)
-            return "registro?faces-redirect=true";
-
-//        if(correo != null && !correo.equals(""))
-//            user.setCorreo(correo);
-
-        if(u.login(new Login(user.getNombre_usuario(),aContraseña)) == null){
-            context
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "La contraseña es Incorrecta", ""));
-            return null;
-        }
-        this.user = new Usuario();
-        this.user.setNombre_usuario(user.getNombre_usuario());
-        this.user.setEs_informador(user.isEs_informador());
-        this.user.setCorreo(user.getCorreo());
-        if(contraseña.equals(confirmarContraseña)){
-            this.user.setContraseña(contraseña);
-            u.update(user, this.user);
-            context
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "Se ha actualizado los datos", ""));
-            context.getExternalContext().getSessionMap().replace("usuario", this.user);
-            bool = true;
-            return null;
-        }else{
-            context
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Las contraseñas no coinciden", ""));
-        }
-
-        return null;
+            return;
+        u.update(user);
 
     }
+
     private Usuario getUser(String user_name,String contraseña) {
         Session session = null;
         Usuario usuario = null;
