@@ -40,6 +40,7 @@ CREATE TABLE notitia.Marcadores
 (
   datos_utiles text NOT NULL,
   descripcion text NOT NULL,
+  color text NOT NULL,
   ubicacion text NOT NULL,
   nombre_usuario text NOT NULL,
   nombre text NOT NULL,

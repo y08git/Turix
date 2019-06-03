@@ -1,35 +1,78 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-<h:head>
-  <title>Iniciar Sesión</title>
-</h:head>
-<h:body>
-  <h1>Formulario de ingreso</h1> <br/>
-  <h:form id="myForm">
-    <table>
-      <tr>
-          <td>
-        <p:messages id="messages" autoUpdate="true" closable="true" />
-          </td>
-      </tr>
-    </table>
-    <table>
-      <tr>
-        <td>Nombre de marcador</td>
-        <td><p:inputText value="#{comentarioController.ubicacion}"
-                         required="true"
-                         id="Username"
-                         size="40"/></td>
-      </tr>
-      <tr>
-        <td colspan="3" align="center">
-            <p:commandButton action="paginaComentario"
-                           value="entering"/>
-        </td>
-      </tr>
-    </table>
-  </h:form>
-</h:body>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Essential JS 2 TypeScript Components" />
+    <meta name="author" content="Syncfusion" />
+    <link href="//cdn.syncfusion.com/ej2/fabric.css" rel="stylesheet" />
+    <script>
+      if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+        document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.5.1/bluebird.min.js"><\/script>');
+      }
+    </script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div id="container">
+      <input id="element" type="color">
+    </div>
+    <style>
+      #container {
+        margin: 15px auto;
+        width: 190px;
+      }
+
+      #element+.e-container {
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: none;
+      }
+
+      .e-container .e-palette .e-custom-tile {
+        border: 0;
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        margin: 4px;
+      }
+
+      .e-container .e-custom-tile .e-custom-selected {
+        height: 32px;
+        width: 32px;
+        border-radius: 20px;
+        color: white;
+        font-size: 18px;
+        line-height: 32px;
+        display: inline-block;
+        transform: scale(0);
+      }
+
+      .e-container .e-palette .e-custom-tile.e-selected {
+        outline: none;
+      }
+
+      .e-container .e-palette .e-custom-tile:hover {
+        box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .e-container .e-custom-tile.e-selected .e-custom-selected {
+        transform: scale(0.6);
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      .e-container .e-custom-tile.e-selected .e-custom-selected::before {
+        content: '\e935';
+      }
+    </style>
+  </body>
+
 </html>
