@@ -36,19 +36,39 @@
                     <h3><h:outputText value="#{marcadorController.title}" style="color: black" /></h3>
                     <br/>
                     <h:outputText value="${marcadorController.data}" style="color: black" /><br/>
-                    <h:form>
-                  <h:inputHidden id="lat" value="#{marcadorController.lat}" />
-                    <h:inputHidden id="lng" value="#{marcadorController.lng}" />
-                   <h:inputHidden value="#{marcadorController.ubicacion}"/>
-                      <b:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador}"/>
+                    <h:form>  
+                   <b:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador}"/>
                     </h:form> 
                     
              
                   </p:outputPanel>
                 </p:gmapInfoWindow>
   </p:gmap>
- </h:form>
+      <h:form id="filtrar">
+    <table>
+      <h1>Filtar Marcadores por Tema</h1> <br/>
+    </table>
+    <table>
+      <tr>
+        <td>Tema</td>
+               <p:inputText id="t" value="#{marcadorController.filtro}" />
+      </tr> 
+        
  
+   
+      <h:form>
+      <b:commandButton action="#{marcadorController.filtrar}"
+                           value="Filtrar"/>
+  </h:form>
+        
+    </table>
+  </h:form>
+     
+ </h:form>
+  
+           
+           
+  
  <!-- AGREGAR MARCADOR-->
 <p:dialog widgetVar="dialog" showEffect="fade" rendered="#{loginController.currentUser.es_informador}" >
     <h:form prependId="false">
@@ -66,6 +86,8 @@
             </h:selectOneMenu>    
         </h:form>
             
+          
+            
  
             <f:facet name="footer">
                 <p:commandButton value="Add" action="#{marcadorController.guardarMarcador}" update=":messages" oncomplete="markerAddComplete()" />
@@ -76,6 +98,11 @@
         <h:inputHidden id="lat" value="#{marcadorController.lat}" />
         <h:inputHidden id="lng" value="#{marcadorController.lng}" />
     </h:form>
+    
+   
+    
+    
+    
 </p:dialog>
 <script src="markers.js"></script>
     </ui:define>
