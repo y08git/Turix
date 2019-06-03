@@ -36,20 +36,20 @@ INSERT INTO notitia.usuario (nombre_usuario, en_espera, contraseña, correo, es_
 VALUES ('info', true, 'contraseña','info@gmail.com',true);
 
 /* T E M A S */
-INSERT INTO notitia.temas (nombre, descripcion)
-VALUES ('Fondas','buen sazón');
-INSERT INTO notitia.temas (nombre, descripcion)
-VALUES ('alberto','magic');
-INSERT INTO notitia.temas (nombre, descripcion)
-VALUES ('roberto','magic');
-INSERT INTO notitia.temas (nombre, descripcion)
-VALUES ('Parque España','parque');
-INSERT INTO notitia.temas (nombre, descripcion)
-VALUES ('Museos','en el museo');
-INSERT INTO notitia.temas (nombre, descripcion)
-VALUES ('restoran','comes bien');
-INSERT INTO notitia.temas (nombre, descripcion)
-VALUES ('Teatro','buen show');
+INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
+VALUES ('Fondas','buen sazón','Yo','FF0000');
+INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
+VALUES ('alberto','magic','Yo','FF00FF');
+INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
+VALUES ('roberto','magic','Yo','000000');
+INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
+VALUES ('Parque España','parque','Yo','FFFFFF');
+INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
+VALUES ('Museos','en el museo','Yo','0000AA');
+INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
+VALUES ('restoran','comes bien','Yo','63FA03');
+INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
+VALUES ('Teatro','buen show','Yo','555555');
 
 /* M A R C A D O R E S */
 INSERT INTO notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre)

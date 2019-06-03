@@ -32,6 +32,9 @@ CREATE TABLE notitia.Temas
 (
   nombre text NOT NULL,
   descripcion text NOT NULL,
+  nombre_usuario text NOT NULL,
+  color text NOT NULL,
+  FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE,
   PRIMARY KEY (nombre)
 );
 
@@ -112,7 +115,7 @@ is
 
 create or replace function notitia.hash() returns trigger as $$
   begin
-    if TG_OP = 'INSERT' then
+    if TG_OP = 'INSERT' OR TG_OP = 'UPDATE' then
        new.contraseña = crypt(new.contraseña, gen_salt('bf', 8)::text);
     end if;
     return new;

@@ -1137,4 +1137,25 @@ public class Utility {
         }
         return u;
     }
+  
+         /**
+      * Metodo para filtrar los marcadores
+      * @param t -- un string
+      * @return Una lista de marcadores
+      */
+     public List filtrar(String t){
+         List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Marcadores "
+                   + "WHERE notitia.Marcadores.nombre LIKE '"+  t +"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
+        l = q.list();
+        return l;
+     } 
+     
+     
+     
 }
+
