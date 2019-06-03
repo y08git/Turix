@@ -115,7 +115,7 @@ is
 
 create or replace function notitia.hash() returns trigger as $$
   begin
-    if TG_OP = 'INSERT' OR TG_OP = 'UPDATE' then
+    if TG_OP = 'INSERT' then
        new.contraseña = crypt(new.contraseña, gen_salt('bf', 8)::text);
     end if;
     return new;

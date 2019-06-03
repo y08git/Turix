@@ -33,7 +33,7 @@ public class Temas implements Serializable{
     private Usuario informador;
     
     @Column(name = "color")
-    private String color;
+    private String color = "FFFFFF";
     
     
     public String getNombre() {
