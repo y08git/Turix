@@ -39,6 +39,8 @@
                            <f:actionListener binding="#{loginController.currentUser.setEn_espera(true)}"/>
                            <f:actionListener binding="#{usuarioController.updateUsuario()}"/>
       </p:commandButton>
+      <p:commandButton action="pedirInfo?faces-redirect=true" value="Ya estás en la Lista de Espera" rendered="#{loginController.currentUser.en_espera}">
+      </p:commandButton>
   </h:form>
   <!--  <h:form>
       <p:commandLink action="editarPerfil">

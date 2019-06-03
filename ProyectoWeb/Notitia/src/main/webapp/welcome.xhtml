@@ -13,7 +13,7 @@
         <!-- A D M I N I S T R A D O R-->
         <c:when test="#{loginController.admin}">
         
-          Bienvenido Administrador.
+          <h2> ¡Bienvenido Administrador! </h2>
           
           <h:form>  
               <p:commandButton action="listaUsuariosRegistrados?faces-redirect=true" style="margin-bottom: 3px;"
@@ -38,10 +38,10 @@
         <!-- I N F O R M A D O R-->
         <c:when test="#{loginController.currentUser.es_informador}">
           <h:head>
-            <title>Hola!</title>
+            <title>Bienvenido</title>
           </h:head>
           <h:body>
-            <h2>Bienvenido! #{loginController.login.usuario}</h2>
+            <h2>¡Bienvenido! Eres Informador en TURIX #{loginController.login.usuario}</h2>
           </h:body>
               <h:form>
               <p:commandButton action="temaInformador"
@@ -59,6 +59,9 @@
 
         <!-- C O M E N T A R I S T A -->
         <c:when test="#{loginController.logged}">
+          <h:body>
+            <h2>¡Hola Comentarista! #{loginController.login.usuario}</h2>
+          </h:body>
           <h:form>
           <p:commandButton action="comentario?faces-redirect=true"
                                value="Comentarios"/>
