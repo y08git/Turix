@@ -36,6 +36,8 @@ public class TemaController {
         this.f = f;
     }
     
+    
+    
     public String getNom() {
         return nom;
     }
@@ -65,7 +67,6 @@ public class TemaController {
       */
      public void guardarTema(){
              u.guardarTema(tema);
-             
             tema = null;         
          }
 
@@ -110,17 +111,7 @@ public class TemaController {
      
      public String redir(){
          f = true;
-         return "buscarTemas?faces-redirect=true";
+         return "buscarTemas";
      }
-     /**
-      * Metodo que da la lista de todos los temas
-      * manda a llamar darTema de Utility
-      * para buscarlos en la BD
-      * @return List
-      */
-     public List getListaNomTemas(){
-        return u.darNomTemas();
-     }
-     
      
 }

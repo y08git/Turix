@@ -103,9 +103,8 @@ public class ComentarioController {
     /**
      * Metodo que llama al metodo darComentarios de utilty
      * @return List
-     * @throws java.sql.SQLException
      */
-    public List<Comentarios> listaComentarios() throws SQLException{
+    public List listaComentarios() throws SQLException{
         return u.darComentarios(ubicacion);
     }
     

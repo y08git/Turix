@@ -20,14 +20,14 @@
   </h:body>
       <h:form>
           <p:menuitem>
-    <h:link outcome="#">
+    <h:link value="welcome?faces-redirect=true" outcome="#">
         <h:graphicImage value="/img/pic.png"
                         style="float:left;"/>
     </h:link>
 </p:menuitem>
       </h:form>
       <h:form>
-      <p:commandLink action="welcome">
+      <p:commandLink action="welcome?faces-redirect=true">
     <h:graphicImage value="/img/back.png"
                     style="float:right;"/>
       </p:commandLink>
@@ -35,7 +35,7 @@
        <hr />
       <h:form>
           <h4>Mi Nombre de Usuario</h4>
-          <h:outputText value="#{usuarioController.user}"/>
+          <h:outputText value="#{usuarioController.nombre}"/>
       </h:form>
       <h:form>
           <h4>Mi Correo</h4>
@@ -43,7 +43,7 @@
       </h:form>
       <hr />
   <h:form>
-      <p:commandLink action="editarPerfilIn">
+      <p:commandLink action="editarPerfilIn?faces-redirect=true">
     <h:graphicImage value="/img/conf.png" />
       </p:commandLink>
   </h:form>
@@ -67,7 +67,7 @@
 </p:menuitem>
       </h:form>
       <h:form>
-      <p:commandLink action="welcome">
+      <p:commandLink action="welcome?faces-redirect=true">
     <h:graphicImage value="/img/back.png"
                     style="float:right;"/>
       </p:commandLink>
@@ -83,10 +83,10 @@
       </h:form>
       <hr />
   <h:form>
-      <p:commandLink action="paginaComentario">
+      <p:commandLink action="paginaComentario?faces-redirect=true">
     <h:graphicImage value="/img/come.png" />
       </p:commandLink>
-      <p:commandLink action="editarPerfilCo">
+      <p:commandLink action="editarPerfilCo?faces-redirect=true">
     <h:graphicImage value="/img/conf.png" />
       </p:commandLink>
   </h:form>

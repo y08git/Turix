@@ -16,7 +16,7 @@
         <c:choose>
             <c:when test="#{loginController.logged}">
                 <h:form id="return">
-              <p:commandLink action="miPerfilCo">
+              <p:commandLink action="miPerfilCo?faces-redirect=true">
                   <h:graphicImage value="/img/ph.png" style="height:42px"/>
               </p:commandLink>
            </h:form>

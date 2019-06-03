@@ -79,33 +79,6 @@ CREATE TABLE notitia.Calificar
 drop extension if exists pgcrypto;
 create extension pgcrypto;
 
-/*
-
-'Calificar tiene que actualizar la tabla notitia.Comentario';
-
-create or replace function notitia.rate() returns trigger as $$
-  begin
-    if TG_OP = 'INSERT' then
-       new.contraseña = crypt(new.contraseña, gen_salt('bf', 8)::text);
-    end if;
-    return new;
-  end;
-$$ language plpgsql;
-
-
-
-comment on function notitia.hash()
-is
-'Cifra la contraseña del usuario al guardarla en la base de datos.';
-
-create trigger cifra
-before insert on notitia.Usuario
-for each row execute procedure notitia.hash();
-*/
-
-
-
-
 comment on table notitia.Usuario
 is
 'El usuario USUARIO tiene la contraseña PASS después de aplicarle un hash';

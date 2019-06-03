@@ -57,10 +57,10 @@
           </h:form>
         </c:when>
 
-
+        <!-- C O M E N T A R I S T A -->
         <c:when test="#{loginController.logged}">
           <h:form>
-          <p:commandButton action="comentario"
+          <p:commandButton action="comentario?faces-redirect=true"
                                value="Comentarios"/>
           </h:form>
         </c:when>
