@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 import org.primefaces.event.map.OverlaySelectEvent;
@@ -28,11 +29,13 @@ import org.primefaces.model.map.Marker;
  * @author dianis
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped 
 public class MarcadorController {
 
     
-    private final MapModel model = new DefaultMapModel();
+
+   private final MapModel model = new DefaultMapModel();
+   private final MapModel modelFiltro = new DefaultMapModel();
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
     private Temas tema = new Temas();
@@ -47,6 +50,9 @@ public class MarcadorController {
     private String title;
     private Marker marker;
     private String ubicacion;
+    private String filtro;
+
+   
 
     public String getUbicacion() {
         return ubicacion;
@@ -74,21 +80,48 @@ public class MarcadorController {
 
     @PostConstruct
     public void init() {
-        List<Marcadores> marcadores = u.darMarcadores();
-        System.out.println("Elementos " + marcadores.size());
+        List<Marcadores> marcadores= null;
+      /** if(t != null){
+            
+           marcadores = u.filtrar(filtro);
+            System.out.println("Elementos " + marcadores.size());
+        System.out.println(t);
+        System.out.println("if");
+        
         marcadores.forEach((marcador) -> {
            String[] coordenadas;
             coordenadas = marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
            double c2=Double.parseDouble(coordenadas[1]); 
-           System.out.println(marcador.getDatos_utiles());
-           System.out.println(marcador.getDescripcion());
+           
             model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
                     marcador.getDescripcion()));
             
         });
+        t=null;
+           
+
+        }else*/
+             
+          
+           System.out.println(t);
+           System.out.println("else");
+            marcadores = u.darMarcadores();
+        System.out.println("Elementos " + marcadores.size());
+        marcadores.forEach((marcador) -> {
+           String[] coordenadas= marcador.getUbicacion().split(",");
+           double c1=Double.parseDouble(coordenadas[0]);
+           double c2=Double.parseDouble(coordenadas[1]); 
+           
+            model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
+                    marcador.getDescripcion()));
+                
+        });
+        
+        
         
     }
+        
     
     public String getDatos_utiles() {
         return datos_utiles;
@@ -120,6 +153,11 @@ public class MarcadorController {
         return model;
     }
 
+    public MapModel getModelFiltro() {
+        return modelFiltro;
+    }
+    
+    
     public String getData() {
         return data;
     }
@@ -240,16 +278,32 @@ public class MarcadorController {
      
       public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();
-        //System.out.println( marker.getLatlng());
-        String ub1= String.valueOf(lat);
-        String ub2= String.valueOf(lng);
-        ubicacion= ub1+","+ub2;
-        
-       // data = (String) marker.getData();
-       // title = (String) marker.getTitle();
+        String ub = marker.getLatlng().toString();
+       
+        System.out.println(ub);
+        data = (String) marker.getData();
+        title = (String) marker.getTitle();
   
     }
-     
+      
+      public void filtrar(){
+          System.out.println(filtro);
+          List<Marcadores> marcadores = u.filtrar(filtro);
+        System.out.println("Elementos " + marcadores.size());
+      
+          
 
+        
+          
+      }
 
+    public String getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(String filtro) {
+        this.filtro = filtro;
+    }
+      
+      
 }
