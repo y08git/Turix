@@ -304,7 +304,6 @@ public class Utility {
         }
     }
 
-
     /**
      * Metodo para pre-registro de un Usuario en la base de datos
      * @param user
@@ -504,8 +503,6 @@ public class Utility {
         }
         return tema;
      }
-
-
 
       public String getCorreo(Temporal t){
         List l = null;
@@ -1098,13 +1095,13 @@ public class Utility {
         }
     }
 
-    /**
-     * Elimina a un informador de la base de datos
-     * @param user -- el usuario que desea eliminarse de la base
-     */
-    public void eliminarInformador(Usuario user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  /**
+   * Elimina a un informador de la base de datos
+   * @param user -- el usuario que desea eliminarse de la base
+   */
+  public void eliminarInformador(Usuario user) {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
 
   public Usuario confirmar(String cod){
         List l = null;

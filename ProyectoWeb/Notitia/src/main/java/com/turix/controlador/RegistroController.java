@@ -35,6 +35,7 @@ public class RegistroController {
     public void setUserT(Temporal userT) {
         this.userT = userT;
     }
+
     private Usuario user = new Usuario();
     private Utility u = new Utility();
     private String confirmarContraseña;
@@ -78,7 +79,6 @@ public class RegistroController {
         u.save(user);
         user = null;
     }
-
 
     /**
      * Metodo para guardar a un usuario

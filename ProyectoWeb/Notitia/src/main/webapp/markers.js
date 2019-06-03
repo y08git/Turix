@@ -10,7 +10,7 @@
 
 var currentMarker = null;
 
-var pinColor = "dba553";
+var pinColor = "FFFFFF";
 
 function handlePointClick(event) {
     console.log(event);
