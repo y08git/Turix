@@ -264,6 +264,7 @@ public class MarcadorController {
       */
      public void eliminaMarcador(){
          System.out.println(ubicacion);
+         marcador.setUbicacion(ubicacion);
              u.eliminarMarcador(marcador);
 
      }
@@ -274,8 +275,12 @@ public class MarcadorController {
       public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();
         String ub = marker.getLatlng().toString();
-       
-        System.out.println(ub);
+         //Separamos el LatLng de marker
+        String[] split = ub.split(":");
+        String ub2= split[2]; //lng
+       String[] split2=split[1].split(",");
+        String ub1= split2[0]; //lat
+       ubicacion= ub1+","+ub2;
         data = (String) marker.getData();
         title = (String) marker.getTitle();
   
