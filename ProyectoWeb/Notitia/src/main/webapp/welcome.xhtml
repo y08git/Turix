@@ -10,11 +10,15 @@
 <ui:define name="content">
 
 <style type="text/css">
-  .coso {
+  .header {
       font-family: "Times New Roman", Times, serif;
       font-weight: bold;
       font-size: 40px;
-      size: 204px;
+  }
+  .counter {
+      font-family: "Times New Roman", Times, serif;
+      font-weight: bold;
+      font-size: 24px;
   }
 </style>
 
@@ -23,16 +27,24 @@
         <!-- A D M I N I S T R A D O R-->
         <c:when test="#{loginController.admin}">
         
-          <h2> ¡Bienvenido Administrador! </h2>
-            
-          
+          <h:outputText value="¡Bienvenido Administrador!" class="header"/><p/>
+
+          <h:form>
+            <c:choose>
+              <c:when test ="#{usuarioController.hayEnEspera()}">
+                <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
+                                   value="Hay #{usuarioController.contarUsuariosEnEspera()} usuarios en Espera de asignación"/>
+              </c:when>
+              <c:otherwise>
+                <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
+                                   value="No hay usuarios esperando asignación"/>
+              </c:otherwise>
+            </c:choose>
+          </h:form>
+
           <h:form>  
               <p:commandButton action="listaUsuariosRegistrados?faces-redirect=true" style="margin-bottom: 3px;"
                                    value="Usuarios Registrados"/>
-          </h:form>
-          <h:form>
-              <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
-                                   value="Usuarios en Espera de Asignación"/>
           </h:form>
           
           <h:form>
@@ -51,22 +63,22 @@
           <h:head>
             <title>Bienvenido</title>
           </h:head>
-          <h:outputText value="¡Hola #{usuario.nombre_usuario}!" class="coso">
-            
-          </h:outputText>
+
+          <h:outputText value="¡Hola #{usuario.nombre_usuario}!" class="header"/>
+
           <h:body>
             <h2>Eres Informador en TURIX #{loginController.login.usuario}</h2>
           </h:body>
               <h:form>
-              <p:commandButton action="temaInformador"
+              <p:commandButton action="temaInformador?faces-redirect=true"
                                    value="Temas"/>
           </h:form>
               <h:form>
-              <p:commandButton action="marcador"
+              <p:commandButton action="marcador?faces-redirect=true"
                                    value="Marcadores"/>
           </h:form>
               <h:form>
-              <p:commandButton action="comentario"
+              <p:commandButton action="comentario?faces-redirect=true"
                                    value="Comentarios"/>
           </h:form>
         </c:when>

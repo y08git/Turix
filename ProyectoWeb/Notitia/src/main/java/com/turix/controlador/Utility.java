@@ -620,8 +620,24 @@ public class Utility {
     }
 
     /**
-     * Devuelve la lista de usuarios registrados en la base
-     * @return la lista de usuarios registrados en la base
+     * Muestra si hay usuarios en espera de asignación
+     * @return si hay usuarios en espera de asignación
+     */
+    public boolean hayUsuariosEnEspera() {
+        return this.contarEnEspera() > 0;
+    }    
+
+    /**
+     * Devuelve la cantidad de usuarios en espera de asignación
+     * @return la cantidad de usuarios en espera de asignación
+     */
+    public int contarEnEspera() {
+        return this.darUsuarios().size();
+    }
+
+    /**
+     * Devuelve la lista de usuarios en espera de asignación
+     * @return la lista de usuarios en espera de asignación
      */
     public List darUsuarios() {
         List l;

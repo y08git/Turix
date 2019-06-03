@@ -260,6 +260,14 @@ public class UsuarioController {
         return null;
     }
 
+    public boolean hayEnEspera() {
+        return u.hayUsuariosEnEspera();
+    }
+
+    public int contarUsuariosEnEspera() {
+        return u.contarEnEspera();
+    }
+
     /**Metodo que regresa a todos los usuarios registrados en espera de asignación
      *
      * @return Un objeto de tipo lista
