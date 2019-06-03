@@ -11,6 +11,7 @@
       <c:choose>
 <!-- A D M I N I S T R A D O R-->
 <c:when test="#{loginController.admin}">
+  ¡Hola Administrador!
               
 </c:when>
 <!--I N F O R M A D O R-->
@@ -47,6 +48,7 @@
     <h:graphicImage value="/img/conf.png" />
       </p:commandLink>
   </h:form>
+  
           </c:when>
 <!--C O M E N T A R I S T A-->
           <c:when test="#{loginController.logged}">

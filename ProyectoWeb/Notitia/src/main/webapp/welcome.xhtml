@@ -7,13 +7,24 @@
   xmlns:p="http://primefaces.org/ui"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-  <ui:define name="content">
+<ui:define name="content">
+
+<style type="text/css">
+  .coso {
+      font-family: "Times New Roman", Times, serif;
+      font-weight: bold;
+      font-size: 40px;
+      size: 204px;
+  }
+</style>
+
       <c:choose>
       
         <!-- A D M I N I S T R A D O R-->
         <c:when test="#{loginController.admin}">
         
           <h2> ¡Bienvenido Administrador! </h2>
+            
           
           <h:form>  
               <p:commandButton action="listaUsuariosRegistrados?faces-redirect=true" style="margin-bottom: 3px;"
@@ -40,8 +51,11 @@
           <h:head>
             <title>Bienvenido</title>
           </h:head>
+          <h:outputText value="¡Hola #{usuario.nombre_usuario}!" class="coso">
+            
+          </h:outputText>
           <h:body>
-            <h2>¡Bienvenido! Eres Informador en TURIX #{loginController.login.usuario}</h2>
+            <h2>Eres Informador en TURIX #{loginController.login.usuario}</h2>
           </h:body>
               <h:form>
               <p:commandButton action="temaInformador"
