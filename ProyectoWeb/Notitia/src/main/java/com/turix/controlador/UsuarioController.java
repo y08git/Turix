@@ -364,6 +364,7 @@ public class UsuarioController {
         return "buscarUsuarios?faces-redirect=true";
     }
     
+    
     public void deleteItself(){
         if (user != null) u.delete(user);
     }

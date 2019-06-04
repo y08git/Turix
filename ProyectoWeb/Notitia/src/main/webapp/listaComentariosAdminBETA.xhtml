@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+
+<style type="text/css">
+    .ui-datalist {
+        width: 80%;
+        margin-bottom: 10px;
+        text-align: center;
+        align-self: center;
+        /*display: flex;
+        flex-direction: column;*/
+        justify-content: center;
+    }
+ 
+    .ui-datalist-item {
+        padding:4px;
+    }
+ 
+    .paginated .ui-datalist-data {
+        padding-left: 10px;
+    }
+</style>
+
+<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+  <title>Ver Comentarios</title>
+</h:head>
+
+<h:body>
+
+<i class="pi pi-times-circle"></i>
+
+  <h:form id="myForm">
+
+  <h1>Lista de Comentarios</h1> <br/>
+
+  <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/>
+
+  <br></br><br></br>
+
+    <p:dataList value="#{comentarioController.listaComentariosAdmin()}" type="unordered" paginator="true" rows="10" var="comentario">
+      
+      <p:dataTable var="Comentarios" value="{#{comentarioController.listaComentariosAdmin()}" style="width: 80%">
+
+        <p:commandButton action="#{comentarioController.eliminarComentario(comentario)}"
+                       value="X" style="margin-bottom: 2px;" class="pi pi-times-circle"
+                       update="myForm" process="@this"
+                       />    
+
+        <p:column headerText="Usuario" style="width: 100px">
+            <h:outputText value="#{comentario.usuario.nombre_usuario}" />
+        </p:column>
+
+        <p:column headerText="id" style="width: 30px">
+            <h:outputText value="#{comentario.id_comentario}" />
+        </p:column>
+
+        <p:column headerText="Marcadores" style="width: 300px">
+            <h:outputText value="#{comentario.marcadores.datos_utiles}" />
+        </p:column>
+
+        <p:column headerText="Comentario">
+            <h:outputText value="#{comentario.comentario}" />
+        </p:column>
+
+        <p:column headerText="Likes" style="width: 70px">
+            <h:outputText value="#{comentario.calificacionPositiva}" />
+        </p:column>
+
+         <p:column headerText="Dislikes" style="width: 70px">
+            <h:outputText value="#{comentario.calificacionNegativa}" />
+        </p:column>
+
+      </p:dataTable>
+
+              
+    </p:dataList>
+
+      <p:dataList value="#{comentarioController.listaComentariosAdmin()}" var="Comentarios">
+        <f:facet name="header">
+            Comentarios
+        </f:facet>        
+        
+          <p:commandButton action="#{comentarioController.eliminarComentario(Comentarios)}"
+                       value="X" style="margin-bottom: 2px;" class="pi pi-times-circle"
+                       update="myForm" process="@this"
+                       />    
+        
+        #{Comentarios.usuario.nombre_usuario}, #{Comentarios.fecha}, #{Comentarios.comentario}, #{Comentarios.calificacionPositiva}
+    </p:dataList>
+    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>
+  </h:form>
+
+</h:body>
+</html>
