@@ -19,13 +19,13 @@ and open the template in the editor.
       <h:form>
         <h1>Usuarios en Espera de Asignación</h1> <br/>
   <h:form id="myorm">
-      <p:dataList value="#{comentarioController.listaComentarios()}" var="comentario">
+      <p:dataList value="#{comentarioController.listaComentariosAdmin()}" var="comentario">
       <table>
         <tr>
           <td><p:messages id="messages" autoUpdate="true" closable="true"/></td>
         </tr>
       </table>
-        <p:dataTable var="Comentarios" value="#{comentarioController.listaComentarios()}">
+          <p:dataTable var="Comentarios" value="{#{comentarioController.listaComentariosAdmin()}">
         <p:column headerText="usuario">
             <h:outputText value="#{comentario.usuario.nombre_usuario}" />
         </p:column>
