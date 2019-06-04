@@ -15,7 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
@@ -31,7 +30,7 @@ import org.primefaces.model.map.Marker;
  */
 @ManagedBean
 @ViewScoped 
-public class MarcadorController {
+public class FiltroController {
 
     
    private final MapModel model = new DefaultMapModel();
@@ -80,9 +79,8 @@ public class MarcadorController {
     public void init() {
         List<Marcadores> marcadores= null;
       
-        if(!filtrar()){
-            marcadores = u.darMarcadores();
-        System.out.println("Elementos init:" + marcadores.size());
+            marcadores = filtrar();
+        System.out.println("Elementos filtro:" + marcadores.size());
         marcadores.forEach((marcador) -> {
            String[] coordenadas= marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
@@ -92,18 +90,7 @@ public class MarcadorController {
                     marcador.getDescripcion()));
                 
         });
-        }else
-             marcadores = u.filtrar(filtro);
-        System.out.println("Elementos init:" + marcadores.size());
-        marcadores.forEach((marcador) -> {
-           String[] coordenadas= marcador.getUbicacion().split(",");
-           double c1=Double.parseDouble(coordenadas[0]);
-           double c2=Double.parseDouble(coordenadas[1]); 
-           
-            model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
-                    marcador.getDescripcion()));
-                     
-        });
+        
         
         
     }
@@ -175,7 +162,7 @@ public class MarcadorController {
         this.tema=tema;
     }
 
-    public MarcadorController() {
+    public FiltroController() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
@@ -213,7 +200,7 @@ public class MarcadorController {
          u.guardarMarcador(marcador);
          model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDatos_utiles()));
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
-        
+        marcador = null;
          }
     /**
      * Metodo para checar si existe el Tema
@@ -252,6 +239,7 @@ public class MarcadorController {
       * para eliminarlo de la BD
       */
      public void eliminaMarcador(){
+         System.out.println(ubicacion);
          marcador.setUbicacion(ubicacion);
              u.eliminarMarcador(marcador);
 
@@ -274,14 +262,13 @@ public class MarcadorController {
   
     }
       
-      public boolean filtrar(){
-         boolean filter= false;
+      public List<Marcadores> filtrar(){
+          System.out.println(filtro);
           List<Marcadores> marcadores = u.filtrar(filtro);
-        System.out.println("Elementos " + marcadores.size());
-      if(marcadores.size()!=0)
-          filter=true;
-          return filter;
-
+        //System.out.println("Elementos " + marcadores.size());
+      
+          
+        return marcadores;
         
           
       }

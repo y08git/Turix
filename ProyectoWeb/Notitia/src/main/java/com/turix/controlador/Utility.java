@@ -656,7 +656,7 @@ public class Utility {
                    + "WHERE notitia.Marcadores.ubicacion LIKE '"+ m.getUbicacion() +"';";
           try{
          sessionObj.beginTransaction();
-            Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+            Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
             l = q.list();
             if(!l.isEmpty()){
                 guardar = true;
