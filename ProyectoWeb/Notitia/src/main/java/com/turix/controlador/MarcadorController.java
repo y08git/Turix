@@ -11,10 +11,10 @@ import com.turix.modelo.Usuario;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
@@ -41,6 +41,7 @@ public class MarcadorController {
     private Temas tema = new Temas();
     public String t ;
     public String usuario;
+    private String color;
     private String datos_utiles;
     private String data;
     private String descripcion;
@@ -52,7 +53,15 @@ public class MarcadorController {
     private String ubicacion;
     private String filtro;
 
-   
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    
 
     public String getUbicacion() {
         return ubicacion;
@@ -108,14 +117,17 @@ public class MarcadorController {
            System.out.println("else");
             marcadores = u.darMarcadores();
         System.out.println("Elementos " + marcadores.size());
-        marcadores.forEach((marcador) -> {
-           String[] coordenadas= marcador.getUbicacion().split(",");
-           double c1=Double.parseDouble(coordenadas[0]);
-           double c2=Double.parseDouble(coordenadas[1]); 
-           
-            model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
-                    marcador.getDescripcion()));
-                
+        marcadores.forEach(new Consumer<Marcadores>() {
+            @Override
+            public void accept(Marcadores marcador) {
+                String[] coordenadas= marcador.getUbicacion().split(",");
+                double c1=Double.parseDouble(coordenadas[0]);
+                double c2=Double.parseDouble(coordenadas[1]);
+                Marker m = new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
+                        marcador.getDescripcion());
+                m.setIcon("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + marcador.getTemas().getColor());
+                model.addOverlay(m);
+            }
         });
         
         
@@ -218,7 +230,7 @@ public class MarcadorController {
     public void guardarMarcador(){
 
          Marker marker = new Marker(new LatLng(lat, lng),datos_utiles);
-           model.addOverlay(marker);
+//           model.addOverlay(marker);
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
         marcador.setInformador(user);

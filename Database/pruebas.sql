@@ -39,7 +39,7 @@ VALUES ('info', true, 'contraseña','info@gmail.com',true);
 INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
 VALUES ('Fondas','buen sazón','Yo','FF0000');
 INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
-VALUES ('alberto','magic','Yo','FF00FF');
+VALUES ('alberto','magic','Yo','C680FF');
 INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)
 VALUES ('roberto','magic','Yo','000000');
 INSERT INTO notitia.temas (nombre, descripcion, nombre_usuario, color)

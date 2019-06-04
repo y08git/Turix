@@ -18,27 +18,13 @@
 
 
 	<h2>Example 1</h2>
-	Color: <input class="jscolor" value="ab2567"/>
-
-
-
-	<h2>Example 2</h2>
-
-	<p:button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
-		Pick text color
-	</p:button>
-
-	HEX value: <input id="chosen-value" value="000000"/>
+	Color: <input class="jscolor" value="FF0000"/>
 
 	<script>
 	function setTextColor(picker) {
 		document.getElementsByTagName('body')[0].style.color = '#' + picker.toString();
 	}
 	</script>
-
-
-
-	<p style="margin-top:3em;">Check out <a href="http://jscolor.com/examples/">more examples at</a>!</p>
 
     </h:form>
 

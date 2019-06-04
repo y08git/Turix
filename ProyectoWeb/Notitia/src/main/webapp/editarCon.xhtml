@@ -1,0 +1,59 @@
+<ui:composition template="/WEB-INF/facelets/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <ui:define name="content">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+      <h:form>  
+        <table>
+                <tr><td>
+                       <p:messages id="messages" autoUpdate="true" closable="true" />
+                    </td></tr>
+            </table>
+          <p:panel header="Registro de usuario">
+              <p:panelGrid columns="2" layout="grid" style="padding: 5px">
+                <h:outputText value="Contraseña vieja:"/>
+                <p:password
+                    value="#{usuarioController.contraseña}"
+                    required="true"
+                    id="Contra"
+                    size="40"/>
+                <h:outputText value="Confirmación Contraseña:"/>
+                <p:password
+                    value="#{usuarioController.confirmarContraseña}"
+                    required="true"
+                    id="Ccontra"
+                    />
+                <h:outputText value="Nueva Contraseña:"/>
+                <p:password
+                    value="#{usuarioController.AContraseña}"
+                    required="true"
+                    id="newContra"
+                    match="newContra"
+                    placeholder="Contraseña"
+                    label="Contraseña"
+                    promptLabel="Ingresa una contraseña"
+                    weakLabel="Débil"
+                    goodLabel="Buena"
+                    strongLabel="Fuerte"
+                    inline="true"/>
+                <p:commandButton action="#{usuarioController.cambiarContraseña()}"
+                           value="Cambiar contraseña"
+                           >
+                    <f:actionListener binding="#{usuarioController.updateUsuario()}" 
+                                      rendered="#{usuarioController.confirmarContraseña}"
+                                      />
+                    <meta http-equiv="refresh" content="0; url=http://localhost:8080/Notitia/editarPerfilCo"/>
+                </p:commandButton>
+                </p:panelGrid>
+          </p:panel>
+      </h:form>    
+    </h:body>
+  </ui:define>
+</ui:composition>
