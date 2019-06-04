@@ -33,7 +33,7 @@
             <c:choose>
               <c:when test ="#{usuarioController.hayEnEspera()}">
                 <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
-                                   value="Hay #{usuarioController.contarUsuariosEnEspera()} usuarios en Espera de asignación"/>
+                                   value="Hay #{usuarioController.contarUsuariosEnEspera()} usuarios esperando asignación"/>
               </c:when>
               <c:otherwise>
                 <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
