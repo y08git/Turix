@@ -59,26 +59,27 @@
       </tr>
       <tr>
         <td colspan="3" align="center">
-            <p:commandButton action="#{comentarioController.agregarComentario}"
-                             
-                           value="aceptar"/>
+            <p:commandButton action="#{comentarioController.agregarComentario}" value="aceptar" onclick="agregarComentario"/>
         </td>
       </tr>
     </table>
-      <p:dataTable value="#{comentarioController.listaComentarios()}" var="Comentarios" sortMode="simple">
+      <p:dataList value="#{comentarioController.listaComentarios()}" var="Comentarios" >
         <f:facet name="header">
             Comentarios
         </f:facet>
-          <p:column headerText="Id" sortBy="#{Comentarios.calificacionPositiva}">
         #{Comentarios.fecha}, #{Comentarios.id_comentario}, #{Comentarios.comentario},#{Comentarios.calificacionNegativa},#{Comentarios.calificacionPositiva}
-        </p:column>
+        
         <td colspan="3" align="center">
+            <p:inputText value="#{comentarioController.id_comentario}"
+                         required="true"
+                         id="id_comentario"
+                         size="20"/>
                 <p:commandButton action="#{comentarioController.eliminarComentario}"
                            value="Eliminar"/>
                 <p:commandButton action="editarComentario"
                            value="Editar"/>
                 </td>
-    </p:dataTable>
+    </p:dataList>
 <!--    <table>
       <tr><td>
         <p:messages id="messages" autoUpdate="true" closable="true" />
