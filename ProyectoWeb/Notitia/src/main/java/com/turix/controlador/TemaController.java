@@ -7,12 +7,14 @@ package com.turix.controlador;
 import javax.faces.application.FacesMessage;
 import com.turix.controlador.HibernateUtil;
 import com.turix.modelo.Temas;
+import com.turix.modelo.Usuario;
 import java.util.Locale;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import static javax.faces.context.FacesContext.getCurrentInstance;
 import org.hibernate.*;
 
 /**
@@ -27,6 +29,7 @@ public class TemaController {
     private final Utility u = new Utility();
     private boolean f = false;
     public String nom;
+    public String usuario;
 
     public boolean isF() {
         return f;
@@ -56,6 +59,14 @@ public class TemaController {
 
     public void setTema(Temas tema) {
         this.tema = tema;
+    }
+    
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
      /**
@@ -111,6 +122,14 @@ public class TemaController {
      public String redir(){
          f = true;
          return "buscarTemas?faces-redirect=true";
+     }
+     
+     public List da(){
+         FacesContext context = getCurrentInstance();
+        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        String yo = user.getNombre_usuario();
+        return u.darMisTemas(yo);
+        //marcador.setInformador(user);
      }
      /**
       * Metodo que da la lista de todos los temas

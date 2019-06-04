@@ -5,6 +5,7 @@
  */
 package com.turix.controlador;
 
+import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
@@ -39,6 +40,7 @@ public class MarcadorController {
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
     private Temas tema = new Temas();
+    private Comentarios comentario = new Comentarios();
     public String t ;
     public String usuario;
     private String datos_utiles;
@@ -241,7 +243,6 @@ public class MarcadorController {
     public Temas existeTema(String t){
        return u.existeTema(t);
     }
-
 
     /**
      * Metodo para checar si existe el Usuario

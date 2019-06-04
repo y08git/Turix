@@ -90,7 +90,13 @@ public class ComentarioController {
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
-
+    /**
+     * Metodo que llama al metodo getMiUsuario de utilty
+     * @return List
+     */
+    public List listaUsuarios() throws SQLException{
+        return u.getMiUsuario();
+    }
 
     /**
      * Metodo que llama al metodo darComentarios de utilty
@@ -106,7 +112,7 @@ public class ComentarioController {
      * @throws java.sql.SQLException
      */
     public List<Comentarios> listaComentarios() throws SQLException{
-        return u.darComentarios(ubicacion);
+        return u.darComentarios(t);
     }
     
     /**
@@ -141,11 +147,28 @@ public class ComentarioController {
      * Mandamos a llamar a guardarComentario
      * @return Usuario
      */
+//    public void agregarComentario(){
+//        comentario.setFecha(new Date());
+//        //comentario.setMarcadores(existeMarcador(t));
+//        comentario.setUsuario(existeUsuario(usuario));
+//        u.guardarComentario(comentario);
+//        comentario = null;
+//    }
+    
     public void agregarComentario(){
-        comentario.setFecha(new Date());
-        comentario.setMarcadores(existeMarcador(t));
-        comentario.setUsuario(existeUsuario(usuario));
+//        FacesContext.getCurrentInstance().getExternalContext()
+//                        .getSessionMap().put("marcador", t);
+//        System.out.print(t);
+         comentario.setFecha(new Date());
+        //String u2 = comentario.getMarcadores().getUbicacion();
+        comentario.setMarcadores(u.existeMarcador(t));
+        FacesContext context = getCurrentInstance();
+        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        String yo = user.getNombre_usuario();
+        comentario.setUsuario(user);
+        System.out.print(marcador.getUbicacion()+"fekfk");
         u.guardarComentario(comentario);
+        
         comentario = null;
     }
     

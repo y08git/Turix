@@ -715,6 +715,23 @@ public class Utility {
         l = q.list();
         return l;
      }
+     /**
+      * 
+      * @param m
+      * @return Lista de los temas del usuario loggeado
+      */
+     public List darMisTemas(String m){
+         List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temas "
+                   + "WHERE notitia.Temas.nombre_usuario LIKE '"+  m+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+        l = q.list();
+        return l;
+     }
+     
 
      /**
      * Metodo para enlistar todos los temas
@@ -1084,13 +1101,13 @@ public class Utility {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo: No existe el marcador a eliminar", ""));
+                                    "Fallo: No existe el marcador a editar", ""));
         } else {
 
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Se eliminó correctamente el comentario", ""));
+                                    "Se editó correctamente el comentario", ""));
 
         }
     }

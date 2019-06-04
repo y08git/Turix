@@ -44,7 +44,7 @@
             <h2>Bienvenido! #{loginController.login.usuario}</h2>
           </h:body>
               <h:form>
-              <p:commandButton action="temaInformador"
+              <p:commandButton action="temaInformador?faces-redirect=true"
                                    value="Temas"/>
           </h:form>
               <h:form>
@@ -55,15 +55,31 @@
               <p:commandButton action="comentario"
                                    value="Comentarios"/>
           </h:form>
+            <h:form>
+              <p:commandButton action="map?faces-redirect=true"
+                                   value="Mapa"/>
+          </h:form>
         </c:when>
 
 
         <c:when test="#{loginController.logged}">
           <h:form>
+              Hola Comentarista!
           <p:commandButton action="comentario"
                                value="Comentarios"/>
           </h:form>
+            <h:form>
+              <p:commandButton action="map?faces-redirect=true"
+                                   value="Mapa"/>
+          </h:form>
         </c:when>
+        <c:otherwise>
+            Hola Visitante!
+    <p:commandLink action="index">
+    <h:graphicImage value="/img/m.png"
+                    style="float:left;"/>
+      </p:commandLink>
+        </c:otherwise>
       </c:choose>
   </ui:define>
 </ui:composition>

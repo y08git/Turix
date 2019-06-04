@@ -1,20 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <ui:define name="content">
 <h:head>
   <title>Agregar Comentario</title>
 </h:head>
 <h:body>
   <h1>Quieres agregar un comentario?</h1> <br/>
-  <h2>Coloca la ubicación del marcador al que quieras ponerle un comentario!</h2> <br/>
   <h:form id="myForm">
     <table>
       <tr><td>
@@ -22,39 +18,6 @@ and open the template in the editor.
       </td></tr>
     </table>
     <table>
-      <tr>
-          <td>Usuario</td>
-          <td><p:inputText value="#{comentarioController.usuario}"
-                         required="true"
-                         id="usuario"
-                         size="20"/></td>
-
-      </tr>
-<!--      <tr>
-          <h1>Elige tu usuario</h1>
-        <h:form>
-            <h:selectOneMenu value="#{comentarioController.comentario.usuario}" converter="SelectItemToEntityConverter" >
-                <f:selectItems value="#{comentarioController.listaUsuarios()}"/>
-            </h:selectOneMenu>
-        </h:form>
-      </tr>-->
-<!--      <tr>
-          <h1>Elige un marcador para agregar tu comentario</h1>
-        <h:form>
-            <h:selectOneMenu value="#{comentarioController.marcador}" converter="SelectItemToEntityConverter" >
-                <f:selectItems value="#{comentarioController.listaComentarios()}"/>
-            </h:selectOneMenu>
-        </h:form>
-      </tr>-->
-<!--      <tr>
-          <td>Fecha</td>
-        <td><p:inputText value="#{comentarioController.comentario.fecha}"
-                         required="true"
-                         id="Fecha"
-                         size="20"/>
-        </td>
-          
-      </tr>-->
       <tr>
           <td>Marcador</td>
           <td><p:inputText value="#{comentarioController.t}"
@@ -101,15 +64,31 @@ and open the template in the editor.
         </td>
       </tr>
     </table>
+      <p:dataList value="#{comentarioController.listaComentarios()}" var="Comentarios">
+        <f:facet name="header">
+            Comentarios
+        </f:facet>
+        #{Comentarios.fecha}, #{Comentarios.id_comentario}, #{Comentarios.comentario}
+        <td colspan="3" align="center">
+                <p:commandButton action="#{comentarioController.eliminarComentario}"
+                           value="Eliminar"/>
+                <p:commandButton action="editarComentario"
+                           value="Editar"/>
+                </td>
+    </p:dataList>
+<!--    <table>
+      <tr><td>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+      </td></tr>
+    </table>-->
   </h:form>
-<!--  <h:outputText value = "12-01-2012" >
-         <f:convertDateTime pattern = "dd-mm-yyyy" />
-      </h:outputText>-->
   <h:form>
-      <p:commandButton action="marcador"
-                           value="Regresar a Marcador"/>
-      <p:commandButton action="welcome"
-                           value="Cancelar"/>
+
+<!--      <p:commandButton action="verComentarios"
+                           value="Ver comentarios"/>-->
+      <p:commandButton action="map"
+                           value="Mapa"/>
   </h:form>
 </h:body>
-</html>
+  </ui:define>
+</ui:composition>

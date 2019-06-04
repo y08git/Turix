@@ -14,14 +14,13 @@
 <h:body>
   <h1>Ver Marcadores</h1> <br/>
   <h:form>
-      <tr>
+<!--      <tr>
           <td>Ubicacion</td>
-          <td><p:inputText value="#{comentarioController.ubicacion}"
-                         required="true"
+          <td><p:inputText value="#{comentarioController.t}"
                          id="usuario"
                          size="20"/></td>
 
-      </tr>
+      </tr>-->
   </h:form>
   <h:form id="myForm">
       <p:dataList value="#{comentarioController.listaComentarios()}" var="Comentarios">
@@ -37,10 +36,8 @@
     </table>
   </h:form>
   <h:form>
-      <p:commandButton action="agregarMarcador"
-                           value="Agrega Marcadores"/>
-      <p:commandButton action="comentario"
-                           value="Regresar a Comentarios"/>
+      <p:commandButton action="map"
+                           value="Regresar a Mapa"/>
   </h:form>
 </h:body>
   </ui:define>
