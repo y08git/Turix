@@ -157,10 +157,12 @@ public class ComentarioController {
     
     public void agregarComentario(){
 //        FacesContext.getCurrentInstance().getExternalContext()
-//                        .getSessionMap().put("marcador", t);
-//        System.out.print(t);
+//                        .getSessionMap().put("marcador", marcador);
+        System.out.print(t);
          comentario.setFecha(new Date());
         //String u2 = comentario.getMarcadores().getUbicacion();
+//        marcador = (Marcadores) FacesContext.getCurrentInstance().getExternalContext()
+//                .getSessionMap().get("marcador");
         comentario.setMarcadores(u.existeMarcador(t));
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");

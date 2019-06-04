@@ -54,7 +54,7 @@ public class MarcadorController {
     private String ubicacion;
     private String filtro;
 
-
+        
 
     public String getUbicacion() {
         return ubicacion;

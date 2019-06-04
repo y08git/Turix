@@ -15,7 +15,7 @@
     <h:head>
         <title> Notitia</title>
       <script type="text/javascript"
-          src="https://maps.google.com/maps/api/js?key="
+          src="https://maps.google.com/maps/api/js?key=AIzaSyB6dJSHMxsLYr14Gx1wcoWbz2eI5erBo_g"
           defer="true"/>
     </h:head>
 
@@ -40,7 +40,7 @@
                     <br/>
                     <h:outputText value="${marcadorController.data}" style="color: black" /><br/>
                     <h:outputText value="${marcadorController.ubicacion}" style="color: black" /><br/>
-<!--                    <h:outputText value="${comentarioController.marcador.setUbicacion(marcadorController.ubicacion)}" style="color: black" /><br/>-->
+                    <h:outputText value="${comentarioController.setT(marcadorController.ubicacion)}" style="color: black" /><br/>
                     <td><p:inputText value="#{comentarioController.t}"
                          required="true"
                          id="id_comentario"

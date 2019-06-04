@@ -858,7 +858,7 @@ public class Utility {
          List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Comentarios "
-                   + "WHERE notitia.Comentarios.ubicacion LIKE '"+  m+"';";
+                   + "WHERE notitia.Comentarios.ubicacion LIKE '"+  m+"'";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
