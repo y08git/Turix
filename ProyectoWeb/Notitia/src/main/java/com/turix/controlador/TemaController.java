@@ -22,7 +22,7 @@ import org.hibernate.*;
 @ManagedBean
 @RequestScoped
 public class TemaController {
-    
+
     private Temas tema = new Temas();
     private final Utility u = new Utility();
     private boolean f = false;
@@ -35,7 +35,7 @@ public class TemaController {
     public void setF(boolean f) {
         this.f = f;
     }
-    
+
     public String getNom() {
         return nom;
     }
@@ -43,7 +43,7 @@ public class TemaController {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
+
      public TemaController() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
@@ -57,7 +57,7 @@ public class TemaController {
     public void setTema(Temas tema) {
         this.tema = tema;
     }
-        
+
      /**
       * Metodo que guarda un Tema
       * manda a llamar a guardarTema de Utility
@@ -65,8 +65,8 @@ public class TemaController {
       */
      public void guardarTema(){
              u.guardarTema(tema);
-             
-            tema = null;         
+
+            tema = null;
          }
 
      /**
@@ -77,7 +77,7 @@ public class TemaController {
      public void eliminarTema(){
              u.eliminarTema(tema);
 
-     }  
+     }
 
      /**
       * Metodo que elimina un Tema
@@ -87,7 +87,7 @@ public class TemaController {
      public void eliminarTema(Temas t){
              u.eliminarTema(t);
 
-     }   
+     }
 
      /**
       * Metodo que da la lista de todos los temas
@@ -96,9 +96,9 @@ public class TemaController {
       * @return List
       */
      public List listaTemas(){
-        return u.darTemas(); 
+        return u.darTemas();
      }
-     
+
 
      /**
       * Metodo que busca temas en la BD
@@ -107,7 +107,7 @@ public class TemaController {
      public List buscarTemas(){
          return u.buscarTemas(nom);
      }
-     
+
      public String redir(){
          f = true;
          return "buscarTemas?faces-redirect=true";
@@ -121,6 +121,6 @@ public class TemaController {
      public List getListaNomTemas(){
         return u.darNomTemas();
      }
-     
-     
+
+
 }

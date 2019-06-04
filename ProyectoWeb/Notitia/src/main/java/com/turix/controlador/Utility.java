@@ -429,11 +429,11 @@ public class Utility {
                 sessionObj.getTransaction().rollback();
             }
             l = null;
-        } finally {    
+        } finally {
             return l;
         }
     }
-    
+
 
     /**
      * Metodo para eliminar un tema de la BD
@@ -729,10 +729,10 @@ public class Utility {
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query);
         l = q.list();
-        
+
         return l;
-     }   
-     
+     }
+
      /**
       * Metodo para enlistar todos los marcadores
       * @return list
@@ -779,7 +779,7 @@ public class Utility {
                    + "WHERE notitia.Marcadores.ubicacion LIKE '"+ m.getUbicacion() +"';";
           try{
          sessionObj.beginTransaction();
-            Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+            Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
             l = q.list();
             if(!l.isEmpty()){
                 guardar = true;
@@ -1137,7 +1137,7 @@ public class Utility {
         }
         return u;
     }
-  
+
          /**
       * Metodo para filtrar los marcadores
       * @param t -- un string
@@ -1153,9 +1153,8 @@ public class Utility {
         Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
         l = q.list();
         return l;
-     } 
-     
-     
-     
-}
+     }
 
+
+
+}

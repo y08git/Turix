@@ -32,7 +32,7 @@ import org.primefaces.model.map.Marker;
 @ViewScoped
 public class MarcadorController {
 
-    
+
 
    private final MapModel model = new DefaultMapModel();
    private final MapModel modelFiltro = new DefaultMapModel();
@@ -52,7 +52,7 @@ public class MarcadorController {
     private String ubicacion;
     private String filtro;
 
-   
+
 
     public String getUbicacion() {
         return ubicacion;
@@ -69,7 +69,7 @@ public class MarcadorController {
     public void setMarker(Marker marker) {
         this.marker = marker;
     }
-    
+
     public String getTitle() {
         return title;
     }
@@ -82,28 +82,28 @@ public class MarcadorController {
     public void init() {
         List<Marcadores> marcadores= null;
       /** if(t != null){
-            
+
            marcadores = u.filtrar(filtro);
             System.out.println("Elementos " + marcadores.size());
         System.out.println(t);
         System.out.println("if");
-        
+
         marcadores.forEach((marcador) -> {
            String[] coordenadas;
             coordenadas = marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
-           double c2=Double.parseDouble(coordenadas[1]); 
-           
+           double c2=Double.parseDouble(coordenadas[1]);
+
             model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
                     marcador.getDescripcion()));
-            
+
         });
         t=null;
-           
+
 
         }else*/
-             
-          
+
+
            System.out.println(t);
            System.out.println("else");
             marcadores = u.darMarcadores();
@@ -111,18 +111,18 @@ public class MarcadorController {
         marcadores.forEach((marcador) -> {
            String[] coordenadas= marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
-           double c2=Double.parseDouble(coordenadas[1]); 
-           
+           double c2=Double.parseDouble(coordenadas[1]);
+
             model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
                     marcador.getDescripcion()));
-                
+
         });
-        
-        
-        
+
+
+
     }
-        
-    
+
+
     public String getDatos_utiles() {
         return datos_utiles;
 
@@ -131,7 +131,7 @@ public class MarcadorController {
     public void setDatos_utiles(String datos_utiles) {
         this.datos_utiles = datos_utiles;
     }
-    
+
     public double getLng() {
         return lng;
     }
@@ -147,8 +147,8 @@ public class MarcadorController {
     public void setLat(double lat) {
         this.lat = lat;
     }
-  
-    
+
+
     public MapModel getModel() {
         return model;
     }
@@ -156,8 +156,8 @@ public class MarcadorController {
     public MapModel getModelFiltro() {
         return modelFiltro;
     }
-    
-    
+
+
     public String getData() {
         return data;
     }
@@ -267,34 +267,39 @@ public class MarcadorController {
       * manda a llamar a eliminarMarcador de Utility
       * para eliminarlo de la BD
       */
-     public void eliminaMarcador(){
-         System.out.println(ubicacion);
-             u.eliminarMarcador(marcador);
+      public void eliminaMarcador(){
+          System.out.println(ubicacion);
+          marcador.setUbicacion(ubicacion);
+              u.eliminarMarcador(marcador);
+
+      }
+      public List misMarcadores() throws SQLException{
+         return u.dameMarcadoresT(t);
+      }
+
+       public void onMarkerSelect(OverlaySelectEvent event) {
+         marker = (Marker) event.getOverlay();
+         String ub = marker.getLatlng().toString();
+          //Separamos el LatLng de marker
+         String[] split = ub.split(":");
+         String ub2= split[2]; //lng
+        String[] split2=split[1].split(",");
+         String ub1= split2[0]; //lat
+        ubicacion= ub1+","+ub2;
+         data = (String) marker.getData();
+         title = (String) marker.getTitle();
 
      }
-     public List misMarcadores() throws SQLException{
-        return u.dameMarcadoresT(t);
-     }
-     
-      public void onMarkerSelect(OverlaySelectEvent event) {
-        marker = (Marker) event.getOverlay();
-        String ub = marker.getLatlng().toString();
-       
-        System.out.println(ub);
-        data = (String) marker.getData();
-        title = (String) marker.getTitle();
-  
-    }
-      
+
       public void filtrar(){
           System.out.println(filtro);
           List<Marcadores> marcadores = u.filtrar(filtro);
         System.out.println("Elementos " + marcadores.size());
-      
-          
 
-        
-          
+
+
+
+
       }
 
     public String getFiltro() {
@@ -304,6 +309,6 @@ public class MarcadorController {
     public void setFiltro(String filtro) {
         this.filtro = filtro;
     }
-      
-      
+
+
 }
