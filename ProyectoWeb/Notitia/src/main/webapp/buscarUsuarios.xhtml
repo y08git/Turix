@@ -33,7 +33,7 @@
 
     <h1>Buscar Usuario</h1>
 
-    <p:commandButton action="buscarUsuario" value="Buscar" update="myorm"/>
+    <p:commandButton action="buscarUsuario?faces-redirect=true" value="Buscar" update="myorm"/>
     <p:inputText value="#{usuarioController.nombre}"
                          required="true"
                          id="Nombre"

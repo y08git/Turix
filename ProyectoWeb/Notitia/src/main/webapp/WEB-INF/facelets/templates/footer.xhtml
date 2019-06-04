@@ -1,9 +1,25 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
+<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'/>
+
+<style type="text/css">
+  .header {
+      font-family: "Allerta Stencil";
+      /*font-weight: bold;*/
+      font-size: 40px;
+  }
+  .counter {
+      font-family: "Allerta Stencil", Times, serif;
+      font-weight: normal;
+      font-size: 20px;
+  }
+</style>
+  
   <div class="footer">
-    <p>&#169; N O T I T I A</p>
+  	<h:outputText value="&#169; N O T I T I A" class="counter"/><p/>
   </div>
 
 </ui:composition>

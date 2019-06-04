@@ -7,6 +7,16 @@
 <h:head>
 
 <style type="text/css">
+    .header {
+      font-family: "Allerta Stencil";
+      /*font-weight: bold;*/
+      font-size: 40px;
+    }
+    .counter {
+        font-family: "Allerta Stencil", Times, serif;
+        font-weight: bold;
+        font-size: 24px;
+    }
     .ui-datalist {
         width: 80%;
         margin-bottom: 10px;
@@ -59,7 +69,7 @@
             <h:outputText value="#{comentario.id_comentario}" />
         </p:column>
 
-        <p:column headerText="Marcadores" style="width: 300px">
+        <p:column headerText="Marcadores" style="width: 150px">
             <h:outputText value="#{comentario.marcadores.datos_utiles}" />
         </p:column>
 
