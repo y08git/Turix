@@ -90,7 +90,13 @@ public class ComentarioController {
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
     }
-
+    /**
+     * Metodo que llama al metodo getMiUsuario de utilty
+     * @return List
+     */
+    public List listaUsuarios() throws SQLException{
+        return u.getMiUsuario();
+    }
 
     /**
      * Metodo que llama al metodo darComentarios de utilty
@@ -106,7 +112,7 @@ public class ComentarioController {
      * @throws java.sql.SQLException
      */
     public List listaComentarios() throws SQLException{
-        return u.darComentarios(ubicacion);
+        return u.darComentarios(t);
     }
     
     /**
@@ -142,9 +148,19 @@ public class ComentarioController {
      * @return Usuario
      */
     public void agregarComentario(){
-        comentario.setFecha(new Date());
-        comentario.setMarcadores(existeMarcador(t));
-        comentario.setUsuario(existeUsuario(usuario));
+//        FacesContext.getCurrentInstance().getExternalContext()
+//                        .getSessionMap().put("marcador", marcador);
+        System.out.print(t);
+         comentario.setFecha(new Date());
+        //String u2 = comentario.getMarcadores().getUbicacion();
+//        marcador = (Marcadores) FacesContext.getCurrentInstance().getExternalContext()
+//                .getSessionMap().get("marcador");
+        comentario.setMarcadores(u.existeMarcador(t));
+        FacesContext context = getCurrentInstance();
+        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        String yo = user.getNombre_usuario();
+        comentario.setUsuario(user);
+        System.out.print(marcador.getUbicacion()+"fekfk");
         u.guardarComentario(comentario);
         comentario = null;
     }
@@ -158,19 +174,30 @@ public class ComentarioController {
     /* Metodo que llama al metodo actualizar de utility
      */
     public void editarComentario(){
+        FacesContext context = getCurrentInstance();
+        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        String yo = user.getNombre_usuario();
         String coment = comentario.getComentario();
         comentario = u.obtenerC(id_comentario);
         comentario.setComentario(coment);
-        u.actualizarComentario(comentario);
+        if(comentario.getUsuario().getNombre_usuario()==yo){
+            u.actualizarComentario(comentario);
+        }
     }
     
     /* Metodo que llama al metodo borrarComentario de utility
      */
     public void eliminarComentario(){
-        u.borrarComentario(id_comentario);
+        FacesContext context = getCurrentInstance();
+        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        String yo = user.getNombre_usuario();
+        comentario = u.obtenerC(id_comentario);
+        System.out.print(comentario.getUsuario().getNombre_usuario());
+        System.out.print(yo);
+        if(comentario.getUsuario().getNombre_usuario().equals(yo)){
+            u.borrarComentario(comentario);
+        }
+        System.out.print("NO");
     }
     
-    public void eliminarComentario(Comentarios c){
-        u.borrarComentario((int)c.getId_comentario());
-    }
 }

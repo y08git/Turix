@@ -5,6 +5,7 @@
  */
 package com.turix.controlador;
 
+import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
@@ -31,15 +32,16 @@ import org.primefaces.model.map.Marker;
  * @author dianis
  */
 @ManagedBean
-@RequestScoped
 @ViewScoped
 public class MarcadorController {
 
-   private MapModel model = new DefaultMapModel();
-   private MapModel modelFiltro = new DefaultMapModel();
+ 
+   private final MapModel model = new DefaultMapModel();
+   private final MapModel modelFiltro = new DefaultMapModel();
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
     private Temas tema = new Temas();
+    private Comentarios comentario = new Comentarios();
     public String t ;
     public String usuario;
     private String color;
@@ -79,7 +81,7 @@ public class MarcadorController {
         this.color = color;
     }
     
-
+        
     public String getUbicacion() {
         return ubicacion;
     }
@@ -95,7 +97,7 @@ public class MarcadorController {
     public void setMarker(Marker marker) {
         this.marker = marker;
     }
-    
+
     public String getTitle() {
         return title;
     }
@@ -108,7 +110,7 @@ public class MarcadorController {
     public void init() {
         List<Marcadores> marcadores= null;
       /** if(t != null){
-            
+
            marcadores = u.filtrar(filtro);
             System.out.println("Elementos " + marcadores.size());
         System.out.println(t);
@@ -116,17 +118,17 @@ public class MarcadorController {
         marcadores.forEach((marcador) -> {
            String[] coordenadas= marcador.getUbicacion().split("");
            double c1=Double.parseDouble(coordenadas[0]);
-           double c2=Double.parseDouble(coordenadas[1]); 
-           
+           double c2=Double.parseDouble(coordenadas[1]);
+
             model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
                     marcador.getDescripcion()));
         });
         t=null;
-           
+
 
         }else*/
-             
-          
+
+
            System.out.println(t);
            System.out.println("else");
             marcadores = u.darMarcadores();
@@ -143,16 +145,19 @@ public class MarcadorController {
                 model.addOverlay(m);
             }
         });
-        
-        
-        
+
+
+
     }
-        
-    
+
+
     public String getDatos_utiles() {
         return datos_utiles;
     }
 
+    public void setDatos_utiles(String datos_utiles) {
+        this.datos_utiles = datos_utiles;
+    }
     public double getLng() {
         return lng;
     }
@@ -262,7 +267,6 @@ public class MarcadorController {
        return u.existeTema(t);
     }
 
-
     /**
      * Metodo para checar si existe el Usuario
      * manda a llamar a existeUsuario de Utility
@@ -311,13 +315,20 @@ public class MarcadorController {
   
     }
       
-      public void filtrar(){
+   public void filtrar(){
           System.out.println(filtro);
           List<Marcadores> marcadores = u.filtrar(filtro);
         System.out.println("Elementos " + marcadores.size());
     }
 
-        
-          
+
+    public String getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(String filtro) {
+        this.filtro = filtro;
+    }
+
 }
 

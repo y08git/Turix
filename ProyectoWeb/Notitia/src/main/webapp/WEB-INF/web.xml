@@ -20,6 +20,7 @@
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <param-value>true</param-value>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

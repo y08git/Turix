@@ -459,11 +459,11 @@ public class Utility {
                 sessionObj.getTransaction().rollback();
             }
             l = null;
-        } finally {    
+        } finally {
             return l;
         }
     }
-    
+
 
     /**
      * Metodo para eliminar un tema de la BD
@@ -761,6 +761,23 @@ public class Utility {
         l = q.list();
         return l;
      }
+     /**
+      * 
+      * @param m
+      * @return Lista de los temas del usuario loggeado
+      */
+     public List darMisTemas(String m){
+         List l = null;
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        String query = "SELECT * FROM notitia.Temas "
+                   + "WHERE notitia.Temas.nombre_usuario LIKE '"+  m+"';";
+        sessionObj.beginTransaction();
+        sessionObj.getTransaction().commit();
+        Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+        l = q.list();
+        return l;
+     }
+     
 
      /**
      * Metodo para enlistar todos los temas
@@ -775,10 +792,10 @@ public class Utility {
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query);
         l = q.list();
-        
+
         return l;
-     }   
-     
+     }
+
      /**
       * Metodo para enlistar todos los marcadores
       * @return list
@@ -887,7 +904,7 @@ public class Utility {
          List l = null;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         String query = "SELECT * FROM notitia.Comentarios "
-                   + "WHERE notitia.Comentarios.ubicacion LIKE '"+  m+"';";
+                   + "WHERE notitia.Comentarios.ubicacion LIKE '"+  m+"'";
         sessionObj.beginTransaction();
         sessionObj.getTransaction().commit();
         Query q = sessionObj.createSQLQuery(query).addEntity(Comentarios.class);
@@ -1031,17 +1048,16 @@ public class Utility {
     }
     /**
       * Metodo para borrar un comentario
-      * @param id_comentario -- ID del Comentario que no se guardara
+      * @param comentario -- Objeto Comentario
       */
-    public void borrarComentario(int id_comentario){
+    public void borrarComentario(Comentarios comentario){
         boolean guardar = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
           try{
          sessionObj.beginTransaction();
 
-               Comentarios come = (Comentarios)sessionObj.get(Comentarios.class,id_comentario);
-               guardar = come!=null;
-                sessionObj.delete(come);
+               guardar = comentario!=null;
+                sessionObj.delete(comentario);
                 if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
                 sessionObj.getTransaction().commit();
           }catch (HibernateException e) {
@@ -1059,13 +1075,13 @@ public class Utility {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo: No existe el marcador a eliminar", ""));
+                                    "Fallo: No existe el marcador a editar", ""));
         } else {
 
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Se eliminó correctamente el comentario", ""));
+                                    "Se editó correctamente el comentario", ""));
 
         }
     }
@@ -1130,13 +1146,13 @@ public class Utility {
            FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Fallo: No existe el marcador a eliminar", ""));
+                                    "Fallo: No existe el marcador a editar", ""));
         } else {
 
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Se eliminó correctamente el comentario", ""));
+                                    "Se editó correctamente el comentario", ""));
 
         }
     }
@@ -1183,7 +1199,7 @@ public class Utility {
         }
         return u;
     }
-  
+
          /**
       * Metodo para filtrar los marcadores
       * @param t -- un string

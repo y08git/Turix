@@ -30,7 +30,7 @@ public class Comentarios implements Serializable{
     
     @ManyToOne
     @JoinColumn(name = "ubicacion")
-    private Marcadores marcadores;
+    private Marcadores marcadores = new Marcadores();
 
     @Column(name = "comentario")
     private String comentario;

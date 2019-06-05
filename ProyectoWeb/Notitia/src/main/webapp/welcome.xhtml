@@ -81,6 +81,10 @@
               <p:commandButton action="comentario?faces-redirect=true"
                                    value="Comentarios"/>
           </h:form>
+            <h:form>
+              <p:commandButton action="map?faces-redirect=true"
+                                   value="Mapa"/>
+          </h:form>
         </c:when>
 
         <!-- C O M E N T A R I S T A -->
@@ -89,10 +93,22 @@
             <h2>¡Hola Comentarista! #{loginController.login.usuario}</h2>
           </h:body>
           <h:form>
+              Hola Comentarista!
           <p:commandButton action="comentario?faces-redirect=true"
                                value="Comentarios"/>
           </h:form>
+            <h:form>
+              <p:commandButton action="map?faces-redirect=true"
+                                   value="Mapa"/>
+          </h:form>
         </c:when>
+        <c:otherwise>
+            Hola Visitante!
+    <p:commandLink action="index">
+    <h:graphicImage value="/img/m.png"
+                    style="float:left;"/>
+      </p:commandLink>
+        </c:otherwise>
       </c:choose>
   </ui:define>
 </ui:composition>

@@ -20,20 +20,20 @@ import javax.persistence.*;
 @Table(catalog = "notitia", schema = "notitia", name = "temas")
 public class Temas implements Serializable{
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @Column(name = "nombre")
     private String nombre;
-    
+
     @Column(name = "descripcion")
     private String descripcion;
-    
+
     @ManyToOne
     @JoinColumn(name = "nombre_usuario")
     private Usuario informador;
-    
+
     @Column(name = "color")
-    private String color = "FFFFFF";
+    private String color;
     
     
     public String getNombre() {
@@ -51,7 +51,7 @@ public class Temas implements Serializable{
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
     public Usuario getInformador() {
         return informador;
     }

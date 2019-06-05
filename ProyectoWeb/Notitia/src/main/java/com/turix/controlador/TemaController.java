@@ -7,12 +7,14 @@ package com.turix.controlador;
 import javax.faces.application.FacesMessage;
 import com.turix.controlador.HibernateUtil;
 import com.turix.modelo.Temas;
+import com.turix.modelo.Usuario;
 import java.util.Locale;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import static javax.faces.context.FacesContext.getCurrentInstance;
 import org.hibernate.*;
 
 /**
@@ -22,13 +24,13 @@ import org.hibernate.*;
 @ManagedBean
 @RequestScoped
 public class TemaController {
-    
+
     private Temas tema = new Temas();
     private final Utility u = new Utility();
     private boolean f = false;
     public String nom;
     private String color;
-
+    public String usuario;
     public String getColor() {
         return color;
     }
@@ -44,7 +46,7 @@ public class TemaController {
     public void setF(boolean f) {
         this.f = f;
     }
-    
+
     public String getNom() {
         return nom;
     }
@@ -52,7 +54,7 @@ public class TemaController {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
+
      public TemaController() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
@@ -66,7 +68,15 @@ public class TemaController {
     public void setTema(Temas tema) {
         this.tema = tema;
     }
-        
+    
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
      /**
       * Metodo que guarda un Tema
       * manda a llamar a guardarTema de Utility
@@ -85,7 +95,7 @@ public class TemaController {
      public void eliminarTema(){
              u.eliminarTema(tema);
 
-     }  
+     }
 
      /**
       * Metodo que elimina un Tema
@@ -95,7 +105,7 @@ public class TemaController {
      public void eliminarTema(Temas t){
              u.eliminarTema(t);
 
-     }   
+     }
 
      /**
       * Metodo que da la lista de todos los temas
@@ -104,9 +114,9 @@ public class TemaController {
       * @return List
       */
      public List listaTemas(){
-        return u.darTemas(); 
+        return u.darTemas();
      }
-     
+
 
      /**
       * Metodo que busca temas en la BD
@@ -115,10 +125,18 @@ public class TemaController {
      public List buscarTemas(){
          return u.buscarTemas(nom);
      }
-     
+
      public String redir(){
          f = true;
          return "buscarTemas?faces-redirect=true";
+     }
+     
+     public List da(){
+         FacesContext context = getCurrentInstance();
+        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        String yo = user.getNombre_usuario();
+        return u.darMisTemas(yo);
+        //marcador.setInformador(user);
      }
      /**
       * Metodo que da la lista de todos los temas

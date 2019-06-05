@@ -7,7 +7,7 @@ VALUES ('Admin', false, 'pass','turixteam2019@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Arthur García', true, 'pass','jarturoga1337@gmail.com',false);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Diana Ramirez', true, 'pass','dianissssss@ciencias.unam.mx',false);
+VALUES ('Diana', true, 'pass','dianissssss@ciencias.unam.mx',true);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
 VALUES ('Yo', false, 'pass','yo@gmail.com',true);
 INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
