@@ -1263,7 +1263,24 @@ public class Utility {
          return true;
      }
      
+     public void delete(Calificar cal){
+        sessionObj = HibernateUtil.getSessionFactory().openSession();
+        //query para restricciones
+          try{
+            sessionObj.beginTransaction();
+            sessionObj.delete(cal);
+            if (sessionObj.getTransaction().getStatus().equals(TransactionStatus.ACTIVE))
+                sessionObj.getTransaction().commit();
+          }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......TransactionCal Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+          } finally {
+              if (sessionObj != null) {
+              sessionObj.close();
+        }
+     }
      
-     
+    }
 }
-

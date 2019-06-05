@@ -27,7 +27,7 @@
 
       </tr>
 
-<tr>
+      <tr>
 
 
           <td>Comentario</td>
@@ -90,13 +90,14 @@
 
 <!--      <p:commandButton action="verComentarios"
                            value="Ver comentarios"/>-->
-      <p:commandButton action="map"
+<p:commandButton action="map" value="Regresar"/>
       <p:dataList value="#{comentarioController.listaComentarios()}" var="Comentarios">
         <f:facet name="header">
             Comentarios
         </f:facet>
           Id: #{Comentarios.id_comentario},Usuario:#{Comentarios.usuario.nombre_usuario} ,Fecha: #{Comentarios.fecha}, Contenido: #{Comentarios.comentario}
     </p:dataList>
+  </h:form>
 
   <h:form>
 <!--

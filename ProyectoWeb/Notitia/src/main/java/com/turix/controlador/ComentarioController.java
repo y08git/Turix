@@ -7,12 +7,14 @@
 package com.turix.controlador;
 
 import static com.sun.faces.facelets.util.Path.context;
+import com.turix.modelo.Calificar;
 import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -30,13 +32,16 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 @RequestScoped
 public class ComentarioController {
     public Marcadores marcador = new Marcadores();
+    public Usuario user;
     public Comentarios comentario = new Comentarios();
     private Utility u = new Utility();
     public String t ;
     public String usuario;
     public String ubicacion;
     public int id_comentario;
-
+    public List<Calificar> Cal;
+    
+ 
     public int getId_comentario() {
         return id_comentario;
     }
@@ -104,7 +109,35 @@ public class ComentarioController {
      */
     public List listaComentariosAdmin() throws SQLException{
         return u.darComentariosAdmin();
+         
     }
+    
+    /**
+     * Metodo que inicializa el atributo opcion de todos los comentarios
+     * @param l - lista de Comentarios a llamar
+     * @return List
+     * @throws java.sql.SQLException
+     */
+//    public List procesar(List<Comentarios> l) throws SQLException{
+//        FacesContext context = getCurrentInstance();
+//        user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+//        Calificar cal;
+//        Comentarios c;
+//        if(user == null)
+//            return l;
+//        for (Iterator<Comentarios> it = l.iterator(); it.hasNext();) {
+//            c = it.next();
+//            cal = u.calificacion(user, c);
+//            if(cal == null){
+//                   c.setOpcion(-1);
+//            }else{
+//                if(cal.isGustar())
+//                    c.setOpcion(1);
+//                c.setOpcion(0);
+//            }
+//        }
+//        return l;
+//    }
 
     /**
      * Metodo que llama al metodo darComentarios de utilty
@@ -118,6 +151,7 @@ public class ComentarioController {
     /**
      * Metodo que llama al metodo getMiUsuario de utilty
      * @return List
+     * @throws java.sql.SQLException
      */
     public List listaUsuariosEnEspera() throws SQLException{
         return u.getMiUsuario();
@@ -125,6 +159,7 @@ public class ComentarioController {
     
     /**
      * Metodo que llama al metodo existeMarcador de utilty
+     * @param t - ubicacion del marcador con formato \<latitud\>+','+\<longitud\>
      * @return Marcadores
      */
     public Marcadores existeMarcador(String t){
@@ -133,6 +168,7 @@ public class ComentarioController {
     
     /**
      * Metodo que llama al metodo existeUsuario de utilty
+     * @param t - id del usuario a llamar
      * @return Usuario
      */
     public Usuario existeUsuario(String t){
@@ -145,7 +181,6 @@ public class ComentarioController {
      * setMarcadores con la verificacion de que existe este marcador
      * setUsuario con la verificacion de que existe este usuario
      * Mandamos a llamar a guardarComentario
-     * @return Usuario
      */
     public void agregarComentario(){
 //        FacesContext.getCurrentInstance().getExternalContext()
@@ -180,7 +215,7 @@ public class ComentarioController {
         String coment = comentario.getComentario();
         comentario = u.obtenerC(id_comentario);
         comentario.setComentario(coment);
-        if(comentario.getUsuario().getNombre_usuario()==yo){
+        if(comentario.getUsuario().getNombre_usuario() == null ? yo == null : comentario.getUsuario().getNombre_usuario().equals(yo)){
             u.actualizarComentario(comentario);
         }
     }
@@ -200,4 +235,37 @@ public class ComentarioController {
         System.out.print("NO");
     }
     
+    /**Metodo para comprobar si un comentario fue calificado por el usuario actual
+     * 
+     * @param c
+     * @return 
+     */
+//    public boolean test(Comentarios c){
+//        if(user == null)
+//            return true;
+//        Calificar cal = u.calificacion(user, c);
+//        if(cal == null)
+//            return c.getOpcion() != -1;
+//        if(cal.isGustar())
+//            return c.getOpcion() != 1;
+//        return c.getOpcion() != 0;
+//    }
+    
+    /**Metodo para guardar, actualizar o eliminar una calificacion
+     * 
+     * @param c - comentario que se relacionara con el usuario en la cuenta actual
+     * @return String de redireccionamiento
+     */
+//    public String actualizarCal(Comentarios c){
+//        if(user == null)
+//            return null;
+//        Calificar cal = u.calificacion(user, c);
+//        if(c.getOpcion() == -1){
+//            if(cal != null)
+//                u.delete(cal);
+//            return null;
+//        }
+//        u.save(cal);
+//        return null;
+//    }
 }

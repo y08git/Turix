@@ -48,6 +48,7 @@ public class Comentarios implements Serializable{
 
     @Column(name  = "fecha")
     private Date fecha;
+    
 
     public long getId_comentario() {
         return id_comentario;

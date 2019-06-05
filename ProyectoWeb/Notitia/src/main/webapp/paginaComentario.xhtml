@@ -22,7 +22,7 @@ and open the template in the editor.
       <p:dataList value="#{comentarioController.listaComentariosAdmin()}" var="comentario">
       <table>
         <tr>
-          <td><p:messages id="messages" autoUpdate="true" closable="true"/></td>
+          <td><p:messages id="messages" autoUpdate="true" closable="true" /></td>
         </tr>
       </table>
           <p:dataTable var="Comentarios" value="{#{comentarioController.listaComentariosAdmin()}">
@@ -40,13 +40,13 @@ and open the template in the editor.
       </p:dataTable>
       <h:form>
     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-        <p:selectOneButton value="#{selectOneView.getOption(comentario)}">
+        <p:selectOneButton value="#{comentario.option}">
             <f:selectItem itemLabel="Me gusta" itemValue="1"/>
             <f:selectItem itemLabel="No me Gusta" itemValue="0"/>
         </p:selectOneButton>
          
-        <p:commandButton value="Submit" action="#{selectOneView.actualizar()}" icon="pi pi-check" 
-                         disabled="#{selectOneView.test()}"/>
+        <p:commandButton value="Submit" action="#{comentarioController.actualizarCal(comentario)}" icon="pi pi-check" 
+                         disabled="#{comentarioController.test(comentario)}"/>
         <p:spacer />
     </h:panelGrid>
 </h:form>
@@ -59,14 +59,7 @@ and open the template in the editor.
     <p:commandButton action="welcome" value="Regresar a Inicio"/>
     <p:commandButton action="buscarUsuario" value="Buscar Usuario"/>
     </h:form>
-on="pi pi-check"
-  <!--
-  <h:form>
-      <p:commandButton action="buscarUsuario"
-                           value="Buscar Usuario"/>
-  </h:form>
-  -->
-
-      </h:form>
-    </h:body>
+  
+   </h:form>    
+  </h:body>
 </html>

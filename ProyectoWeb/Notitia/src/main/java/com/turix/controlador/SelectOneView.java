@@ -15,7 +15,7 @@ public class SelectOneView {
     int t;
     private final Utility u = new Utility();
     private Calificar cal;
-    private int option = 0;   
+    private int option = -1;   
  
     public int getOption() {
         return option;
