@@ -27,7 +27,16 @@ public class TemaController {
     private final Utility u = new Utility();
     private boolean f = false;
     public String nom;
+    private String color;
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
     public boolean isF() {
         return f;
     }

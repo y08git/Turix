@@ -5,6 +5,7 @@
  */
 package com.turix.controlador;
 
+import com.turix.modelo.Calificar;
 import com.turix.modelo.Login;
 import com.turix.modelo.Comentarios;
 import com.turix.modelo.Marcadores;
@@ -58,7 +59,7 @@ public class Utility {
 
         } catch (HibernateException sqlException) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......\n"
+                System.out.println("\n.......Transaction03 Is Being Rolled Back.......\n"
                         + "Values of usu");
                 sessionObj.getTransaction().rollback();
             }
@@ -91,7 +92,7 @@ public class Utility {
             tx.commit();
         } catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction02 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -110,18 +111,17 @@ public class Utility {
      * @param usuario -- El mismo usuario con los cambios hechos (no por nombre)
      * @return True si se hizo el update
      */
-    public boolean update(Usuario user, Usuario usuario){
+    public boolean update(Usuario user){
         boolean success = false;
         sessionObj = HibernateUtil.getSessionFactory().openSession();
         try {
             Transaction tx = sessionObj.beginTransaction();
-            sessionObj.delete(user);
-            sessionObj.save(usuario);
+            sessionObj.update(user);
             tx.commit();
             success = true;
         } catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction01 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -149,7 +149,7 @@ public class Utility {
             sessionObj.getTransaction().commit();
         } catch (HibernateException sqlException) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction0 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
             sqlException.printStackTrace();
@@ -176,7 +176,7 @@ public class Utility {
                 sessionObj.getTransaction().commit();
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction1 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -226,7 +226,7 @@ public class Utility {
             }
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction2 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -266,7 +266,7 @@ public class Utility {
             sessionObj.getTransaction().commit();
         } catch (HibernateException sqlException) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction3 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
             sqlException.printStackTrace();
@@ -292,7 +292,7 @@ public class Utility {
 
         } catch (Exception sqlException) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction4 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
             sqlException.printStackTrace();
@@ -303,7 +303,37 @@ public class Utility {
 
         }
     }
+    
+    /**
+     * Metodo para guardar a una Calificacion en la base de datos al momento de registrar
+     * @param cal
+     * @return true si fue exitosa la transaccion
+     */
+    public void save(Calificar cal) {
 
+          sessionObj = HibernateUtil.getSessionFactory().openSession();
+        try {
+
+            sessionObj.beginTransaction();
+            if(aCalificado(cal.getUsuario(), cal.getComentarios()))
+                sessionObj.save(cal);
+            else
+                sessionObj.update(cal);
+            sessionObj.getTransaction().commit();
+
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......TransactionCal Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+
+        }
+    }
+    
     /**
      * Metodo para pre-registro de un Usuario en la base de datos
      * @param user
@@ -330,7 +360,7 @@ public class Utility {
             }
         } catch (Exception sqlException) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction5 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
             sqlException.printStackTrace();
@@ -386,7 +416,7 @@ public class Utility {
             }
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction6 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -425,7 +455,7 @@ public class Utility {
             l = q.list();
         }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction7 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
             l = null;
@@ -459,7 +489,7 @@ public class Utility {
             }
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction9 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -593,7 +623,7 @@ public class Utility {
             }
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction8 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -779,7 +809,7 @@ public class Utility {
                    + "WHERE notitia.Marcadores.ubicacion LIKE '"+ m.getUbicacion() +"';";
           try{
          sessionObj.beginTransaction();
-            Query q = sessionObj.createSQLQuery(query).addEntity(Temas.class);
+            Query q = sessionObj.createSQLQuery(query).addEntity(Marcadores.class);
             l = q.list();
             if(!l.isEmpty()){
                 guardar = true;
@@ -790,7 +820,7 @@ public class Utility {
             }
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction10 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -895,7 +925,7 @@ public class Utility {
         }
             catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction09 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -925,7 +955,7 @@ public class Utility {
         }
             catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction08 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -960,7 +990,7 @@ public class Utility {
             }
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction07 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -1000,7 +1030,7 @@ public class Utility {
                 sessionObj.getTransaction().commit();
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction06 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -1042,7 +1072,7 @@ public class Utility {
                 sessionObj.getTransaction().commit();
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction05 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -1071,7 +1101,7 @@ public class Utility {
                 sessionObj.getTransaction().commit();
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                System.out.println("\n.......Transaction04 Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }
         } finally {
@@ -1154,6 +1184,52 @@ public class Utility {
         l = q.list();
         return l;
      } 
+     
+     public Calificar calificacion(Usuario u, Comentarios c){
+         List l = null;
+         sessionObj = HibernateUtil.getSessionFactory().openSession();
+         try{
+             sessionObj.beginTransaction();
+             String query = "SELECT * FROM notitia.Calificar"
+                     + "WHERE nombre_usuario = "+u.getNombre_usuario()+" AND "
+                     + " ubicacion = "+c.getId_comentario();
+             Query q = sessionObj.createSQLQuery(query).addEntity(Calificar.class);
+             l = q.list();
+             sessionObj.getTransaction().commit();
+         }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction@@ Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }   
+         }
+         if(l == null || l.isEmpty())
+                 return null;
+         
+         return (Calificar)l.get(0);
+     }
+     
+     public boolean aCalificado(Usuario u, Comentarios c){
+         List l = null;
+         sessionObj = HibernateUtil.getSessionFactory().openSession();
+         try{
+             sessionObj.beginTransaction();
+             String query = "SELECT 1 FROM notitia.Calificar"
+                     + "WHERE nombre_usuario = "+u.getNombre_usuario()+" AND "
+                     + " ubicacion = "+c.getId_comentario();
+             Query q = sessionObj.createSQLQuery(query);
+             l = q.list();
+             sessionObj.getTransaction().commit();
+         }catch (HibernateException e) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......Transaction@@ Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }   
+         }
+         if(l == null || l.isEmpty())
+                 return false;
+         
+         return true;
+     }
      
      
      

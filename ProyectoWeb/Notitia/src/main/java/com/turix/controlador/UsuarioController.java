@@ -5,7 +5,6 @@
  */
 package com.turix.controlador;
 
-import com.turix.modelo.Login;
 import com.turix.modelo.Usuario;
 import java.util.List;
 import java.util.Locale;
@@ -25,7 +24,7 @@ import org.hibernate.Session;
     @ManagedBean
     @RequestScoped
 public class UsuarioController {
-    private Utility u = new Utility();
+    private final Utility u = new Utility();
     private Usuario user;
     private boolean bool;
     private String nombre;
@@ -139,47 +138,14 @@ public class UsuarioController {
 
     /**Un metodo que actualiza los datos del usuario actual
      *
-     * @return String de redireccion
      */
-    public String updateUsuario(){
+    public void updateUsuario(){
         FacesContext context = getCurrentInstance();
-        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        Usuario usuario = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
         bool = false;
-        if(user == null)
-            return "registro?faces-redirect=true";
-
-//        if(correo != null && !correo.equals(""))
-//            user.setCorreo(correo);
-
-        if(u.login(new Login(user.getNombre_usuario(),aContraseña)) == null){
-            context
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "La contraseña es Incorrecta", ""));
-            return null;
-        }
-        this.user = new Usuario();
-        this.user.setNombre_usuario(user.getNombre_usuario());
-        this.user.setEs_informador(user.isEs_informador());
-        this.user.setCorreo(user.getCorreo());
-        if(contraseña.equals(confirmarContraseña)){
-            this.user.setContraseña(contraseña);
-            u.update(user, this.user);
-            context
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                "Se ha actualizado los datos", ""));
-            context.getExternalContext().getSessionMap().replace("usuario", this.user);
-            bool = true;
-            return null;
-        }else{
-            context
-                    .addMessage(null,
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                    "Las contraseñas no coinciden", ""));
-        }
-
-        return null;
+        if(usuario == null)
+            return;
+        u.update(usuario);
 
     }
     private Usuario getUser(String user_name,String contraseña) {
@@ -333,6 +299,7 @@ public class UsuarioController {
 
     /**Un metodo para borrar el usuario en esta instancia
      *
+     * @param usuario -- Usuario a borrar con hibernate
      * @return String de redireccion
      */
     public String deleteUsuario(Usuario usuario){
@@ -347,6 +314,7 @@ public class UsuarioController {
 
     /**Un metodo para borrar usuarios desde la vista de Informadores
      *
+     * @param usuario -- Usuario a borrar con hibernate
      * @return String de redireccion
      */
     public String deleteInformador(Usuario usuario){
@@ -361,6 +329,7 @@ public class UsuarioController {
 
     /**Un metodo para borrar usuarios desde la vista de Comentaristas
      *
+     * @param usuario -- Usuario a borrar con hibernate 
      * @return String de redireccion
      */
     public String deleteComentarista(Usuario usuario){
@@ -375,6 +344,7 @@ public class UsuarioController {
 
     /**Un metodo para borrar usuarios desde la vista de Búsqueda de usuarios
      *
+     * @param usuario -- Usuario a borrar con hibernate
      * @return String de redireccion
      */
     public String deleteBuscar(Usuario usuario){
@@ -401,5 +371,27 @@ public class UsuarioController {
         String correo = user.getCorreo();
         System.out.println(correo);
         mail.enviar(correo,"Correo de confirmación","<h2>¡Felicidades! ¡Ya eres Informador en Notitia!</h2>");
+    }
+    public String cambiarContraseña(){
+        FacesContext context = getCurrentInstance();
+        Usuario usuario = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        if(usuario == null){
+            return "inicio?faces-redirect=true";
+        }
+        if(contraseña.equals(confirmarContraseña)){
+            usuario.setContraseña(aContraseña);
+            u.update(usuario);
+            context
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                "Se ha actualizado los datos", ""));
+            return null;
+        }else{
+            context
+                    .addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Las contraseñas no coinciden", ""));
+            return null;
+        }
     }
 }
