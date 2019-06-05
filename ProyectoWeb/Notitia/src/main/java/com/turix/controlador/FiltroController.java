@@ -5,6 +5,8 @@
  */
 package com.turix.controlador;
 
+import com.sun.faces.context.SessionMap;
+import static com.sun.faces.facelets.util.Path.context;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
@@ -14,8 +16,11 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 import org.primefaces.event.map.OverlaySelectEvent;
@@ -29,7 +34,7 @@ import org.primefaces.model.map.Marker;
  * @author dianis
  */
 @ManagedBean
-@ViewScoped 
+@SessionScoped 
 public class FiltroController {
 
     
@@ -48,6 +53,16 @@ public class FiltroController {
     private Marker marker;
     private String ubicacion;
     private String filtro;
+    private SessionMap map ;
+    private List <Marcadores> marcadores;
+
+    public List<Marcadores> getLista() {
+        return marcadores;
+    }
+
+    public void setLista(List<Marcadores> lista) {
+        this.marcadores = lista;
+    }
 
    
 
@@ -77,10 +92,12 @@ public class FiltroController {
 
     @PostConstruct
     public void init() {
-        List<Marcadores> marcadores= null;
-      
-            marcadores = filtrar();
+     
+            marcadores=u.filtrar(filtro);
+             System.out.println("-------------------------------");
+              System.out.println(filtro);
         System.out.println("Elementos filtro:" + marcadores.size());
+        System.out.println("-------------------------------");
         marcadores.forEach((marcador) -> {
            String[] coordenadas= marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
@@ -94,7 +111,10 @@ public class FiltroController {
         
         
     }
-        
+        public void savefiltro(){
+             String f = (String) map.get("filtro");
+           setFiltro(f);
+        }
     
       public String getDatos_utiles() {
         return datos_utiles;
@@ -262,18 +282,27 @@ public class FiltroController {
   
     }
       
-      public List<Marcadores> filtrar(){
-          System.out.println(filtro);
+      public String filtrar(){
+          System.out.println("-------------------------------");
+          System.out.println("filtrar en filtroController:"+ filtro);
+          System.out.println("-------------------------------");
           List<Marcadores> marcadores = u.filtrar(filtro);
-        //System.out.println("Elementos " + marcadores.size());
+          FacesContext context = getCurrentInstance();
+          map = (SessionMap) context.getExternalContext().getSessionMap();
+          map.put("filtro", filtro);
+          savefiltro();
+        String mapa = "mapaFiltro";
+       return mapa;
+          
       
           
-        return marcadores;
+        
         
           
       }
 
     public String getFiltro() {
+        
         return filtro;
     }
 

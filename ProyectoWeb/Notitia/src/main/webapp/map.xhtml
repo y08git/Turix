@@ -37,7 +37,7 @@
                     <br/>
                     <h:outputText value="${marcadorController.data}" style="color: black" /><br/>
                     <h:form>  
-                   <b:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador}" rendered="#{loginController.currentUser.es_informador}"/>
+                   <b:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador}" rendered="#{loginController.currentUser.es_informador}" onclick="markerDelete()"/>
                    
                     </h:form> 
                     
@@ -54,15 +54,16 @@
     <table>
       <tr>
         <td>Tema</td>
-               <p:inputText id="t" value="#{filtroController.filtro}" />
+               <p:inputText id="t" value="#{marcadorController.filtro}"  />
+    
       </tr> 
         
  
    
-      <h:form>
-      <b:commandButton action= "mapaFiltro"
-                           value="Filtrar"/>
-  </h:form>
+      
+      <b:commandButton action= "#{marcadorController.redirect}" 
+                           value="Filtrar" onclick="map"/>
+  
         
     </table>
   </h:form>
@@ -92,7 +93,8 @@
             
  
             <f:facet name="footer">
-                <p:commandButton value="Add" action="#{marcadorController.guardarMarcador}" update=":messages" oncomplete="markerAddComplete()" onclick="map" />
+                <p:commandButton value="Add" action="#{marcadorController.guardarMarcador}" update=":messages" oncomplete="markerAddComplete()" onclick="map"
+                                 /> 
                 <p:commandButton value="Cancel" onclick="return cancel()" />
             </f:facet>
         </h:panelGrid>

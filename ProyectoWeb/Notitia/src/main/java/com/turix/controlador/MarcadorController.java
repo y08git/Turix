@@ -5,6 +5,7 @@
  */
 package com.turix.controlador;
 
+import com.sun.faces.context.SessionMap;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
@@ -30,7 +31,7 @@ import org.primefaces.model.map.Marker;
  * @author dianis
  */
 @ManagedBean
-@ViewScoped 
+@ViewScoped
 public class MarcadorController {
 
     
@@ -49,7 +50,16 @@ public class MarcadorController {
     private Marker marker;
     private String ubicacion;
     private String filtro;
+     private List <Marcadores> marcadores;
+ private SessionMap map ;
+ 
+    public List<Marcadores> getLista() {
+        return marcadores;
+    }
 
+    public void setLista(List<Marcadores> lista) {
+        this.marcadores = lista;
+    }
    
 
     public String getUbicacion() {
@@ -78,11 +88,12 @@ public class MarcadorController {
 
     @PostConstruct
     public void init() {
-        List<Marcadores> marcadores= null;
       
-        if(!filtrar()){
-            marcadores = u.darMarcadores();
+            marcadores = iniciar();
+             System.out.println("-------------------------------");
+             System.out.println(filtro);
         System.out.println("Elementos init:" + marcadores.size());
+         System.out.println("-------------------------------");
         marcadores.forEach((marcador) -> {
            String[] coordenadas= marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
@@ -92,21 +103,20 @@ public class MarcadorController {
                     marcador.getDescripcion()));
                 
         });
-        }else
-             marcadores = u.filtrar(filtro);
-        System.out.println("Elementos init:" + marcadores.size());
-        marcadores.forEach((marcador) -> {
-           String[] coordenadas= marcador.getUbicacion().split(",");
-           double c1=Double.parseDouble(coordenadas[0]);
-           double c2=Double.parseDouble(coordenadas[1]); 
-           
-            model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
-                    marcador.getDescripcion()));
-                     
-        });
+       
         
         
     }
+    
+    public List<Marcadores> iniciar(){
+     marcadores= null;
+       if(filtro==null){
+           marcadores= u.darMarcadores();
+       }else
+           marcadores=u.filtrar(filtro);
+        return marcadores;
+    
+       }
         
     
       public String getDatos_utiles() {
@@ -251,9 +261,10 @@ public class MarcadorController {
       * manda a llamar a eliminarMarcador de Utility
       * para eliminarlo de la BD
       */
-     public void eliminaMarcador(){
+     public String eliminaMarcador(){
          marcador.setUbicacion(ubicacion);
              u.eliminarMarcador(marcador);
+             return "map";
 
      }
      public List misMarcadores() throws SQLException{
@@ -274,16 +285,47 @@ public class MarcadorController {
   
     }
       
-      public boolean filtrar(){
-         boolean filter= false;
+       public void savefiltro(){
+             String f = (String) map.get("filtro");
+           setFiltro(f);
+        }
+      
+      public void filtrar(){
+         
+       System.out.println("-------------------------------");
+          System.out.println("filtrar en filtroController:"+ filtro);
+          System.out.println("-------------------------------");
           List<Marcadores> marcadores = u.filtrar(filtro);
-        System.out.println("Elementos " + marcadores.size());
-      if(marcadores.size()!=0)
-          filter=true;
-          return filter;
-
+          FacesContext context = getCurrentInstance();
+          map = (SessionMap) context.getExternalContext().getSessionMap();
+          map.put("filtro", filtro);
+          savefiltro();
+          marcadores = iniciar();
+             System.out.println("-------------------------------");
+             System.out.println(filtro);
+        System.out.println("Elementos init:" + marcadores.size());
+         System.out.println("-------------------------------");
+        marcadores.forEach((marcador) -> {
+           String[] coordenadas= marcador.getUbicacion().split(",");
+           double c1=Double.parseDouble(coordenadas[0]);
+           double c2=Double.parseDouble(coordenadas[1]); 
+           
+            model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
+                    marcador.getDescripcion()));
+                
+        });
         
           
+        //String mapa = "mapaFiltro";
+       //return mapa;
+        
+          
+      }
+      
+      public String redirect(){
+        filtrar();
+        String mapa = "mapaFiltro";
+       return mapa;
       }
 
     public String getFiltro() {

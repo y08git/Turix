@@ -18,6 +18,7 @@ function handlePointClick(event) {
         PF('map').addOverlay(currentMarker);
         PF('dialog').show();
     }
+    
 }
 
 function markerAddComplete() {
@@ -33,4 +34,9 @@ function cancel() {
     currentMarker = null;
 
     return false;
+}
+
+function markerDelete(){
+    currentMarker.setMap(null);
+    currentMarker=null;
 }
