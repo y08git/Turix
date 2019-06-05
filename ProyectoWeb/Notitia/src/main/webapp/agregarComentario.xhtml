@@ -63,34 +63,7 @@
         </td>
       </tr>
     </table>
-      <p:dataList value="#{comentarioController.listaComentarios()}" var="Comentarios" >
-        <f:facet name="header">
-            Comentarios
-        </f:facet>
-        #{Comentarios.fecha}, #{Comentarios.id_comentario}, #{Comentarios.comentario},#{Comentarios.calificacionNegativa},#{Comentarios.calificacionPositiva}
-        
-        <td colspan="3" align="center">
-            <p:inputText value="#{comentarioController.id_comentario}"
-                         required="true"
-                         id="id_comentario"
-                         size="20"/>
-                <p:commandButton action="#{comentarioController.eliminarComentario}"
-                           value="Eliminar"/>
-                <p:commandButton action="editarComentario"
-                           value="Editar"/>
-                </td>
-    </p:dataList>
-<!--    <table>
-      <tr><td>
-        <p:messages id="messages" autoUpdate="true" closable="true" />
-      </td></tr>
-    </table>-->
   </h:form>
-  <h:form>
-
-<!--      <p:commandButton action="verComentarios"
-                           value="Ver comentarios"/>-->
-      <p:commandButton action="map"
       <p:dataList value="#{comentarioController.listaComentarios()}" var="Comentarios">
         <f:facet name="header">
             Comentarios
@@ -116,7 +89,7 @@
                            value="Editar"/>
             </td>
         </table>
-<p:commandButton action="map?faces-redirect=true"
+<p:commandButton action="map"
                            value="Mapa"/>
   </h:form>
 </h:body>

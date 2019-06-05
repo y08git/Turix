@@ -52,35 +52,43 @@
 
   <h:form id="myForm">
 
-  <h:outputText value="Lista de Temas" class="header"/><p/>
+  <h:outputText value="Lista de Comentarios" class="header"/><p/>
 
   <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/>
 
   <br></br><br></br>
-    <p:dataTable var="tema" value="#{temaController.listaTemas()}" style="margin-bottom:40px" autoUpdate="true" class="counter" >
+    <p:dataTable var="comentario" value="#{comentarioController.listaComentariosAdmin()}" style="margin-bottom:40px" autoUpdate="true" class="counter" sortBy="#{comentario.marcadores.datos_utiles}">
 
         <!--
         <f:event type="postAddToView" listener="#{MarcadorController.onMarkerSelect}"/>
         -->
         <p:column headerText="" style="width: 70px">
-        <p:commandButton action="#{temaController.eliminarTema(tema)}"
+        <p:commandButton action="#{comentarioController.eliminarComentario(comentario)}"
                        value="x" style="margin-bottom: 2px; width: 50px; " class="pi pi-times-circle" update="myForm" process="@this"
                        />
         </p:column>
-        <p:column style="width: 12%" headerText="Nombre" >
-            <h:outputText value="#{tema.nombre}" />
+        <p:column style="width: 12%" headerText="Usuario" >
+            <h:outputText value="#{comentario.usuario.nombre_usuario}" />
         </p:column>
  
-        <p:column style="width: 20%" headerText="Descripción" >
-            <h:outputText value="#{tema.descripcion}" />
+        <p:column style="width: 5%" headerText="Id" >
+            <h:outputText value="#{comentario.id_comentario}" />
         </p:column>
  
-        <p:column style="width: 10%" headerText="Usuario" >
-            <h:outputText value="#{tema.informador.nombre_usuario}" />
+        <p:column headerText="Marcador" style="width: 20%" >
+            <h:outputText value="#{comentario.marcadores.datos_utiles}" />
         </p:column>
  
-        <p:column style="width: 6%" headerText="Color" >
-            <h:outputText value="#{tema.color}" />
+        <p:column headerText="Comentario" >
+            <h:outputText value="#{comentario.comentario}" />
+        </p:column>
+
+        <p:column style="width: 5%" headerText="Up" >
+            <h:outputText value="#{comentario.calificacionPositiva}" />
+        </p:column>
+
+        <p:column style="width: 7%" headerText="Down"> 
+            <h:outputText value="#{comentario.calificacionNegativa}" />
         </p:column>
     </p:dataTable>
   </h:form>

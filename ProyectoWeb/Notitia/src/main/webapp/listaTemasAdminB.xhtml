@@ -1,14 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:define name="content">
+<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'/>
+<style type="text/css">
+    .header {
+        font-family: "Allerta Stencil";
+        /*font-weight: bold;*/
+        font-size: 20px;
+    }
+    .counter {
+        font-family: "Allerta Stencil", Times, serif;
+        /*font-weight: bold;*/
+        font-size: 12px;
+        text-align: center;
+    }
+    .ui-datalist {
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+        align-self: right;
+        /*display: flex;
+        flex-direction: column;*/
+        justify-content: center;
+    }
+    .ui-datalist-item {
+        padding:4px;
+    }
+    .ui-datatable input {
+        box-sizing: border-box;
+        width: 100%;
+        -webkit-box-shadow: none;
+        box-shadow: none !important;
+    }
+    .paginated .ui-datalist-data {
+        padding-left: 10px;
+        justify-content: center;
+    }
+</style>
 
 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
-  <title>Ver Temas</title>
-</h:head>
+  <title>Ver Comentarios</title>
 
 <h:body>
 
@@ -16,28 +52,38 @@
 
   <h:form id="myForm">
 
-  <h1>Lista de Temas</h1> <br/>
+  <h:outputText value="Lista de Temas" class="header"/><p/>
 
   <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/>
-  
-  <br></br><br></br>
 
-      <p:dataList value="#{temaController.listaTemas()}" var="Temas">
-        <f:facet name="header">
-            Temas
-        </f:facet>        
-        <p:commandButton action="#{temaController.eliminarTema(Temas)}"
-                       value="X" style="margin-bottom: 2px;" class="pi pi-times-circle"
-                       update="myForm" process="@this"
-                       />    
-        #{Temas.nombre}, #{Temas.descripcion}
-    </p:dataList>
-    <table>
-      <tr><td>
-        <p:messages id="messages" autoUpdate="true" closable="true" />
-      </td></tr>
-    </table>
+  <br></br><br></br>
+    <p:dataTable var="tema" value="#{temaController.listaTemas()}" style="margin-bottom:10px" autoUpdate="true" class="counter" >
+
+        <!--
+        <f:event type="postAddToView" listener="#{MarcadorController.onMarkerSelect}"/>
+        -->
+        <p:column headerText="" style="width: 3%">
+        <p:commandButton action="#{temaController.eliminarTema(tema)}"
+                       value="x" style="margin-bottom: 2px; width: 50px; " class="pi pi-times-circle" update="myForm" process="@this"
+                       />
+        </p:column>
+
+        <p:column style="width: 10%" headerText="Usuario" >
+            <h:outputText value="#{tema.informador.nombre_usuario}" />
+        </p:column>
+        
+        <p:column style="width: 12%" headerText="Nombre" >
+            <h:outputText value="#{tema.nombre}" />
+        </p:column>
+ 
+        <p:column style="width: 20%" headerText="Descripción" >
+            <h:outputText value="#{tema.descripcion}" />
+        </p:column>
+ 
+    </p:dataTable>
   </h:form>
 
 </h:body>
-</html>
+
+</ui:define>
+</ui:composition>
