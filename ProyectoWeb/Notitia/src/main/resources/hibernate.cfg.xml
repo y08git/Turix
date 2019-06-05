@@ -17,6 +17,5 @@
     <mapping class="com.turix.modelo.Comentarios"/>
     <mapping class="com.turix.modelo.Temas"/>
     <mapping class="com.turix.modelo.Marcadores"/>
-    <mapping class="com.turix.modelo.Calificar"/>
   </session-factory>
 </hibernate-configuration>

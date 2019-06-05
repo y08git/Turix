@@ -147,7 +147,9 @@ public class UsuarioController {
             return;
         u.update(usuario);
 
+
     }
+
     private Usuario getUser(String user_name,String contraseña) {
         Session session = null;
         Usuario usuario = null;
@@ -257,6 +259,14 @@ public class UsuarioController {
         return null;
     }
 
+    public boolean hayEnEspera() {
+        return u.hayUsuariosEnEspera();
+    }
+
+    public int contarUsuariosEnEspera() {
+        return u.contarEnEspera();
+    }
+
     /**Metodo que regresa a todos los usuarios registrados en espera de asignación
      *
      * @return Un objeto de tipo lista
@@ -356,6 +366,7 @@ public class UsuarioController {
         u.delete(usuario);
         return "buscarUsuarios?faces-redirect=true";
     }
+    
     
     public void deleteItself(){
         if (user != null) u.delete(user);

@@ -26,15 +26,15 @@
 </style>
 
 <h:body>
-    <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/> 
+  <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/> 
 
   <h:form id="myorm">
 
     <h1>Buscar Usuario</h1>
 
-    <p:commandButton action="buscarUsuario" value="Buscar" update="myorm"/>
+    <p:commandButton action="buscarUsuario?faces-redirect=true" value="Buscar" update="myorm"/>
     <p:inputText value="#{usuarioController.nombre}"
-                         required="false"
+                         required="true"
                          id="Nombre"
                          size="12"/>
     <br></br><br></br>
@@ -58,13 +58,13 @@
       </p:dataTable>
 
       <h:form>
-      <p:commandButton action="#{usuarioController.setRegistradosBus(usuario)}"
+      <p:commandButton action="#{usuarioController.setRegistradosBus(Usr)}"
                        value="#{usuarioController.inf(usuario)}"
                        update="@none" process="@this"
                        />
 
       <p:growl id="message" showDetail="true" />
-      <p:commandButton value="Eliminar" action="#{usuarioController.deleteUsuario(usuario)}" update="message" >
+      <p:commandButton value="Eliminar" action="#{usuarioController.deleteItself()}" update="message" oncomplete="listaEncontrados.filter()">
               <p:confirm header="Confirmación" message="¿Está Seguro?" icon="pi pi-exclamation-triangle" />
           </p:commandButton>
             <p:confirmDialog global="true" >

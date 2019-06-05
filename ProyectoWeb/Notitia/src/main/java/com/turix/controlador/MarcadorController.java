@@ -9,12 +9,14 @@ import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
@@ -29,10 +31,9 @@ import org.primefaces.model.map.Marker;
  * @author dianis
  */
 @ManagedBean
+@RequestScoped
 @ViewScoped
 public class MarcadorController {
-
-    
 
    private MapModel model = new DefaultMapModel();
    private MapModel modelFiltro = new DefaultMapModel();
@@ -112,16 +113,13 @@ public class MarcadorController {
             System.out.println("Elementos " + marcadores.size());
         System.out.println(t);
         System.out.println("if");
-        
         marcadores.forEach((marcador) -> {
-           String[] coordenadas;
-            coordenadas = marcador.getUbicacion().split(",");
+           String[] coordenadas= marcador.getUbicacion().split("");
            double c1=Double.parseDouble(coordenadas[0]);
            double c2=Double.parseDouble(coordenadas[1]); 
            
             model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
                     marcador.getDescripcion()));
-            
         });
         t=null;
            
@@ -153,13 +151,8 @@ public class MarcadorController {
     
     public String getDatos_utiles() {
         return datos_utiles;
-
     }
 
-    public void setDatos_utiles(String datos_utiles) {
-        this.datos_utiles = datos_utiles;
-    }
-    
     public double getLng() {
         return lng;
     }
@@ -175,8 +168,8 @@ public class MarcadorController {
     public void setLat(double lat) {
         this.lat = lat;
     }
-  
-    
+
+
     public MapModel getModel() {
         return model;
     }
@@ -184,8 +177,6 @@ public class MarcadorController {
     public MapModel getModelFiltro() {
         return modelFiltro;
     }
-    
-    
     public String getData() {
         return data;
     }
@@ -256,8 +247,9 @@ public class MarcadorController {
         marcador.setUbicacion(ub1+","+ub2);
          u.guardarMarcador(marcador);
          model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDatos_utiles()));
+
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
-        marcador = null;
+            marcador = null;
          }
     /**
      * Metodo para checar si existe el Tema
@@ -304,7 +296,7 @@ public class MarcadorController {
      public List misMarcadores() throws SQLException{
         return u.dameMarcadoresT(t);
      }
-     
+
       public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();
         String ub = marker.getLatlng().toString();
@@ -323,20 +315,9 @@ public class MarcadorController {
           System.out.println(filtro);
           List<Marcadores> marcadores = u.filtrar(filtro);
         System.out.println("Elementos " + marcadores.size());
-      
-          
+    }
 
         
           
-      }
-
-    public String getFiltro() {
-        return filtro;
-    }
-
-    public void setFiltro(String filtro) {
-        this.filtro = filtro;
-    }
-      
-      
 }
+

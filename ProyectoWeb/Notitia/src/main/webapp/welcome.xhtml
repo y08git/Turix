@@ -6,22 +6,45 @@
   xmlns:f="http://xmlns.jcp.org/jsf/core"
   xmlns:p="http://primefaces.org/ui"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:define name="content">
+<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'/>
 
-  <ui:define name="content">
+<style type="text/css">
+  .header {
+      font-family: "Allerta Stencil";
+      /*font-weight: bold;*/
+      font-size: 40px;
+  }
+  .counter {
+      font-family: "Allerta Stencil", Times, serif;
+      font-weight: bold;
+      font-size: 24px;
+  }
+</style>
+
       <c:choose>
       
         <!-- A D M I N I S T R A D O R-->
         <c:when test="#{loginController.admin}">
         
-          Bienvenido Administrador.
-          
+          <h:outputText value="¡Bienvenido Administrador!" class="header"/><p/>
+
+          <h:form>
+            <c:choose>
+              <c:when test ="#{usuarioController.hayEnEspera()}">
+                <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
+                                   value="Hay #{usuarioController.contarUsuariosEnEspera()} usuarios esperando asignación"/>
+              </c:when>
+              <c:otherwise>
+                <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
+                                   value="No hay usuarios esperando asignación"/>
+              </c:otherwise>
+            </c:choose>
+          </h:form>
+
           <h:form>  
               <p:commandButton action="listaUsuariosRegistrados?faces-redirect=true" style="margin-bottom: 3px;"
                                    value="Usuarios Registrados"/>
-          </h:form>
-          <h:form>
-              <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
-                                   value="Usuarios en Espera de Asignación"/>
           </h:form>
           
           <h:form>
@@ -38,29 +61,35 @@
         <!-- I N F O R M A D O R-->
         <c:when test="#{loginController.currentUser.es_informador}">
           <h:head>
-            <title>Hola!</title>
+            <title>Bienvenido</title>
           </h:head>
+
+          <h:outputText value="¡Hola #{usuario.nombre_usuario}!" class="header"/>
+
           <h:body>
-            <h2>Bienvenido! #{loginController.login.usuario}</h2>
+            <h2>Eres Informador en TURIX #{loginController.login.usuario}</h2>
           </h:body>
               <h:form>
-              <p:commandButton action="temaInformador"
+              <p:commandButton action="temaInformador?faces-redirect=true"
                                    value="Temas"/>
           </h:form>
               <h:form>
-              <p:commandButton action="marcador"
+              <p:commandButton action="marcador?faces-redirect=true"
                                    value="Marcadores"/>
           </h:form>
               <h:form>
-              <p:commandButton action="comentario"
+              <p:commandButton action="comentario?faces-redirect=true"
                                    value="Comentarios"/>
           </h:form>
         </c:when>
 
-
+        <!-- C O M E N T A R I S T A -->
         <c:when test="#{loginController.logged}">
+          <h:body>
+            <h2>¡Hola Comentarista! #{loginController.login.usuario}</h2>
+          </h:body>
           <h:form>
-          <p:commandButton action="comentario"
+          <p:commandButton action="comentario?faces-redirect=true"
                                value="Comentarios"/>
           </h:form>
         </c:when>

@@ -16,7 +16,7 @@
     <h1>Configuración</h1>
   </h:body>
       <h:form>
-      <p:commandLink action="miPerfilCo">
+      <p:commandLink action="miPerfilCo?faces-redirect=true">
     <h:graphicImage value="/img/back.png"
                     style="float:right;"/>
       </p:commandLink>
@@ -27,14 +27,20 @@
 <!--       <h:inputSecret value="#{Usuario.contraseña}"
    redisplay="true"/>-->
       <h:form>
-      <p:commandButton action="GestionarUsuario"
+      <p:commandButton action="GestionarUsuario?faces-redirect=true"
                            value="Cambiar Contraseña"/>
   </h:form>
       
   </h:form>
       <h:form>
-      <p:commandButton action="pedirInfo"
-                           value="Cambiarse a Informador"/>
+      <p:commandButton action="pedirInfo?faces-redirect=true"
+                           value="Cambiarse a Informador"
+                           rendered="#{not loginController.currentUser.en_espera}">
+                           <f:actionListener binding="#{loginController.currentUser.setEn_espera(true)}"/>
+                           <f:actionListener binding="#{usuarioController.updateUsuario()}"/>
+      </p:commandButton>
+      <p:commandButton action="pedirInfo?faces-redirect=true" value="Ya estás en la Lista de Espera" rendered="#{loginController.currentUser.en_espera}">
+      </p:commandButton>
   </h:form>
   <!--  <h:form>
       <p:commandLink action="editarPerfil">

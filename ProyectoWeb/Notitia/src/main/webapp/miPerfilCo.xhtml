@@ -6,12 +6,27 @@
   xmlns:f="http://xmlns.jcp.org/jsf/core"
   xmlns:p="http://primefaces.org/ui"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:define name="content">
+<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'/>
 
-  <ui:define name="content">
-      <c:choose>
+<style type="text/css">
+  .header {
+      font-family: "Allerta Stencil";
+      /*font-weight: bold;*/
+      font-size: 40px;
+  }
+  .counter {
+      font-family: "Allerta Stencil", Times, serif;
+      font-weight: bold;
+      font-size: 24px;
+  }
+</style>
+  
+<c:choose>
 <!-- A D M I N I S T R A D O R-->
 <c:when test="#{loginController.admin}">
-              
+  <h:outputText value="¡Bienvenido Administrador!" class="header"/><p/>
+  <p:commandButton action="welcome?faces-redirect=true" value="Inicio"/>             
 </c:when>
 <!--I N F O R M A D O R-->
           <c:when test="#{loginController.currentUser.es_informador}">
@@ -20,14 +35,14 @@
   </h:body>
       <h:form>
           <p:menuitem>
-    <h:link outcome="#">
+    <h:link value="welcome?faces-redirect=true" outcome="#">
         <h:graphicImage value="/img/pic.png"
                         style="float:left;"/>
     </h:link>
 </p:menuitem>
       </h:form>
       <h:form>
-      <p:commandLink action="welcome">
+      <p:commandLink action="welcome?faces-redirect=true">
     <h:graphicImage value="/img/back.png"
                     style="float:right;"/>
       </p:commandLink>
@@ -35,7 +50,7 @@
        <hr />
       <h:form>
           <h4>Mi Nombre de Usuario</h4>
-          <h:outputText value="#{usuarioController.user}"/>
+          <h:outputText value="#{usuarioController.nombre}"/>
       </h:form>
       <h:form>
           <h4>Mi Correo</h4>
@@ -43,10 +58,11 @@
       </h:form>
       <hr />
   <h:form>
-      <p:commandLink action="editarPerfilIn">
+      <p:commandLink action="editarPerfilIn?faces-redirect=true">
     <h:graphicImage value="/img/conf.png" />
       </p:commandLink>
   </h:form>
+  
           </c:when>
 <!--C O M E N T A R I S T A-->
           <c:when test="#{loginController.logged}">
@@ -67,7 +83,7 @@
 </p:menuitem>
       </h:form>
       <h:form>
-      <p:commandLink action="welcome">
+      <p:commandLink action="welcome?faces-redirect=true">
     <h:graphicImage value="/img/back.png"
                     style="float:right;"/>
       </p:commandLink>
@@ -83,10 +99,10 @@
       </h:form>
       <hr />
   <h:form>
-      <p:commandLink action="paginaComentario">
+      <p:commandLink action="paginaComentario?faces-redirect=true">
     <h:graphicImage value="/img/come.png" />
       </p:commandLink>
-      <p:commandLink action="editarPerfilCo">
+      <p:commandLink action="editarPerfilCo?faces-redirect=true">
     <h:graphicImage value="/img/conf.png" />
       </p:commandLink>
   </h:form>
