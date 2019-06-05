@@ -45,9 +45,10 @@
                   </p:outputPanel>
                 </p:gmapInfoWindow>
   </p:gmap>
+     
       </h:form>
-
-      <h:form id="filtrar">
+ <h:form id="filtrar">
+     
     <table>
       <h1>Filtar Marcadores por Tema</h1> <br/>
     </table>
@@ -61,8 +62,8 @@
  
    
       
-      <b:commandButton action= "#{marcadorController.redirect}" 
-                           value="Filtrar" onclick="map"/>
+      <b:commandButton action= "#{marcadorController.filtrar}" 
+                           value="Filtrar" />
   
         
     </table>

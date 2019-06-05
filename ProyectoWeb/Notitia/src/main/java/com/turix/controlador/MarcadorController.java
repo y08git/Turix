@@ -35,7 +35,7 @@ import org.primefaces.model.map.Marker;
 public class MarcadorController {
 
     
-   private final MapModel model = new DefaultMapModel();
+   private  MapModel model = new DefaultMapModel();
    private final MapModel modelFiltro = new DefaultMapModel();
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
@@ -88,12 +88,8 @@ public class MarcadorController {
 
     @PostConstruct
     public void init() {
-      
-            marcadores = iniciar();
-             System.out.println("-------------------------------");
-             System.out.println(filtro);
-        System.out.println("Elementos init:" + marcadores.size());
-         System.out.println("-------------------------------");
+        marcadores = iniciar();
+        System.out.println("---------------ELEMENTOS: "+marcadores.size());
         marcadores.forEach((marcador) -> {
            String[] coordenadas= marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
@@ -292,42 +288,20 @@ public class MarcadorController {
       
       public void filtrar(){
          
-       System.out.println("-------------------------------");
-          System.out.println("filtrar en filtroController:"+ filtro);
-          System.out.println("-------------------------------");
+      
           List<Marcadores> marcadores = u.filtrar(filtro);
           FacesContext context = getCurrentInstance();
           map = (SessionMap) context.getExternalContext().getSessionMap();
           map.put("filtro", filtro);
           savefiltro();
-          marcadores = iniciar();
-             System.out.println("-------------------------------");
-             System.out.println(filtro);
-        System.out.println("Elementos init:" + marcadores.size());
-         System.out.println("-------------------------------");
-        marcadores.forEach((marcador) -> {
-           String[] coordenadas= marcador.getUbicacion().split(",");
-           double c1=Double.parseDouble(coordenadas[0]);
-           double c2=Double.parseDouble(coordenadas[1]); 
-           
-            model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
-                    marcador.getDescripcion()));
-                
-        });
+          init();
         
           
-        //String mapa = "mapaFiltro";
-       //return mapa;
         
           
       }
       
-      public String redirect(){
-        filtrar();
-        String mapa = "mapaFiltro";
-       return mapa;
-      }
-
+      
     public String getFiltro() {
         return filtro;
     }
