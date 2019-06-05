@@ -148,13 +148,8 @@ public class ComentarioController {
      * @return Usuario
      */
     public void agregarComentario(){
-//        FacesContext.getCurrentInstance().getExternalContext()
-//                        .getSessionMap().put("marcador", marcador);
         System.out.print(t);
          comentario.setFecha(new Date());
-        //String u2 = comentario.getMarcadores().getUbicacion();
-//        marcador = (Marcadores) FacesContext.getCurrentInstance().getExternalContext()
-//                .getSessionMap().get("marcador");
         comentario.setMarcadores(u.existeMarcador(t));
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
@@ -180,8 +175,10 @@ public class ComentarioController {
         String coment = comentario.getComentario();
         comentario = u.obtenerC(id_comentario);
         comentario.setComentario(coment);
-        if(comentario.getUsuario().getNombre_usuario()==yo){
+        if(comentario.getUsuario().getNombre_usuario().equals(yo)){
             u.actualizarComentario(comentario);
+        }else{
+          System.out.print("No eres el creador del comentario");
         }
     }
     
@@ -196,8 +193,9 @@ public class ComentarioController {
         System.out.print(yo);
         if(comentario.getUsuario().getNombre_usuario().equals(yo)){
             u.borrarComentario(comentario);
+        }else{
+            System.out.print("No eres el creador del comentario");
         }
-        System.out.print("NO");
     }
     
 }
