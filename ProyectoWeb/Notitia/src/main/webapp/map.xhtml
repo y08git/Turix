@@ -17,7 +17,7 @@
       <script type="text/javascript"
           src="https://maps.google.com/maps/api/js?key=AIzaSyB6dJSHMxsLYr14Gx1wcoWbz2eI5erBo_g"
           defer="true"/>
-
+      
 
     </h:head>
 
@@ -38,34 +38,39 @@
                     <br/>
                     <h:outputText value="${marcadorController.data}" style="color: black" /><br/>
                     <h:form>  
-                   <b:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador}"/>
+                   <b:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador}" rendered="#{loginController.currentUser.es_informador}" onclick="markerDelete()"/>
+                   
                     </h:form> 
                     
              
                   </p:outputPanel>
                 </p:gmapInfoWindow>
   </p:gmap>
-      <h:form id="filtrar">
+     
+      </h:form>
+ <h:form id="filtrar">
+     
     <table>
       <h1>Filtar Marcadores por Tema</h1> <br/>
     </table>
     <table>
       <tr>
         <td>Tema</td>
-               <p:inputText id="t" value="#{marcadorController.filtro}" />
+               <p:inputText id="t" value="#{marcadorController.filtro}"  />
+    
       </tr> 
         
  
    
-      <h:form>
-      <b:commandButton action="#{marcadorController.filtrar}"
-                           value="Filtrar"/>
-  </h:form>
+      
+      <b:commandButton action= "#{marcadorController.filtrar}" 
+                           value="Filtrar" />
+  
         
     </table>
   </h:form>
      
- </h:form>
+ 
   
            
            
@@ -80,9 +85,8 @@
             <p:inputText id="descripcion" value="#{marcadorController.marcador.descripcion}" />
             
             <h:outputLabel for="lista" value="Temas:" />
-            <p:inputText id="temas" value="#{marcadorController.t}" />
         <h:form>
-            <h:selectOneMenu value="#{temaController.tema.nombre}" id="lista" >
+            <h:selectOneMenu value="#{marcadorController.t}" id="lista" >
                 <f:selectItems value="#{temaController.getListaNomTemas()}"/>
             </h:selectOneMenu>    
         </h:form>
@@ -91,7 +95,8 @@
             
  
             <f:facet name="footer">
-                <p:commandButton value="Add" action="#{marcadorController.guardarMarcador}" update=":messages" oncomplete="markerAddComplete()" />
+                <p:commandButton value="Add" action="#{marcadorController.guardarMarcador}" update=":messages" oncomplete="markerAddComplete()" onclick="map"
+                                 /> 
                 <p:commandButton value="Cancel" onclick="return cancel()" />
             </f:facet>
         </h:panelGrid>

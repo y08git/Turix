@@ -34,3 +34,8 @@ function cancel() {
 
     return false;
 }
+
+function markerDelete(){
+    currentMarker.setMap(null);
+    currentMarker=null;
+}
