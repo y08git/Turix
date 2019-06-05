@@ -112,7 +112,7 @@ public class ComentarioController {
      * @throws java.sql.SQLException
      */
     public List listaComentarios() throws SQLException{
-        return u.darComentarios(t);
+        return u.darComentarios();
     }
     
     /**
