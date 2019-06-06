@@ -87,10 +87,9 @@
     <h:form prependId="false">
         <h:panelGrid columns="2">
             <h:outputLabel for="datos" value="Titulo:" />
-            <p:inputText id="datos" value="#{marcadorController.marcador.datos_utiles}" />
+            <p:inputText id="datos" value="#{marcadorController.marcador.datos_utiles}" required="true" />
              <h:outputLabel for="descripcion" value="Descripcion:" />
-            <p:inputText id="descripcion" value="#{marcadorController.marcador.descripcion}" />
-             <h:inputHidden id="val" value="#{marcadorController.valida}" />
+            <p:inputText id="descripcion" value="#{marcadorController.marcador.descripcion}"  required="true"/>
             <h:outputLabel for="lista" value="Temas:" />
         <h:form>
             <h:selectOneMenu value="#{marcadorController.t}" id="lista" >
@@ -103,7 +102,7 @@
  
             <f:facet name="footer">
                 <p:commandButton value="Add" action="#{marcadorController.guardarMarcador}" update=":messages" oncomplete="markerAddComplete()" onclick="map"
-                                 rendered="#{marcadorController.validar}" /> 
+                                  /> 
                 <p:commandButton value="Cancel" onclick="return cancel()" />
             </f:facet>
         </h:panelGrid>
