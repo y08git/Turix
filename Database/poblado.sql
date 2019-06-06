@@ -1,41 +1,3 @@
-/* A D M I N */
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Admin', false, 'pass','turixteam2019@gmail.com',false);
-
-/* U S U A R I O S */
-/* EN ESPERA */
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Arthur', true, 'pass','jarturoga1337@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Diana', true, 'pass','dianissssss@ciencias.unam.mx',true);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Yo', false, 'pass','yo@gmail.com',true);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Daniela', true, 'pass','danisuuuuuu@ciencias.unam.mx',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Miguel', true, 'pass','miguellllll@gmail.com',false);
-/* ASIGNADOS */
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Ernesto', false, 'pass','ernestoasfasaas@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Amelia', false, 'pass','angelasfsafsafsaf@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Russell', false, 'pass','rusellasfsafafsa@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Canaria', false, 'pass','canariaasfasfasf@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Yolanda', false, 'pass','yolandaasfasfaf@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Zepeda', false, 'pass','zepedaasfasfafs@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Roberto', false, 'pass','robertoasfasfafsaf@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Will', false, 'pass','willasfafasf@gmail.com',false);
-INSERT INTO notitia.Usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('Miriam', false, 'pass','miriam@gmail.com',false);
-INSERT INTO notitia.usuario (nombre_usuario, en_espera, contraseña, correo, es_informador)
-VALUES ('info', true, 'contraseña','info@gmail.com',true);
-
 /*T E M A S*/
 insert into notitia.temas (nombre, descripcion, nombre_usuario, color) values ('Hospitales', 'engage real-time content', 'Ernesto', '#e88bef');
 insert into notitia.temas (nombre, descripcion, nombre_usuario, color) values ('Escuelas', 'syndicate 24/7 synergies', 'Amelia', '#3fa04f');
@@ -72,7 +34,7 @@ insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usu
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('American Financial Group, Inc.', 'Proactive 3rd generation initiative', '-9.581512, -77.7072909', 'Amelia', 'Hospitales');
 /*Escuelas*/
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Independent Bank Group, Inc', 'Programmable bandwidth-monitored policy', '-6.9445784, 107.5179721', 'Amelia', 'Escuelas');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('GATX Corporation', 'Balanced encompassing product', '65.50331, -171.70396', 'Amelia', 'Escuelas');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('GATX Corporation', 'Balanced encompassing product', '65.50331', '-171.70396', 'Amelia', 'Escuelas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('First Savings Financial Group, Inc.', 'Exclusive neutral migration', '29.978663, 111.782745', 'Amelia', 'Escuelas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('L.S. Starrett Company (The)', 'Vision-oriented disintermediate functionalities', '15.383361, 109.1107114', 'Amelia', 'Escuelas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Berkshire Hathaway Inc.', 'Automated homogeneous monitoring', '41.1667893, -8.6815733', 'Amelia', 'Escuelas');
@@ -104,12 +66,12 @@ insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usu
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Post Holdings, Inc.', 'Customizable systematic ability', '-4.6389001, -79.7147196', 'Arthur', 'Museos');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Blueknight Energy Partners L.P., L.L.C.', 'Managed grid-enabled utilisation', '30.798775, 121.33638', 'Arthur', 'Museos');
 /*Fondas*/
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Blackstone GSO Senior Floating Rate Term Fund', 'Networked transitional budgetary management', '45.08338, -73.36585', 'Miguel', 'Fondas');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Blackstone GSO Senior Floating Rate Term Fund', 'Networked transitional budgetary management', '45.08338', '-73.36585', 'Miguel', 'Fondas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('CryoLife, Inc.', 'De-engineered 4th generation ability', '39.2759274, 22.818555', 'Miguel', 'Fondas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Constellation Brands Inc', 'Persevering bandwidth-monitored info-mediaries', '-26.69475, 25.4735999', 'Miguel', 'Fondas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('I.D. Systems, Inc.', 'Business-focused demand-driven intranet', '25.493594, 118.247625', 'Miguel', 'Fondas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('First Trust Rising Dividend Achievers ETF', 'Cross-group client-server artificial intelligence', '25.261992, 114.593792', 'Miguel', 'Fondas');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('First Defiance Financial Corp.', 'Focused static ability', '55.86667, 37.5', 'Miguel', 'Fondas');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('First Defiance Financial Corp.', 'Focused static ability', '55.86667', '37.5', 'Miguel', 'Fondas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('VSE Corporation', 'Grass-roots context-sensitive project', '29.3738721, 71.6934843', 'Miguel', 'Fondas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Cummins Inc.', 'Right-sized well-modulated leverage', '-8.035636, 111.9969626', 'Miguel', 'Fondas');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Aerohive Networks, Inc.', 'Synchronised 5th generation superstructure', '50.0138436, 18.9779408', 'Miguel', 'Fondas');
@@ -122,7 +84,7 @@ insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usu
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Sensient Technologies Corporation', 'Digitized logistical portal', '-8.098655, 112.6824377', 'Miguel', 'Restaurantes');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Amyris, Inc.', 'Assimilated scalable database', '41.4884285, -8.6299298', 'Miguel', 'Restaurantes');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Therapix Biosciences Ltd.', 'Diverse object-oriented application', '14.1318474, 121.2669296', 'Miguel', 'Restaurantes');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Rayonier Advanced Materials Inc.', 'Secured value-added hardware', '5.87568, 121.29146', 'Miguel', 'Restaurantes');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Rayonier Advanced Materials Inc.', 'Secured value-added hardware', '5.87568', '121.29146', 'Miguel', 'Restaurantes');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Viavi Solutions Inc.', 'Re-engineered contextually-based protocol', '51.752684, 36.1522509', 'Miguel', 'Restaurantes');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Kaiser Aluminum Corporation', 'Cross-group context-sensitive groupware', '-34.6674349, -63.3785604', 'Miguel', 'Restaurantes');
 /*Universidades*/
@@ -150,11 +112,11 @@ insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usu
 /*Cajeros*/
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Simulations Plus, Inc.', 'Digitized human-resource parallelism', '17.7302207, 121.4674111', 'Miriam', 'Cajeros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Nord Anglia Education, Inc.', 'Profound well-modulated toolset', '40.784068, 122.1039229', 'Miriam', 'Cajeros');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Cidara Therapeutics, Inc.', 'Upgradable dynamic matrix', '51.46681, -109.16818', 'Miriam', 'Cajeros');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Cidara Therapeutics, Inc.', 'Upgradable dynamic matrix', '51.46681', '-109.16818', 'Miriam', 'Cajeros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Cascadian Therapeutics, Inc.', 'Front-line system-worthy orchestration', '-7.832843, 110.2474787', 'Miriam', 'Cajeros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Walker & Dunlop, Inc.', 'Re-engineered static alliance', '59.9335031, 30.3251493', 'Miriam', 'Cajeros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('AlphaMark Actively Managed Small Cap ETF', 'Synergistic mobile budgetary management', '-11.7910581, -38.3562554', 'Ernesto', 'Cajeros');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Connecticut Water Service, Inc.', 'Optimized maximized methodology', '5.84671, 6.15257', 'Miriam', 'Cajeros');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Connecticut Water Service, Inc.', 'Optimized maximized methodology', '5.84671', '6.15257', 'Miriam', 'Cajeros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Limbach Holdings, Inc.', 'Secured local leverage', '59.922175, 10.727404', 'Miriam', 'Cajeros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('NetSol Technologies Inc.', 'Re-contextualized foreground throughput', '31.917522, 35.032191', 'Miriam', 'Cajeros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Enterprise Financial Services Corporation', 'Implemented 6th generation monitoring', '50.425413, 124.118816', 'Miriam', 'Cajeros');
@@ -164,7 +126,7 @@ insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usu
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Gladstone Investment Corporation', 'Multi-channelled maximized installation', '41.1575552, -8.2259125', 'Miriam', 'Gasolineras');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('China Life Insurance Company Limited', 'Distributed regional monitoring', '54.5442039, 38.6199751', 'Miriam', 'Gasolineras');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Delphi Automotive plc', 'Triple-buffered multi-state groupware', '7.6292088, 4.1872178', 'Miriam', 'Gasolineras');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('CSS Industries, Inc.', 'Synergized impactful capability', '39.8623333, 116.3998528', 'Miriam', 'Gasolineras');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('CSS Industries, Inc.', 'Synergized impactful capability', '39.8653333, 116.3998528', 'Miriam', 'Gasolineras');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('NI Holdings, Inc.', 'De-engineered 24/7 time-frame', '12.8074809, 122.0553349', 'Miriam', 'Gasolineras');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Pioneer Municipal High Income Advantage Trust', 'Phased static info-mediaries', '-8.074933, 112.6079459', 'Miriam', 'Gasolineras');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Ecolab Inc.', 'Cross-platform asynchronous instruction set', '45.788378, 3.1331436', 'Miriam', 'Gasolineras');
@@ -197,7 +159,7 @@ insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usu
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Sotherly Hotels Inc.', 'Fundamental global access', '36.3645281, 37.0158772', 'Ernesto', 'Primarias');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Kayne Anderson Energy Total Return Fund, Inc.', 'Monitored mobile standardization', '38.681707, 112.337992', 'Ernesto', 'Primarias');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('QAD Inc.', 'Digitized fault-tolerant process improvement', '22.9637053, 120.3320195', 'Ernesto', 'Primarias');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('J P Morgan Chase & Co', 'Realigned responsive concept', '10.151, 122.9978', 'Ernesto', 'Primarias');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('J P Morgan Chase & Co', 'Realigned responsive concept', '10.151', '122.9978', 'Ernesto', 'Primarias');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('On Deck Capital, Inc.', 'Distributed local secured line', '-20.2687728, -50.5316737', 'Ernesto', 'Primarias');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Verizon Communications Inc.', 'Diverse upward-trending moderator', '-24.4770763, 25.8906212', 'Ernesto', 'Primarias');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Interpublic Group of Companies, Inc. (The)', 'Profit-focused systemic firmware', '-0.4616728, -76.9931074', 'Ernesto', 'Primarias');
@@ -218,7 +180,7 @@ insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usu
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Taro Pharmaceutical Industries Ltd.', 'Upgradable regional toolset', '59.6833779, 16.6108186', 'Miriam', 'Teatros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('PTC Inc.', 'Decentralized grid-enabled application', '39.0284006, -9.3200883', 'Miriam', 'Teatros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('VALE S.A.', 'Sharable 4th generation open architecture', '49.9469881, 18.1870189', 'Miriam', 'Teatros');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Enerplus Corporation', 'Proactive interactive model', '15.59861, 48.18278', 'Miriam', 'Teatros');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Enerplus Corporation', 'Proactive interactive model', '15.59861', '48.18278', 'Miriam', 'Teatros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('PowerShares DWA SmallCap Momentum Portfolio', 'Networked incremental framework', '-6.9826515, 111.431315', 'Miriam', 'Teatros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Cancer Genetics, Inc.', 'Object-based motivating extranet', '46.0675028, 44.4160763', 'Miriam', 'Teatros');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Destination Maternity Corporation', 'Multi-lateral user-facing process improvement', '48.890054, 2.2372792', 'Miriam', 'Teatros');
@@ -275,7 +237,7 @@ insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usu
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Pennsylvania Real Estate Investment Trust', 'Focused radical moratorium', '14.2976248, 120.9082571', 'Roberto', 'Heladerías');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('POSCO', 'Integrated zero defect website', '28.040943, 112.636417', 'Roberto', 'Heladerías');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Visa Inc.', 'Cross-platform bifurcated alliance', '54.4808396, 37.6941279', 'Roberto', 'Heladerías');
-insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('RenaissanceRe Holdings Ltd.', 'Cross-platform tertiary workforce', '-33.4900417, 22.5304693', 'Ernesto', 'Heladerías');
+insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('RenaissanceRe Holdings Ltd.', 'Cross-platform tertiary workforce', '-33.4907417, 22.5304693', 'Ernesto', 'Heladerías');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Select Asset Inc.', 'Total even-keeled hardware', '31.8742348, 10.9750484', 'Ernesto', 'Heladerías');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('McGrath RentCorp', 'Self-enabling non-volatile application', '-16.6488964, -49.1565948', 'Ernesto', 'Heladerías');
 insert into notitia.marcadores (datos_utiles, descripcion, ubicacion, nombre_usuario, nombre) values ('Sohu.com Inc.', 'Inverse human-resource monitoring', '33.7393667, 36.5958947', 'Ernesto', 'Heladerías');
