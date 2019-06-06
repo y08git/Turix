@@ -62,6 +62,10 @@ VALUES ('bellas artes','conciertos','91.333332, 23.25245325','Amelia','Museos');
 
 /* C O M E N T A R I O S*/
 INSERT INTO notitia.comentarios (id_comentario, comentario, fecha, calificacionPositiva, calificacionNegativa, ubicacion, nombre_usuario)
-VALUES (DEFAULT,'qué interesante lugar!','21/09/2019' , 0, 0, '91.333332, 23.25245325', 'Roberto');
+VALUES (DEFAULT,'qué interesante lugar!','21/09/2019' , 4, 0, '91.333332, 23.25245325', 'Roberto');
 INSERT INTO notitia.comentarios (id_comentario, comentario, fecha, calificacionPositiva, calificacionNegativa, ubicacion, nombre_usuario)
-VALUES (DEFAULT,'no me gustó','24/09/2019' , 0, 0, '93.23423, 94.34242', 'Amelia');
+VALUES (DEFAULT,'no me gustó','24/09/2018' , 0, 3, '93.23423, 94.34242', 'Amelia');
+INSERT INTO notitia.comentarios (id_comentario, comentario, fecha, calificacionPositiva, calificacionNegativa, ubicacion, nombre_usuario)
+VALUES (DEFAULT,'está bien','21/11/2018' , 4, 0, '91.333332, 23.25245325', 'Russell');
+INSERT INTO notitia.comentarios (id_comentario, comentario, fecha, calificacionPositiva, calificacionNegativa, ubicacion, nombre_usuario)
+VALUES (DEFAULT,'ya lo conocía','05/02/2015' , 1, 0, '93.23423, 94.34242', 'Canaria');

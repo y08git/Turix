@@ -29,13 +29,15 @@ public class TemaController {
     private final Utility u = new Utility();
     private boolean f = false;
     public String nom;
-    private String color;
+    private String color = "FF0000";
     public String usuario;
     public String getColor() {
         return color;
     }
 
     public void setColor(String color) {
+        FacesContext context = getCurrentInstance();
+        context.getExternalContext().getSessionMap().put("color", color);
         this.color = color;
     }
     
@@ -83,9 +85,16 @@ public class TemaController {
       * para guardarlo en la BD
       */
      public void guardarTema(){
-             u.guardarTema(tema);
-            tema = null;         
-         }
+        FacesContext context = getCurrentInstance();
+        Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        color = (String)context.getExternalContext().getSessionMap().get("color");
+        if(color == null)
+            color = "FF0000";
+        tema.setColor(color);
+        tema.setInformador(user);
+        u.guardarTema(tema);
+        tema = null;         
+    }
 
      /**
       * Metodo que elimina un Tema
@@ -93,6 +102,7 @@ public class TemaController {
       * para eliminarlo en la BD
       */
      public void eliminarTema(){
+         tema.setColor(color);
              u.eliminarTema(tema);
 
      }

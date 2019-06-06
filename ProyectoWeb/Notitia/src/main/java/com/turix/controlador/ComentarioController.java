@@ -193,7 +193,7 @@ public class ComentarioController {
         String coment = comentario.getComentario();
         comentario = u.obtenerC(id_comentario);
         comentario.setComentario(coment);
-        if(comentario.getUsuario().getNombre_usuario() == null ? yo == null : comentario.getUsuario().getNombre_usuario().equals(yo)){
+        if(comentario.getUsuario().getNombre_usuario().equals(yo)){
             u.actualizarComentario(comentario);
         }
     }
@@ -262,5 +262,10 @@ public class ComentarioController {
         else
             u.save(cal);
         return null;
+    }
+     /* Metodo que llama al metodo borrarComentario de utility
+     */
+    public void eliminarComentario(Comentarios comentario){
+        u.borrarComentario(comentario);
     }
 }

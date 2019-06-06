@@ -31,9 +31,13 @@
 
           <h:form>
             <c:choose>
-              <c:when test ="#{usuarioController.hayEnEspera()}">
+              <c:when test ="#{usuarioController.contarUsuariosEnEspera() > 1}">
                 <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
                                    value="Hay #{usuarioController.contarUsuariosEnEspera()} usuarios esperando asignación"/>
+              </c:when>
+              <c:when test ="#{usuarioController.contarUsuariosEnEspera() == 1}">
+                <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"
+                                   value="Hay 1 usuario esperando asignación"/>
               </c:when>
               <c:otherwise>
                 <p:commandButton action="listaUsuariosEnEspera?faces-redirect=true" style="margin-bottom: 3px;"

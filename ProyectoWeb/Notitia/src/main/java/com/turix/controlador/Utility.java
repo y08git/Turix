@@ -437,8 +437,9 @@ public class Utility {
             if(l.isEmpty()){
                 guardar = true;
                sessionObj.save(tema);
-                sessionObj.getTransaction().commit();
+                
             }
+            sessionObj.getTransaction().commit();
           }catch (HibernateException e) {
             if (null != sessionObj.getTransaction()) {
                 System.out.println("\n.......Transaction6 Is Being Rolled Back.......");

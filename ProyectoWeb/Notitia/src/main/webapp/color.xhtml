@@ -1,31 +1,40 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+<html>
 <head>
 	<title>jscolor Example</title>
 </head>
 <body style="text-align:center;">
 
-    <h:form>
+
 
 	<script src="jscolor.js"></script>
 
 
+
 	<h2>Example 1</h2>
-	Color: <input class="jscolor" value="FF0000"/>
+	Color: <input class="jscolor" value="ab2567"/>
+
+
+
+	<h2>Example 2</h2>
+
+	<button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+		Pick text color
+	</button>
+
+	HEX value: <input id="chosen-value" value="000000"/>
 
 	<script>
 	function setTextColor(picker) {
-		document.getElementsByTagName('body')[0].style.color = '#' + picker.toString();
+		document.getElementsByTagName('body')[0].style.color = '#' + picker.toString()
 	}
 	</script>
 
-    </h:form>
+
+
+	<p style="margin-top:3em;">Check out <a href="http://jscolor.com/examples/">more examples at jscolor.com</a>!</p>
+
+
 
 </body>
 </html>
