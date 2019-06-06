@@ -54,8 +54,11 @@
     </table>
     <table>
       <tr>
-        <td>Tema</td>
-               <p:inputText id="t" value="#{marcadorController.filtro}"  />
+                <h:form>
+            <h:selectOneMenu value="#{marcadorController.filtro}" id="lista" >
+                <f:selectItems value="#{temaController.getListaNomTemas()}"/>
+            </h:selectOneMenu>    
+        </h:form>
     
       </tr> 
         
@@ -87,7 +90,7 @@
             <p:inputText id="datos" value="#{marcadorController.marcador.datos_utiles}" />
              <h:outputLabel for="descripcion" value="Descripcion:" />
             <p:inputText id="descripcion" value="#{marcadorController.marcador.descripcion}" />
-            
+             <h:inputHidden id="val" value="#{marcadorController.valida}" />
             <h:outputLabel for="lista" value="Temas:" />
         <h:form>
             <h:selectOneMenu value="#{marcadorController.t}" id="lista" >
@@ -100,7 +103,7 @@
  
             <f:facet name="footer">
                 <p:commandButton value="Add" action="#{marcadorController.guardarMarcador}" update=":messages" oncomplete="markerAddComplete()" onclick="map"
-                                 /> 
+                                 rendered="#{marcadorController.validar}" /> 
                 <p:commandButton value="Cancel" onclick="return cancel()" />
             </f:facet>
         </h:panelGrid>
