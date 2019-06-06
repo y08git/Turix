@@ -13,10 +13,8 @@
 <h:body>
   <h1>Ver Temas</h1> <br/>
   <h:form id="myForm">
-      <p:dataList value="#{temaController.listaTemas()}" var="Temas">
-        <f:facet name="header">
-            Temas
-        </f:facet>
+      <p:dataList value="#{temaController.da()}" var="Temas">
+    
            #{Temas.nombre}, #{Temas.descripcion}
            <td colspan="3" align="center">
                 <p:commandButton action="#{temaController.eliminarTema(Temas)}"

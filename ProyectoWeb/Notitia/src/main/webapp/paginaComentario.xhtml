@@ -45,7 +45,9 @@
         </p:selectOneButton>
          
         <p:commandButton id="submit" value="Submit" action="#{comentarioController.actualizarCal(comentario)}" icon="pi pi-check" 
-                         disabled="#{comentarioController.test(comentario)}" />
+                         disabled="#{not loginController.logged}" >
+            <f:actionListener binding="paginaComentario?faces-redirect=true"/>
+        </p:commandButton>
         <p:spacer />
     </h:panelGrid>
 </h:form>

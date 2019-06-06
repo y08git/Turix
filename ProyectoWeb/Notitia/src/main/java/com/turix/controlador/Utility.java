@@ -1106,7 +1106,7 @@ public class Utility {
             FacesContext.getCurrentInstance()
                     .addMessage(null,
                             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                                    "Se editó correctamente el comentario", ""));
+                                    "Se eliminó correctamente el comentario", ""));
 
         }
     }

@@ -166,13 +166,8 @@ public class ComentarioController {
      * Mandamos a llamar a guardarComentario
      */
     public void agregarComentario(){
-//        FacesContext.getCurrentInstance().getExternalContext()
-//                        .getSessionMap().put("marcador", marcador);
         System.out.print(t);
          comentario.setFecha(new Date());
-        //String u2 = comentario.getMarcadores().getUbicacion();
-//        marcador = (Marcadores) FacesContext.getCurrentInstance().getExternalContext()
-//                .getSessionMap().get("marcador");
         comentario.setMarcadores(u.existeMarcador(t));
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
@@ -214,13 +209,14 @@ public class ComentarioController {
         System.out.print(yo);
         if(comentario.getUsuario().getNombre_usuario().equals(yo)){
             u.borrarComentario(comentario);
+        }else{
+            System.out.print("No eres el creador del comentario");
         }
-        System.out.print("NO");
     }
     
     /**Metodo para comprobar si un comentario fue calificado por el usuario actual
      * 
-     * @param c
+     * @param c - comentario a relacionar con el usuario actual
      * @return 
      */
     public boolean test(Comentarios c){
