@@ -38,7 +38,7 @@ import org.primefaces.model.map.Marker;
 public class MarcadorController {
     
     
-   private  MapModel model = new DefaultMapModel();
+   private  MapModel model;
    private final MapModel modelFiltro = new DefaultMapModel();
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
@@ -265,7 +265,7 @@ public class MarcadorController {
          model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDatos_utiles()));
 
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
-            marcador = null;
+          
          }
     /**
      * Metodo para checar si existe el Tema

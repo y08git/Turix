@@ -32,10 +32,13 @@
     model="#{marcadorController.model}" onPointClick="handlePointClick(event);" widgetVar="map" >
   <p:ajax event="overlaySelect" listener="#{marcadorController.onMarkerSelect}" />
                 <p:gmapInfoWindow id="infoWindow" >
+                    
+                    
                   <p:outputPanel style="text-align: left; display: block; margin: auto">
                     <h3><h:outputText value="#{marcadorController.title}" style="color: black" /></h3>
                     <br/>
                     <h:outputText value="${marcadorController.data}" style="color: black" /><br/>
+                    
                     <h:outputText value="${marcadorController.ubicacion}" style="color: black" /><br/>
                     <h:outputText value="${comentarioController.setT(marcadorController.ubicacion)}" style="color: black" /><br/>
                     <td><p:inputText value="#{comentarioController.t}"
@@ -43,9 +46,9 @@
                          id="id_comentario"
                          size="20"/></td>
                     <p:commandButton value="Comentar" action="agregarComentario" />
-                    <h:form>  
-                        <p:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador()}" rendered="#{loginController.currentUser.es_informador}" onclick="markerDelete()"/>
-                    </h:form> 
+                    
+                   <b:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador}" rendered="#{loginController.currentUser.es_informador}" onclick="markerDelete()"/>
+                   
                     
              
                   </p:outputPanel>

@@ -90,6 +90,10 @@ public class RegistroController {
         Random random= new Random();
         String confirma= String.format("%04d", random.nextInt(10000));
         userT.setCodigo(confirma);
+        userT.setConfirmaContrasena(user.getConfirmaContrasena());
+        userT.setContraseña(user.getContraseña());
+        userT.setCorreo(user.getCorreo());
+        userT.setNombre_usuario(user.getNombre_usuario());
         boolean guardar= u.saveTemp(userT);
         String correo = u.getCorreo(userT);
 

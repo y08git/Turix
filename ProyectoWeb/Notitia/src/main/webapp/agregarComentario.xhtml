@@ -59,7 +59,7 @@
       </tr>
       <tr>
         <td colspan="3" align="center">
-            <p:commandButton action="#{comentarioController.agregarComentario}" value="aceptar" onclick="agregarComentario"/>
+            <p:commandButton action="#{comentarioController.agregarComentario}" disabled="#{loginController.admin}" value="aceptar" onclick="agregarComentario"/>
         </td>
       </tr>
     </table>
