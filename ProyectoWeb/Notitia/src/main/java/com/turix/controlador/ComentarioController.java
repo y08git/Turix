@@ -33,7 +33,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 public class ComentarioController {
     public Marcadores marcador = new Marcadores();
     public Usuario user;
-    public Comentarios comentario;
+    public Comentarios comentario = new Comentarios();
     private Utility u = new Utility();
     public String t ;
     public String usuario;

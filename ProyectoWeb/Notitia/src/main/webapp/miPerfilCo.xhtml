@@ -34,12 +34,8 @@
     <h1>Mi Perfil #{loginController.login.usuario}</h1>
   </h:body>
       <h:form>
-          <p:menuitem>
-    <h:link value="welcome?faces-redirect=true" outcome="#">
         <h:graphicImage value="/img/pic.png"
                         style="float:left;"/>
-    </h:link>
-</p:menuitem>
       </h:form>
       <h:form>
       <p:commandLink action="welcome?faces-redirect=true">
@@ -50,7 +46,7 @@
        <hr />
       <h:form>
           <h4>Mi Nombre de Usuario</h4>
-          <h:outputText value="#{usuarioController.nombre}"/>
+          <h:outputText value="#{loginController.login.usuario}"/>
       </h:form>
       <h:form>
           <h4>Mi Correo</h4>
