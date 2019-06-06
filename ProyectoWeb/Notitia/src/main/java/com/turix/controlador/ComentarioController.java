@@ -33,13 +33,22 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 public class ComentarioController {
     public Marcadores marcador = new Marcadores();
     public Usuario user;
-    public Comentarios comentario = new Comentarios();
+    public Comentarios comentario;
     private Utility u = new Utility();
     public String t ;
     public String usuario;
     public String ubicacion;
     public int id_comentario;
-    public List<Calificar> Cal;
+    private int opcion = -1;
+
+    public int getOpcion() {
+        return opcion;
+        
+    }
+
+    public void setOpcion(int opcion) {
+        this.opcion = opcion;
+    }
     
  
     public int getId_comentario() {
@@ -112,33 +121,7 @@ public class ComentarioController {
          
     }
     
-    /**
-     * Metodo que inicializa el atributo opcion de todos los comentarios
-     * @param l - lista de Comentarios a llamar
-     * @return List
-     * @throws java.sql.SQLException
-     */
-//    public List procesar(List<Comentarios> l) throws SQLException{
-//        FacesContext context = getCurrentInstance();
-//        user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
-//        Calificar cal;
-//        Comentarios c;
-//        if(user == null)
-//            return l;
-//        for (Iterator<Comentarios> it = l.iterator(); it.hasNext();) {
-//            c = it.next();
-//            cal = u.calificacion(user, c);
-//            if(cal == null){
-//                   c.setOpcion(-1);
-//            }else{
-//                if(cal.isGustar())
-//                    c.setOpcion(1);
-//                c.setOpcion(0);
-//            }
-//        }
-//        return l;
-//    }
-
+    
     /**
      * Metodo que llama al metodo darComentarios de utilty
      * @return List
@@ -240,32 +223,48 @@ public class ComentarioController {
      * @param c
      * @return 
      */
-//    public boolean test(Comentarios c){
-//        if(user == null)
-//            return true;
-//        Calificar cal = u.calificacion(user, c);
-//        if(cal == null)
-//            return c.getOpcion() != -1;
-//        if(cal.isGustar())
-//            return c.getOpcion() != 1;
-//        return c.getOpcion() != 0;
-//    }
+    public boolean test(Comentarios c){
+        FacesContext context = getCurrentInstance();
+        user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
+        comentario = c;
+        if(user == null)
+            return true;
+        return false;
+    }
     
     /**Metodo para guardar, actualizar o eliminar una calificacion
      * 
      * @param c - comentario que se relacionara con el usuario en la cuenta actual
      * @return String de redireccionamiento
      */
-//    public String actualizarCal(Comentarios c){
-//        if(user == null)
-//            return null;
-//        Calificar cal = u.calificacion(user, c);
-//        if(c.getOpcion() == -1){
-//            if(cal != null)
-//                u.delete(cal);
-//            return null;
-//        }
-//        u.save(cal);
-//        return null;
-//    }
+    public String actualizarCal(Comentarios c){
+        boolean existe;
+        System.out.println("\n\n\n\n\nopcion = "+opcion+"\n\n\n\n\nUsuario =? null ->"+
+                (user == null) +"\n\n\n\nid_comentario = "+c.getId_comentario()+"\n\n\n\n");
+        if(user == null)
+            return null;
+        Calificar cal = u.calificacion(user, c);
+        if(opcion == -1){
+            if(cal != null)
+                u.delete(cal);
+            return null;
+        }
+        if(cal == null){
+            cal = new Calificar();
+            cal.setComentarios(c);
+            cal.setUsuario(user);
+            existe = false;
+        }else{
+            existe = true;
+        }
+        if(opcion == 1)
+                cal.setGustar(true);
+            else 
+                cal.setGustar(false);
+        if(existe)
+            u.update(cal);
+        else
+            u.save(cal);
+        return null;
+    }
 }

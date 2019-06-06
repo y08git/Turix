@@ -5,22 +5,22 @@
  */
 package com.turix.controlador;
 
-import com.turix.modelo.Comentarios;
 import com.sun.faces.context.SessionMap;
+import static com.sun.faces.facelets.util.Path.context;
 import com.turix.modelo.Marcadores;
 import com.turix.modelo.Temas;
 import com.turix.modelo.Usuario;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Consumer;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 import org.primefaces.event.map.OverlaySelectEvent;
@@ -34,64 +34,38 @@ import org.primefaces.model.map.Marker;
  * @author dianis
  */
 @ManagedBean
-@ViewScoped
-public class MarcadorController {
+@SessionScoped 
+public class FiltroController {
 
     
-   private  MapModel model = new DefaultMapModel();
+   private final MapModel model = new DefaultMapModel();
    private final MapModel modelFiltro = new DefaultMapModel();
     private Utility u = new Utility();
     private Marcadores marcador = new Marcadores();
     private Temas tema = new Temas();
-    private Comentarios comentario = new Comentarios();
     public String t ;
     public String usuario;
-    private String color;
     private String datos_utiles;
     private String data;
-    private String descripcion;
-    private String datos;
     private double lng;
     private double lat;
     private String title;
     private Marker marker;
     private String ubicacion;
     private String filtro;
-     private List <Marcadores> marcadores;
- private SessionMap map ;
- 
+    private SessionMap map ;
+    private List <Marcadores> marcadores;
+
     public List<Marcadores> getLista() {
         return marcadores;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getDatos() {
-        return datos;
-    }
     public void setLista(List<Marcadores> lista) {
         this.marcadores = lista;
     }
-   
-    public void setDatos(String datos) {
-        this.datos = datos;
-    }
-    
-    public String getColor() {
-        return color;
-    }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-    
-        
+   
+
     public String getUbicacion() {
         return ubicacion;
     }
@@ -107,7 +81,7 @@ public class MarcadorController {
     public void setMarker(Marker marker) {
         this.marker = marker;
     }
-
+    
     public String getTitle() {
         return title;
     }
@@ -118,32 +92,29 @@ public class MarcadorController {
 
     @PostConstruct
     public void init() {
-        List<Marcadores> marcadores= null;
-        marcadores = iniciar();
-        System.out.println("---------------ELEMENTOS: "+marcadores.size());
+     
+            marcadores=u.filtrar(filtro);
+             System.out.println("-------------------------------");
+              System.out.println(filtro);
+        System.out.println("Elementos filtro:" + marcadores.size());
+        System.out.println("-------------------------------");
         marcadores.forEach((marcador) -> {
            String[] coordenadas= marcador.getUbicacion().split(",");
            double c1=Double.parseDouble(coordenadas[0]);
            double c2=Double.parseDouble(coordenadas[1]); 
-           Marker m = new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(), marcador.getDescripcion());
-           m.setIcon("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + marcador.getTemas().getColor());
-            model.addOverlay(m);
+           
+            model.addOverlay(new Marker(new LatLng(c1, c2),marcador.getDatos_utiles(),
+                    marcador.getDescripcion()));
+                
         });
-       
+        
         
         
     }
-    
-    public List<Marcadores> iniciar(){
-     marcadores= null;
-       if(filtro==null){
-           marcadores= u.darMarcadores();
-       }else
-           marcadores=u.filtrar(filtro);
-        return marcadores;
-    
-       }
-        
+        public void savefiltro(){
+             String f = (String) map.get("filtro");
+           setFiltro(f);
+        }
     
       public String getDatos_utiles() {
         return datos_utiles;
@@ -152,6 +123,7 @@ public class MarcadorController {
     public void setDatos_utiles(String datos_utiles) {
         this.datos_utiles = datos_utiles;
     }
+    
     public double getLng() {
         return lng;
     }
@@ -167,8 +139,8 @@ public class MarcadorController {
     public void setLat(double lat) {
         this.lat = lat;
     }
-
-
+  
+    
     public MapModel getModel() {
         return model;
     }
@@ -176,6 +148,8 @@ public class MarcadorController {
     public MapModel getModelFiltro() {
         return modelFiltro;
     }
+    
+    
     public String getData() {
         return data;
     }
@@ -208,7 +182,7 @@ public class MarcadorController {
         this.tema=tema;
     }
 
-    public MarcadorController() {
+    public FiltroController() {
         FacesContext.getCurrentInstance()
                 .getViewRoot()
                 .setLocale(new Locale("es-Mx"));
@@ -234,9 +208,8 @@ public class MarcadorController {
      * para guardar en la BD
      */
     public void guardarMarcador(){
-
          Marker marker = new Marker(new LatLng(lat, lng),datos_utiles);
-//           model.addOverlay(marker);
+           model.addOverlay(marker);
         FacesContext context = getCurrentInstance();
         Usuario user = (Usuario)context.getExternalContext().getSessionMap().get("usuario");
         marcador.setInformador(user);
@@ -246,9 +219,8 @@ public class MarcadorController {
         marcador.setUbicacion(ub1+","+ub2);
          u.guardarMarcador(marcador);
          model.addOverlay(new Marker(new LatLng(lat, lng),marcador.getDatos_utiles()));
-
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
-            marcador = null;
+        marcador = null;
          }
     /**
      * Metodo para checar si existe el Tema
@@ -260,6 +232,7 @@ public class MarcadorController {
     public Temas existeTema(String t){
        return u.existeTema(t);
     }
+
 
     /**
      * Metodo para checar si existe el Usuario
@@ -285,16 +258,16 @@ public class MarcadorController {
       * manda a llamar a eliminarMarcador de Utility
       * para eliminarlo de la BD
       */
-     public String eliminaMarcador(){
+     public void eliminaMarcador(){
+         System.out.println(ubicacion);
          marcador.setUbicacion(ubicacion);
-         u.eliminarMarcador(marcador);
-             return "map";
+             u.eliminarMarcador(marcador);
 
      }
      public List misMarcadores() throws SQLException{
         return u.dameMarcadoresT(t);
      }
-
+     
       public void onMarkerSelect(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();
         String ub = marker.getLatlng().toString();
@@ -308,30 +281,37 @@ public class MarcadorController {
         title = (String) marker.getTitle();
   
     }
-
-
-       public void savefiltro(){
-             String f = (String) map.get("filtro");
-           setFiltro(f);
-        }
       
-      public void filtrar(){
-         
-      
+      public String filtrar(){
+          System.out.println("-------------------------------");
+          System.out.println("filtrar en filtroController:"+ filtro);
+          System.out.println("-------------------------------");
           List<Marcadores> marcadores = u.filtrar(filtro);
           FacesContext context = getCurrentInstance();
           map = (SessionMap) context.getExternalContext().getSessionMap();
           map.put("filtro", filtro);
           savefiltro();
-          init();   
+        String mapa = "mapaFiltro";
+       return mapa;
+          
+      
+          
+        
+        
+          
       }
+
     public String getFiltro() {
+        
         return filtro;
     }
 
     public void setFiltro(String filtro) {
         this.filtro = filtro;
     }
+      
+      
+      }
+     
 
-}
 

@@ -315,10 +315,7 @@ public class Utility {
         try {
 
             sessionObj.beginTransaction();
-            if(aCalificado(cal.getUsuario(), cal.getComentarios()))
-                sessionObj.save(cal);
-            else
-                sessionObj.update(cal);
+            sessionObj.save(cal);
             sessionObj.getTransaction().commit();
 
         } catch (Exception sqlException) {
@@ -333,6 +330,34 @@ public class Utility {
 
         }
     }
+    
+    /**
+     * Metodo para guardar a una Calificacion en la base de datos al momento de registrar
+     * @param cal
+     * @return true si fue exitosa la transaccion
+     */
+    public void update(Calificar cal) {
+
+          sessionObj = HibernateUtil.getSessionFactory().openSession();
+        try {
+
+            sessionObj.beginTransaction();
+            sessionObj.update(cal);
+            sessionObj.getTransaction().commit();
+
+        } catch (Exception sqlException) {
+            if (null != sessionObj.getTransaction()) {
+                System.out.println("\n.......TransactionCal Is Being Rolled Back.......");
+                sessionObj.getTransaction().rollback();
+            }
+        } finally {
+            if (sessionObj != null) {
+                sessionObj.close();
+            }
+
+        }
+    }
+    
     
     /**
      * Metodo para pre-registro de un Usuario en la base de datos
@@ -1222,9 +1247,9 @@ public class Utility {
          sessionObj = HibernateUtil.getSessionFactory().openSession();
          try{
              sessionObj.beginTransaction();
-             String query = "SELECT * FROM notitia.Calificar"
-                     + "WHERE nombre_usuario = "+u.getNombre_usuario()+" AND "
-                     + " ubicacion = "+c.getId_comentario();
+             String query = "SELECT * FROM notitia.Calificar "
+                     + " WHERE nombre_usuario = '"+u.getNombre_usuario()+"' AND "
+                     + " id_comentario = "+c.getId_comentario()+";";
              Query q = sessionObj.createSQLQuery(query).addEntity(Calificar.class);
              l = q.list();
              sessionObj.getTransaction().commit();
@@ -1233,35 +1258,40 @@ public class Utility {
                 System.out.println("\n.......Transaction@@ Is Being Rolled Back.......");
                 sessionObj.getTransaction().rollback();
             }   
+         }finally{
+             if (sessionObj != null) {
+              sessionObj.close();
+          }
          }
-         if(l == null || l.isEmpty())
+         if(l.isEmpty())
                  return null;
          
          return (Calificar)l.get(0);
      }
      
-     public boolean aCalificado(Usuario u, Comentarios c){
-         List l = null;
-         sessionObj = HibernateUtil.getSessionFactory().openSession();
-         try{
-             sessionObj.beginTransaction();
-             String query = "SELECT 1 FROM notitia.Calificar"
-                     + "WHERE nombre_usuario = "+u.getNombre_usuario()+" AND "
-                     + " ubicacion = "+c.getId_comentario();
-             Query q = sessionObj.createSQLQuery(query);
-             l = q.list();
-             sessionObj.getTransaction().commit();
-         }catch (HibernateException e) {
-            if (null != sessionObj.getTransaction()) {
-                System.out.println("\n.......Transaction@@ Is Being Rolled Back.......");
-                sessionObj.getTransaction().rollback();
-            }   
-         }
-         if(l == null || l.isEmpty())
-                 return false;
-         
-         return true;
-     }
+//     private boolean aCalificado(Usuario u, Comentarios c){
+//         List l = null;
+//         if(sessionObj == null)
+//             return false;
+//         try{
+//             sessionObj.beginTransaction();
+//             String query = "SELECT * FROM notitia.Calificar "
+//                     + " WHERE nombre_usuario = '"+u.getNombre_usuario()+"' AND "
+//                     + " id_comentario = "+c.getId_comentario()+";";
+//             Query q = sessionObj.createSQLQuery(query).addEntity(Calificar.class);
+//             l = q.list();
+//             sessionObj.getTransaction().commit();
+//         }catch (HibernateException e) {
+//            if (null != sessionObj.getTransaction()) {
+//                System.out.println("\n.......Transaction@@ Is Being Rolled Back.......");
+//                sessionObj.getTransaction().rollback();
+//            }   
+//         }
+//         if(l == null || l.isEmpty())
+//                 return false;
+//         
+//         return true;
+//     }
      
      public void delete(Calificar cal){
         sessionObj = HibernateUtil.getSessionFactory().openSession();

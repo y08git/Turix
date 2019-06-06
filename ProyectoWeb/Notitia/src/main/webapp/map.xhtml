@@ -17,23 +17,7 @@
           src="https://maps.google.com/maps/api/js?key=AIzaSyB6dJSHMxsLYr14Gx1wcoWbz2eI5erBo_g"
           defer="true"/>
     </h:head>
-   <!-- <h:form prependId="false">
-      <p:gmap center="19.323808, -99.178948" zoom="17"
-          type="TERRAIN" style="width:100%;height:600px"
-          model="#{MarcadorController.model}" widgetVar="map"
-          id="mapita">
-        <p:ajax event="overlaySelect" listener="#{MarcadorController.onMarkerSelect}" />
-        <p:gmapInfoWindow id="infoWindow" >
-          <p:outputPanel style="text-align: left; display: block; margin: auto">
-            <h3><h:outputText value="#{MarcadorController.title}" style="color: black" /></h3>
-            <br/>
-            <h:outputText value="${MarcadorController.data}" style="color: black" /><br/>
-          </p:outputPanel>
-        </p:gmapInfoWindow>
-      </p:gmap>
-    </h:form> -->
- <p:growl id="mesages" showDetail="true" />
-
+   
  <p:messages id="messages" autoUpdate="true" closable="true" />
  <h:form>
       <p:commandLink action="welcome">
@@ -60,38 +44,43 @@
                          size="20"/></td>
                     <p:commandButton value="Comentar" action="agregarComentario" />
                     <h:form>  
-                    <p:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador}"/>
+                        <p:commandButton value="Eliminar marcador" action="#{marcadorController.eliminaMarcador()}" rendered="#{loginController.currentUser.es_informador}" onclick="markerDelete()"/>
                     </h:form> 
                     
              
                   </p:outputPanel>
                 </p:gmapInfoWindow>
-  </p:gmap>
-      <h:form id="filtrar">
+  </p:gmap>     
+      </h:form>
+ <h:form id="filtrar">
     <table>
       <h1>Filtar Marcadores por Tema</h1> <br/>
     </table>
     <table>
       <tr>
         <td>Tema</td>
-               <p:inputText id="t" value="#{marcadorController.filtro}" />
+               <p:inputText id="t" value="#{marcadorController.filtro}"  /> 
       </tr> 
         
  
    
-      <h:form>
-      <b:commandButton action="#{marcadorController.filtrar}"
-                           value="Filtrar"/>
-  </h:form>
+      
+      <b:commandButton action= "#{marcadorController.filtrar}" 
+                           value="Filtrar" />
+  
         
     </table>
   </h:form>
      
- </h:form>
+ 
+      <h:form>
+      <b:commandButton action="map"
+                           value="Regresar"/>
+  </h:form>
+        
   
            
            
-  
  <!-- AGREGAR MARCADOR-->
  
 <p:dialog widgetVar="dialog" showEffect="fade" rendered="#{loginController.currentUser.es_informador}" closable="false" >
@@ -103,14 +92,15 @@
             <p:inputText id="descripcion" value="#{marcadorController.marcador.descripcion}" />
             
             <h:outputLabel for="lista" value="Temas:" />
-            <p:inputText id="temas" value="#{marcadorController.t}" />
         <h:form>
-            <h:selectOneMenu value="#{temaController.tema.nombre}" id="lista" >
+            <h:selectOneMenu value="#{marcadorController.t}" id="lista" >
                 <f:selectItems value="#{temaController.getListaNomTemas()}"/>
             </h:selectOneMenu>    
         </h:form>
             <f:facet name="footer">
                 <p:commandButton value="Add" action="#{marcadorController.guardarMarcador()}" update=":messages" oncomplete="markerAddComplete()" />
+                <p:commandButton value="Add" action="#{marcadorController.guardarMarcador}" update=":messages" oncomplete="markerAddComplete()" onclick="map"
+                                 /> 
                 <p:commandButton value="Cancel" onclick="return cancel()" />
             </f:facet>
         </h:panelGrid>

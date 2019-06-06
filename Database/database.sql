@@ -70,10 +70,10 @@ CREATE TABLE notitia.Comentarios
 drop table if exists notitia.Calificar;
 CREATE TABLE notitia.Calificar
 (
+  id_calificar serial primary key,
   gustar boolean NOT NULL,
   id_comentario int NOT NULL,
   nombre_usuario text NOT NULL,
-  PRIMARY KEY (id_comentario,nombre_usuario),
   FOREIGN KEY (id_comentario) REFERENCES notitia.Comentarios(id_comentario) ON DELETE CASCADE,
   FOREIGN KEY (nombre_usuario) REFERENCES notitia.Usuario(nombre_usuario) ON DELETE CASCADE
 );
