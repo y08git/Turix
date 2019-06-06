@@ -36,7 +36,7 @@ import org.primefaces.model.map.Marker;
 @ManagedBean
 @ViewScoped
 public class MarcadorController {
-
+    
     
    private  MapModel model = new DefaultMapModel();
    private final MapModel modelFiltro = new DefaultMapModel();
@@ -59,6 +59,15 @@ public class MarcadorController {
     private String filtro;
      private List <Marcadores> marcadores;
  private SessionMap map ;
+ private boolean validar;
+ 
+ public boolean isValidar() {
+        return validar;
+    }
+
+    public void setValidar(boolean validar) {
+        this.validar = validar;
+    }
  
     public List<Marcadores> getLista() {
         return marcadores;
@@ -119,6 +128,7 @@ public class MarcadorController {
     @PostConstruct
     public void init() {
         List<Marcadores> marcadores= null;
+        model = new DefaultMapModel();
         marcadores = iniciar();
         System.out.println("---------------ELEMENTOS: "+marcadores.size());
         marcadores.forEach((marcador) -> {
@@ -133,7 +143,10 @@ public class MarcadorController {
         
         
     }
-    
+    /**
+     * Metodo que regresa una lista para inicializar el mapa
+     * @return 
+     */
     public List<Marcadores> iniciar(){
      marcadores= null;
        if(filtro==null){
@@ -143,8 +156,12 @@ public class MarcadorController {
         return marcadores;
     
        }
-        
     
+    public void valida(){
+         if(!marcador.getDatos_utiles().equals(null)||! marcador.getDescripcion().equals(null))
+             validar=true;
+    }
+        
       public String getDatos_utiles() {
         return datos_utiles;
     }
@@ -310,11 +327,18 @@ public class MarcadorController {
     }
 
 
+      /**
+       * Metodo que guarda el filtro para marcadores
+       */
        public void savefiltro(){
              String f = (String) map.get("filtro");
            setFiltro(f);
         }
       
+       
+       /**
+        * Metodo que inicializa el mapa con los marcadores filtrados
+        */
       public void filtrar(){
          
       
@@ -332,6 +356,14 @@ public class MarcadorController {
     public void setFiltro(String filtro) {
         this.filtro = filtro;
     }
+    
+    public boolean verificar(){
+        boolean lleno=false;
+        if(!marcador.getDatos_utiles().equals(null)||! marcador.getDescripcion().equals(null)|| !marcador.getTemas().equals(null))
+            lleno=true;
+       return lleno;
+    }
+
 
 }
 
